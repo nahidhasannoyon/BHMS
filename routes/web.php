@@ -17,6 +17,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get("/", function () {
     return view("student.auth.login");
 });
+Route::get("/admit", function () {
+    return view("admin.student.create");
+});
 
 Auth::routes([
     "logout" => false,
