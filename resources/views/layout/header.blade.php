@@ -34,7 +34,7 @@
 								<ul>
 									<li>
 										<a href="#">
-											<img src="vendors/images/img.jpg" alt="" />
+											<img src="{{ asset('vendors/images/img.jpg') }}" alt="" />
 											<h3>John Doe</h3>
 											<p>
 												Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -55,7 +55,7 @@
 							data-toggle="dropdown"
 						>
 							<span class="user-icon">
-								<img src="vendors/images/photo1.jpg" alt="" />
+								<img src="{{ asset('vendors/images/photo1.jpg') }}" alt="" />
 							</span>
 							<span class="user-name">Ross C. Lopez</span>
 						</a>

@@ -170,9 +170,9 @@
 <div class="left-side-bar">
 			<div class="brand-logo">
 				<a href="index.html">
-					<img src="vendors/images/deskapp-logo.svg" alt="" class="dark-logo" />
+					<img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo" />
 					<img
-						src="vendors/images/deskapp-logo-white.svg"
+						src="{{ asset('vendors/images/deskapp-logo-white.svg') }}"
 						alt=""
 						class="light-logo"
 					/>
@@ -189,8 +189,11 @@
 								<span class="micon dw dw-home"></span>
                                 <span class="mtext">Dashboard</span>
 							</a>
+							<a href="{{ route('create_student') }}" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-home"></span>
+                                <span class="mtext">Admit New Student</span>
+							</a>
 						</li>
-
 					</ul>
 				</div>
 			</div>
