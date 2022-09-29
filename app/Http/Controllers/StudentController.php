@@ -60,9 +60,10 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function list()
     {
-        //
+        $students = Student::orderBy('studentID', 'asc')->get();
+        return view('admin.student.list', compact('students'));
     }
 
     /**
