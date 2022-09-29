@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get("/", function () {
     return view("layout.dashboard");
-});
+})->name('admin-home');
 
 // Route::get("/", function () {
 //     return view("student.auth.login");
@@ -31,6 +31,8 @@ Route::get("/admit", function () {
 // Route::resource('student', StudentController::class);
 Route::get('/student/create/', [StudentController::class, "create"])->name('create_student');
 Route::post('/student/create/', [StudentController::class, "store"]);
+
+Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
 
 Auth::routes([
     "logout" => false,
