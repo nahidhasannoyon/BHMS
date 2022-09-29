@@ -197,6 +197,10 @@
 								<span class="micon dw dw-home"></span>
                                 <span class="mtext">Student List</span>
 							</a>
+							<a href="{{ route('hostel-seats') }}" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-home"></span>
+                                <span class="mtext">Hostel Seats</span>
+							</a>
 						</li>
 					</ul>
 				</div>
