@@ -185,13 +185,17 @@
 				<div class="sidebar-menu">
 					<ul id="accordion-menu">
 						<li class="dropdown">
-							<a href="chat.html" class="dropdown-toggle no-arrow">
+							<a href="{{ route('admin-home') }}" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-home"></span>
                                 <span class="mtext">Dashboard</span>
 							</a>
 							<a href="{{ route('create_student') }}" class="dropdown-toggle no-arrow">
 								<span class="micon dw dw-home"></span>
                                 <span class="mtext">Admit New Student</span>
+							</a>
+							<a href="{{ route('student-list') }}" class="dropdown-toggle no-arrow">
+								<span class="micon dw dw-home"></span>
+                                <span class="mtext">Student List</span>
 							</a>
 						</li>
 					</ul>
