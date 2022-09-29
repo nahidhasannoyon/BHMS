@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
 {
@@ -36,6 +38,20 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
+        $student = new Student();
+        $student->name = $request->get('name');
+        $student->studentID = $request->get('studentID');
+        $student->dept = $request->get('dept');
+        $student->seat_id = $request->get('seat_id');
+        $student->phone = $request->get('phone');
+        $student->g_phone = $request->get('g_phone');
+        $student->remarks = $request->get('remarks');
+        $student->status = 1;
+        $student->password = Hash::make('baiust123#');
+        $student->current_LT = $request->get('current_LT');
+        $student->name = $request->get('name');
+        $student->save();
+        return redirect()->route('create_student');
     }
 
     /**
