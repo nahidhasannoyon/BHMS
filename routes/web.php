@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HostelSeatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,13 @@ Route::get('/student/create/', [StudentController::class, "create"])->name('crea
 Route::post('/student/create/', [StudentController::class, "store"]);
 
 Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
+
+
+
+// Route::resource('hostel-seats', HostelSeatController::class);
+Route::get('/hostel/seats/', [HostelSeatController::class, "index"])->name('hostel-seats');
+Route::post('/hostel/seats/', [HostelSeatController::class, "store"]);
+
 
 Auth::routes([
     "logout" => false,
