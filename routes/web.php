@@ -26,8 +26,12 @@ Route::get("/admit", function () {
     return view("admin.student.create");
 });
 
+
+
 // Route::resource('student', StudentController::class);
 Route::get('/student/create/', [StudentController::class, "create"])->name('create_student');
+Route::post('/student/create/', [StudentController::class, "store"]);
+
 Auth::routes([
     "logout" => false,
 ]);
