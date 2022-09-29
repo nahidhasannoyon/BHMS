@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -15,12 +16,18 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get("/", function () {
-    return view("student.auth.login");
+    return view("layout.dashboard");
 });
+
+// Route::get("/", function () {
+//     return view("student.auth.login");
+// });
 Route::get("/admit", function () {
     return view("admin.student.create");
 });
 
+// Route::resource('student', StudentController::class);
+Route::get('/student/create/', [StudentController::class, "create"])->name('create_student');
 Auth::routes([
     "logout" => false,
 ]);
