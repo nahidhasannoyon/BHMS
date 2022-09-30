@@ -19,7 +19,7 @@
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <form action="{{ route('monthly-bill') }}" method="post">
+                                        <form action="{{ route('monthly-bills') }}" method="post">
                                             @csrf
                                             <div class="form-row">
                                                 <div class="form-group col-md-4">
