@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\TypesOfBill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HostelMealController;
 use App\Http\Controllers\HostelSeatController;
 use App\Http\Controllers\MonthlyBillController;
+use App\Http\Controllers\TypesOfBillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,9 +51,11 @@ Route::get('/hostel/meals/', [HostelMealController::class, "index"])->name('host
 Route::post('/hostel/meals/', [HostelMealController::class, "store"]);
 
 
-Route::get('/bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bill');
+Route::get('/bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
 Route::post('/bill/monthly', [MonthlyBillController::class, 'store']);
 
+Route::get('/bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
+Route::post('/bill/types', [TypesOfBillController::class, 'store']);
 
 Auth::routes([
     "logout" => false,
