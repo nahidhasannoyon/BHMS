@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\HostelMealController;
 use App\Http\Controllers\HostelSeatController;
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,12 @@ Route::get('/student/list', [StudentController::class, 'list'])->name('student-l
 // Route::resource('hostel-seats', HostelSeatController::class);
 Route::get('/hostel/seats/', [HostelSeatController::class, "index"])->name('hostel-seats');
 Route::post('/hostel/seats/', [HostelSeatController::class, "store"]);
+
+
+Route::get('/hostel/meals/', [HostelMealController::class, "index"])->name('hostel-meals');
+Route::post('/hostel/meals/', [HostelMealController::class, "store"]);
+
+
 
 
 Auth::routes([
