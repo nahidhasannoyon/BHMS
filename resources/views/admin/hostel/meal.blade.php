@@ -73,7 +73,7 @@
                     <tbody>
                         @foreach ($meals as $meal)
                             <tr>
-                                {{-- todo add check marks before every seat detail --}}
+                                {{-- todo add check marks before every meal detail --}}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $meal->day }}</td>
                                 <td>{{ $meal->meal_type }}</td>
