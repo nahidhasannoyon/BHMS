@@ -6,6 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\HostelMealController;
 use App\Http\Controllers\HostelSeatController;
+use App\Http\Controllers\MonthlyBillController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +49,8 @@ Route::get('/hostel/meals/', [HostelMealController::class, "index"])->name('host
 Route::post('/hostel/meals/', [HostelMealController::class, "store"]);
 
 
+Route::get('/bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bill');
+Route::post('/bill/monthly', [MonthlyBillController::class, 'store']);
 
 
 Auth::routes([
