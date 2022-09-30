@@ -122,6 +122,10 @@
                           <span class="micon dw dw-home"></span>
                           <span class="mtext">Hostel Meals</span>
                       </a>
+                      <a href="{{ route('monthly-bill') }}" class="dropdown-toggle no-arrow">
+                          <span class="micon dw dw-home"></span>
+                          <span class="mtext">Monthly Bill</span>
+                      </a>
                   </li>
               </ul>
           </div>
