@@ -47,8 +47,8 @@ Route::get('/hostel/seats/', [HostelSeatController::class, "index"])->name('host
 Route::post('/hostel/seats/', [HostelSeatController::class, "store"]);
 
 
-Route::get('/hostel/meals/', [HostelMealController::class, "index"])->name('hostel-meals');
-Route::post('/hostel/meals/', [HostelMealController::class, "store"]);
+Route::get('/meal/index/', [HostelMealController::class, "index"])->name('meals-list');
+Route::post('/meal/index/', [HostelMealController::class, "store"]);
 
 
 Route::get('/bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
