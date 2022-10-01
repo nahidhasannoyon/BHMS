@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\HostelSeat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
@@ -26,7 +28,8 @@ class StudentController extends Controller
     public function create()
     {
         //
-        return view("admin.student.create");
+        $hostels = HostelSeat::orderBy('building_name', 'asc')->get();
+        return view("admin.student.create", compact('hostels'));
     }
 
     /**
@@ -37,21 +40,36 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $student = new Student();
-        $student->name = $request->get('name');
-        $student->studentID = $request->get('studentID');
-        $student->dept = $request->get('dept');
-        $student->seat_id = $request->get('seat_id');
-        $student->phone = $request->get('phone');
-        $student->g_phone = $request->get('g_phone');
-        $student->remarks = $request->get('remarks');
-        $student->status = 1;
-        $student->password = Hash::make('baiust123#');
-        $student->current_LT = $request->get('current_LT');
-        $student->name = $request->get('name');
-        $student->save();
-        return redirect()->route('create_student');
+        try {
+            $studentId = Student::where('studentID', $request->studentID)->exists();
+            $phone = Student::where('phone', $request->phone)->exists();
+            if ($studentId || $phone) {
+                if ($studentId) {
+                    toast('Student already exists', 'warning');
+                } else {
+                    toast('Phone Number already exists', 'warning');
+                }
+                return redirect()->back();
+            } else {
+                $student = new Student();
+                $student->name = $request->get('name');
+                $student->studentID = $request->get('studentID');
+                $student->dept = $request->get('dept');
+                $student->seat_id = $request->get('seat_id');
+                $student->phone = $request->get('phone');
+                $student->g_phone = $request->get('g_phone');
+                $student->remarks = $request->get('remarks');
+                $student->status = 1;
+                $student->password = Hash::make('baiust123#');
+                $student->current_LT = $request->get('current_LT');
+                $student->name = $request->get('name');
+                $student->save();
+                toast('New Student Allocated.', 'success');
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
