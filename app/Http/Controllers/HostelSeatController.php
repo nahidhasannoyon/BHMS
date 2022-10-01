@@ -14,16 +14,18 @@ class HostelSeatController extends Controller
     }
     public function store(Request $request)
     {
-        $hostelSeats = new HostelSeat();
-        $hostelSeats->building_name = $request->get('building_name');
-        $hostelSeats->floor = $request->get('floor');
-        $hostelSeats->flat = $request->get('flat');
-        $hostelSeats->seat = $request->get('seat');
-        $hostelSeats->status = 0;
-        $hostelSeats->save();
-        return redirect()->route('hostel-seats');
-        // toast('Hostel seat added successfully', 'success');
-
-
+        try {
+            $hostelSeats = new HostelSeat();
+            $hostelSeats->building_name = $request->get('building_name');
+            $hostelSeats->floor = $request->get('floor');
+            $hostelSeats->flat = $request->get('flat');
+            $hostelSeats->seat = $request->get('seat');
+            $hostelSeats->status = 0;
+            $hostelSeats->save();
+            toast('New Hostel Seat added.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 }
