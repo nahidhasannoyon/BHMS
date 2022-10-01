@@ -113,12 +113,10 @@
                       </a>
                       <ul class="submenu">
                           <li><a href="{{ route('create_student') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-home"></span>
                                   <span class="mtext">Admit New Student</span>
                               </a></li>
                           <li>
                               <a href="{{ route('student-list') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-home"></span>
                                   <span class="mtext">Student List</span>
                               </a>
                           </li>
@@ -130,15 +128,9 @@
                       </a>
                       <ul class="submenu">
                           <li><a href="{{ route('hostel-seats') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-home"></span>
                                   <span class="mtext">Hostel Seats</span>
                               </a></li>
-                          <li>
-                              <a href="{{ route('hostel-meals') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-home"></span>
-                                  <span class="mtext">Hostel Meals</span>
-                              </a>
-                          </li>
+
                       </ul>
                   </li>
                   <li class="dropdown">
@@ -148,16 +140,27 @@
                       <ul class="submenu">
                           <li>
                               <a href="{{ route('monthly-bills') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-home"></span>
                                   <span class="mtext">Monthly Bill</span>
                               </a>
                           </li>
                           <li>
                               <a href="{{ route('types-of-bill') }}" class="dropdown-toggle no-arrow">
-                                  <span class="micon dw dw-invoice-1"></span>
                                   <span class="mtext">Types of Bill</span>
                               </a>
                           </li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                      <a href="javascript:;" class="dropdown-toggle">
+                          <span class="micon dw dw-invoice-1"></span><span class="mtext"> Meal </span>
+                      </a>
+                      <ul class="submenu">
+                          <li>
+                              <a href="{{ route('meals-list') }}" class="dropdown-toggle no-arrow">
+                                  <span class="mtext">Meals list</span>
+                              </a>
+                          </li>
+
                       </ul>
                   </li>
               </ul>
