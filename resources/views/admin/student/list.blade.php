@@ -13,12 +13,9 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Department</th>
-                            <th>Contact Number</th>
-                            <th>Guardian Nubmer</th>
+                            <th>Level-Term</th>
                             <th>Seat Number</th>
                             <th>Status</th>
-                            <th>Address</th>
-                            <th>Remarks</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -30,12 +27,9 @@
                                     <td>{{ $student->studentID }}</td>
                                     <td>{{ $student->name }}</td>
                                     <td>{{ $student->dept }}</td>
-                                    <td>{{ $student->phone }}</td>
-                                    <td>{{ $student->g_phone }}</td>
+                                    <td>{{ $student->current_LT }}</td>
                                     <td>{{ $student->seat_id }}</td>
                                     <td>{{ $student->status }}</td>
-                                    <td>{{ $student->current_LT }}</td>
-                                    <td>{{ $student->remarks }}</td>
                                     <td>
                                         {{-- todo add functionality in these buttons --}}
                                         <a href="#" class="btn btn-info btn-sm" data-toggle="tooltip"
