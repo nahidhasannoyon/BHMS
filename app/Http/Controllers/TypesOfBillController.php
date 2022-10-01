@@ -14,14 +14,19 @@ class TypesOfBillController extends Controller
     }
     public function store(Request $request)
     {
-        $typesOfBill = new TypesOfBill();
-        $typesOfBill->name = $request->name;
-        if ($request->status == 'active') {
-            $typesOfBill->status = 1;
-        } else if ($request->status == 'inactive') {
-            $typesOfBill->status = 0;
+        try {
+            $typesOfBill = new TypesOfBill();
+            $typesOfBill->name = $request->name;
+            if ($request->status == 'active') {
+                $typesOfBill->status = 1;
+            } else if ($request->status == 'inactive') {
+                $typesOfBill->status = 0;
+            }
+            $typesOfBill->save();
+            toast('New Type of Bill added.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
         }
-        $typesOfBill->save();
-        return redirect()->back();
     }
 }
