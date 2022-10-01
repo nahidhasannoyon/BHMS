@@ -29,8 +29,9 @@
                                                 <div class="form-group col-md-">
                                                     <label for="">Status:</label>
                                                     <select name="status" class="custom-select2 form-control"
-                                                        style="width: 100%; height: 38px;" data-validation="required">
-                                                        <option selected>Choose...</option>
+                                                        style="width: 100%; height: 38px;" data-validation="required"
+                                                        required>
+                                                        <option selected disabled value>Choose...</option>
                                                         <option value="active">Active</option>
                                                         <option value="inactive">Inactive</option>
 
