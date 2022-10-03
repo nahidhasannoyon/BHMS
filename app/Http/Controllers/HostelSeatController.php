@@ -28,4 +28,11 @@ class HostelSeatController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function show($hostelName)
+    {
+        // $student = StudentInformation::with('hostelSeat')->find($id);
+        $hostelSeats = HostelSeat::orderBy('floor', 'asc')->get();
+        return view('admin.hostel.seats', compact('hostelSeats', 'hostelName'));
+    }
 }
