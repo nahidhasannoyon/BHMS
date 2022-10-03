@@ -62,7 +62,7 @@
                             <textarea name="remarks" class="form-control" cols="20" rows="10" data-validation="required"></textarea>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Status:</label><span class="text-danger">*</span>
+                            <label for="">Status:</label>
                             <input type="text" value="Active" class="form-control text-success" name="status"
                                 data-validation="required" required>
                         </div>
