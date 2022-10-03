@@ -23,12 +23,13 @@
                                         <form action="#" method="post">
                                             @csrf
                                             <div class="form-row">
-                                                <div class="form-group col-md-12">
+                                                {{-- <div class="form-group col-md-12">
                                                     <label for="">Building Name:</label><span
                                                         class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="building_name"
                                                         required>
-                                                </div>
+                                                </div> --}}
+
                                                 <div class="form-group col-md-12">
                                                     <label for="">Floor:</label><span class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="floor" required>
@@ -43,6 +44,7 @@
                                                     <input type="text" class="form-control" name="seat" required>
                                                 </div>
                                                 <input type="hidden" name="status" value="0">
+                                                <input type="hidden" name="building_name" value="{{ $hostelName }}">
                                                 <div class="form-group col-md-12">
                                                     <button type="submit" class="btn btn-success btn-md float-right">
                                                         <i class="icon-copy dw dw-add"
@@ -62,7 +64,7 @@
         </div>
         <div class="row align-items-center">
             <div class="col-md-12">
-                <h3 class="text-info text-center pd-10">Hostel Seats</h3>
+                <h3 class="text-info text-center pd-10"> {{ $hostelName }} </h3>
                 <table class="checkbox-datatable table table-striped text-center">
                     <thead>
                         <tr>
@@ -74,7 +76,6 @@
                             </th>
                             {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
-                            <th>Building Name</th>
                             <th>Floor</th>
                             <th>Flat</th>
                             <th>Seat Number</th>
@@ -83,30 +84,37 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($hostelSeats as $hostelSeat)
                             <tr>
-                                <td></td>
                                 {{-- todo add check marks before every seat detail --}}
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $hostelSeat->building_name }}</td>
-                                <td>{{ $hostelSeat->floor }}</td>
-                                <td>{{ $hostelSeat->flat }}</td>
-                                <td>{{ $hostelSeat->seat }}</td>
-                                @if ($hostelSeat->status == '0')
-                                    <td class="text-success"><i class="icon-copy fa fa-check-circle"
-                                            aria-hidden="true"></i>Seat
-                                        Available</td>
-                                @else
-                                    <td class="text-danger"><i class="icon-copy ion-close-circled"></i>Seat Occupied</td>
+                                @if ($hostelSeat->building_name == $hostelName)
+                                    <td></td>
+                                    <td>{{ $loop->iteration }}</td>
+
+                                    <td>{{ $hostelSeat->floor }}</td>
+                                    <td>{{ $hostelSeat->flat }}</td>
+                                    <td>{{ $hostelSeat->seat }}</td>
+                                    @if ($hostelSeat->status == '0')
+                                        <td class="text-success"><i class="icon-copy fa fa-check-circle"
+                                                aria-hidden="true"></i>Seat
+                                            Available</td>
+                                    @else
+                                        <td class="text-danger"><i class="icon-copy ion-close-circled"></i>Seat Occupied
+                                        </td>
+                                    @endif
+                                    <td>
+                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                            data-placement="bottom" title="Edit"><i
+                                                class="icon-copy dw dw-edit-1"></i></a>
+                                        {{-- {{route('student-information.edit', $student->id)}} --}}
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                            data-placement="bottom" title="Delete"><i
+                                                class="icon-copy dw dw-trash1"></i></a>
+                                        {{-- {{ route('student-information.destroy',$student->id)}} --}}
+                                    </td>
                                 @endif
-                                <td>
-                                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
-                                    {{-- {{route('student-information.edit', $student->id)}} --}}
-                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
-                                    {{-- {{ route('student-information.destroy',$student->id)}} --}}
-                                </td>
+
                             </tr>
                         @endforeach
                     </tbody>
