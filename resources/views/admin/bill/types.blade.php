@@ -22,11 +22,11 @@
                                         <form action="{{ route('types-of-bill') }}" method="post">
                                             @csrf
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Name:</label>
                                                     <input type="text" class="form-control" name="name" required>
                                                 </div>
-                                                <div class="form-group col-md-">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Status:</label>
                                                     <select name="status" class="custom-select2 form-control"
                                                         style="width: 100%; height: 38px;" data-validation="required"

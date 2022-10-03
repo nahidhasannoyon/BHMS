@@ -22,11 +22,11 @@
                                         <form action="{{ route('monthly-bills') }}" method="post">
                                             @csrf
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Date:</label>
                                                     <input type="date" class="form-control" name="date" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Student ID:</label>
                                                     <input type="text" class="form-control" name="studentID" required>
                                                 </div>

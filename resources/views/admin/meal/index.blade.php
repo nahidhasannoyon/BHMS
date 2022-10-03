@@ -22,15 +22,15 @@
                                         <form action="{{ route('meals-list') }}" method="post">
                                             @csrf
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Meal Day:</label>
                                                     <input type="text" class="form-control" name="day" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Meal Type:</label>
                                                     <input type="text" class="form-control" name="meal_type" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
+                                                <div class="form-group col-md-12">
                                                     <label for="">Meal Items:</label>
                                                     <input type="text" class="form-control" name="meal_items" required>
                                                 </div>

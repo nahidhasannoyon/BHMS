@@ -23,21 +23,23 @@
                                         <form action="#" method="post">
                                             @csrf
                                             <div class="form-row">
-                                                <div class="form-group col-md-4">
-                                                    <label for="">Building Name:</label>
+                                                <div class="form-group col-md-12">
+                                                    <label for="">Building Name:</label><span
+                                                        class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="building_name"
                                                         required>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="">Floor:</label>
+                                                <div class="form-group col-md-12">
+                                                    <label for="">Floor:</label><span class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="floor" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="">Flat:</label>
+                                                <div class="form-group col-md-12">
+                                                    <label for="">Flat:</label><span class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="flat" required>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <label for="">Seat Number:</label>
+                                                <div class="form-group col-md-12">
+                                                    <label for="">Seat Number:</label><span
+                                                        class="text-danger">*</span>
                                                     <input type="text" class="form-control" name="seat" required>
                                                 </div>
                                                 <input type="hidden" name="status" value="0">
