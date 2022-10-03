@@ -5,10 +5,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HostelMealController;
 use App\Http\Controllers\HostelSeatController;
 use App\Http\Controllers\MonthlyBillController;
 use App\Http\Controllers\TypesOfBillController;
+use App\Http\Controllers\HostelBuildingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +27,17 @@ Route::get("/", function () {
     return view("layout.dashboard");
 })->name('admin-home');
 
-// Route::get("/", function () {
-//     return view("student.auth.login");
-// });
-Route::get("/admit", function () {
-    return view("admin.student.create");
-});
+// Route::get('/', [LoginController::class, 'showStudentLoginForm'])->name('student_login_form');
+// Route::post('/', [LoginController::class, 'studentLogin'])->name('student_login');
 
+// Route::get("/admit", function () {
+//     return view("admin.student.create");
+// });
+Route::get('/admin/building_list/', [HostelBuildingController::class, 'index'])->name('building_list');
+Route::post('/admin/building_list/', [HostelBuildingController::class, 'store']);
+
+Route::get('/admin/{hostelName}/seat_list/', [HostelSeatController::class, 'show'])->name('seat_list');
+Route::post('/admin/{hostelName}/seat_list/', [HostelSeatController::class, 'store'])->name('seat_list_store');
 
 
 // Route::resource('student', StudentController::class);
