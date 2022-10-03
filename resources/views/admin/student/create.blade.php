@@ -34,22 +34,6 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="">Level-Term:</label><span class="text-danger">*</span>
-                            <select class="custom-select2 form-control" style="width: 100%; height: 38px;" name="current_LT"
-                                data-validation="required" placeholder='Select a Value' required>
-                                <option selected disabled value>Choose...</option>
-                                <option value="1-1">1-1</option>
-                                <option value="1-2">1-2</option>
-                                <option value="2-1">2-1</option>
-                                <option value="2-2">2-2</option>
-                                <option value="3-1">3-1</option>
-                                <option value="3-2">3-2</option>
-                                <option value="4-1">4-1</option>
-                                <option value="4-2">4-2</option>
-
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
                             <label for="">Seat Number:</label><span class="text-danger">*</span>
                             <select class="custom-select2 form-control" style="width: 100%; height: 38px;" name="seat_id"
                                 data-validation="required" placeholder='Select a Value' required>

@@ -61,7 +61,6 @@ class StudentController extends Controller
                 $student->remarks = $request->get('remarks');
                 $student->status = 1;
                 $student->password = Hash::make('baiust123#');
-                $student->current_LT = $request->get('current_LT');
                 $student->name = $request->get('name');
                 $student->save();
                 toast('New Student Allocated.', 'success');
