@@ -126,9 +126,15 @@
                       <a href="javascript:;" class="dropdown-toggle">
                           <span class="micon fa  fa-building-o"></span><span class="mtext"> Hostel </span>
                       </a>
-                      <ul class="submenu">
+                      {{-- <ul class="submenu">
                           <li><a href="{{ route('hostel-seats') }}" class="dropdown-toggle no-arrow">
                                   <span class="mtext">Hostel Seats</span>
+                              </a></li>
+
+                      </ul> --}}
+                      <ul class="submenu">
+                          <li><a href="{{ route('building_list') }}" class="dropdown-toggle no-arrow">
+                                  <span class="mtext">Hostel Buildings</span>
                               </a></li>
 
                       </ul>
