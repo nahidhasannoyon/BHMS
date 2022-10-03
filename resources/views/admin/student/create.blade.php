@@ -56,10 +56,10 @@
                             <input type="text" class="form-control" name="g_phone" data-validation="required"
                                 value="" required>
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="">Remarks:</label>
-                            <input type="text" class="form-control" name="remarks" data-validation="required"
-                                value="">
+                            <textarea name="remarks" class="form-control" cols="20" rows="10" data-validation="required"></textarea>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="">Status:</label><span class="text-danger">*</span>
