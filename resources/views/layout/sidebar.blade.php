@@ -107,6 +107,11 @@
                           <span class="mtext">Dashboard</span>
                       </a>
                   </li>
+                  <li><a href="{{ route('users.index') }}" class="dropdown-toggle no-arrow">
+                          <span class="micon fa fa-address-card-o"></span>
+                          <span class="mtext">Users</span>
+                      </a>
+                  </li>
                   <li class="dropdown">
                       <a href="javascript:;" class="dropdown-toggle">
                           <span class="micon bi  bi-file-person"></span><span class="mtext"> Students </span>
