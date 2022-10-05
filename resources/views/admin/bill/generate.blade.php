@@ -62,3 +62,20 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $('input').click(function(e) {
+                let inputValue = $(this).val();
+                if (inputValue == "Add More") {
+                    $('.inputs:first').clone().appendTo('.inputs-container');
+                } else if (inputValue == "Delete Last") {
+                    if ($('.inputs').length > 1) {
+                        $('.inputs:last').remove();
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
