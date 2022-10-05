@@ -17,7 +17,11 @@
                             <select name="typesOfBill" class="custom-select2 form-control typesOfBill"
                                 style="width: 100%; height: 38px;" data-validation="required" required>
                                 <option selected disabled value>Choose...</option>
-
+                                @foreach ($typesOfBills as $typesOfBill)
+                                    <option value="{{ $typesOfBill->id }}">
+                                        {{ $typesOfBill->name }}
+                                    </option>
+                                @endforeach
 
                             </select>
                         </div>
