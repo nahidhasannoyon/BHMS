@@ -40,6 +40,20 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-row buttons">
+                    <div class="form-group col-md-8">
+                        <input class="btn btn-warning btn-md float-right addMore" type="button" value="Add More">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <input class="btn btn-danger btn-md float-right deleteLast" type="button" value="Delete Last">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-success btn-md float-right" type="submit">
+                            <i class="icon-copy dw dw-up-arrow-11">
+                            </i>Submit
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
