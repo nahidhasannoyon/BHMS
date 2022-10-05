@@ -159,6 +159,11 @@
                                   <span class="mtext">Types of Bill</span>
                               </a>
                           </li>
+                          <li>
+                              <a href="{{ route('generate-bill') }}" class="dropdown-toggle no-arrow">
+                                  <span class="mtext">Generate Bill</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
                   <li class="dropdown">
