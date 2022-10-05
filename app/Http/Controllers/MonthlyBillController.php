@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MonthlyBill;
+use App\Models\TypesOfBill;
 use Illuminate\Http\Request;
 
 class MonthlyBillController extends Controller
@@ -25,5 +26,10 @@ class MonthlyBillController extends Controller
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
+    }
+    public function generateBill()
+    {
+        $typesOfBills = TypesOfBill::all();
+        return view('admin.bill.generate', compact('typesOfBills'));
     }
 }
