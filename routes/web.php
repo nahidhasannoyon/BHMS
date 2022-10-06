@@ -71,3 +71,4 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
 Route::get('/generate', [MonthlyBillController::class, 'generateBill'])->name('generate-bill');
+Route::post('/generate', [MonthlyBillController::class, 'store']);
