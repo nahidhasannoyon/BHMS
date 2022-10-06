@@ -6,7 +6,6 @@
         <div class="text-center">
             <h4 class="text-blue" style="padding-bottom: 10px"><u>Add Student Bill</u></h4>
         </div>
-        {{-- {{ route('admin.student.store') }} --}}
         <div class="col-md-12">
             <form action="#" method="POST">
                 @csrf
@@ -18,11 +17,10 @@
                                 style="width: 100%; height: 38px;" data-validation="required" required>
                                 <option selected disabled value>Choose...</option>
                                 @foreach ($typesOfBills as $typesOfBill)
-                                    <option value="{{ $typesOfBill->id }}">
+                                    <option value="{{ $typesOfBill->name }}">
                                         {{ $typesOfBill->name }}
                                     </option>
                                 @endforeach
-
                             </select>
                         </div>
                     </div>
