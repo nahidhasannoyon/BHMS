@@ -20,7 +20,7 @@ class UserController extends Controller
             $admin->name = $request->name;
             $admin->role = $request->role;
             $admin->email = $request->email;
-            $admin->password = Hash::make('$request->password');
+            $admin->password = Hash::make($request->password);
             $admin->save();
             toast('New User Added.', 'success');
             return redirect()->back();
