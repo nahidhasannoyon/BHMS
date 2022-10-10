@@ -54,7 +54,7 @@
                         <div class="login-title">
                             <h2 class="text-center text-primary">Login To HMS Student Portal</h2>
                         </div>
-                        <form method="POST" action="{{ route('student_login') }}">
+                        <form method="POST" action="#"> {{-- {{ route('student_login') }} --}}
                             @csrf
                             <div class="input-group custom">
                                 <input type="number" class="form-control form-control-lg" placeholder="Student ID"
