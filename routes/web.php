@@ -24,7 +24,9 @@ use App\Http\Controllers\HostelBuildingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('layout.dashboard');
