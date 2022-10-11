@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class MonthlyBill extends Model
 {
     use HasFactory;
-    protected $table = "monthly_bill";
+    protected $table = "monthly_bills";
+    protected $guarded = ['id'];
 }
