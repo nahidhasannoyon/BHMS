@@ -24,9 +24,9 @@
 <body>
     {{-- @include('partial.loader.main'); --}}
 
-    @include('layout.header')
+    @include('admin.layout.header')
 
-    @include('layout.sidebar')
+    @include('admin.layout.sidebar')
 
     {{-- Main content --}}
     <div class="main-container">

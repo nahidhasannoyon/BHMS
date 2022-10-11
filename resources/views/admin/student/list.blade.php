@@ -1,4 +1,4 @@
-@extends('layout.master')
+@extends('admin.layout.master')
 
 @section('content')
     <div class="card-box pd-20 height-100-p mb-30">
