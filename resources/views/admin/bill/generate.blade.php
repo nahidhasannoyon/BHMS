@@ -17,7 +17,7 @@
                                 style="width: 100%; height: 38px;" data-validation="required" required>
                                 <option selected disabled value>Choose...</option>
                                 @foreach ($typesOfBills as $typesOfBill)
-                                    <option value="{{ $typesOfBill->name }}">
+                                    <option value="{{ $typesOfBill->id }}">
                                         {{ $typesOfBill->name }}
                                     </option>
                                 @endforeach
@@ -28,16 +28,16 @@
                 <div class="col-md-12 inputs-container">
                     <div class="form-row inputs">
                         <div class=" form-group col-md-4">
-                            <input type="text" class="form-control" name="studentID" data - validation="required"
+                            <input type="text" class="form-control" name="studentID[]" data - validation="required"
                                 value="" required placeholder="Student ID">
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="date" class="form-control" name="date"
+                            <input type="date" class="form-control" name="date[]"
                                 min="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
                                 value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
                         </div>
                         <div class="form-group col-md-4">
-                            <input type="number" class="form-control" name="amount" data - validation="required"
+                            <input type="number" class="form-control" name="amount[]" data - validation="required"
                                 value="" required placeholder="Amount">
                         </div>
                     </div>

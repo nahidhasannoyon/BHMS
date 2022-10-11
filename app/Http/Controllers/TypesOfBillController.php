@@ -9,8 +9,12 @@ class TypesOfBillController extends Controller
 {
     public function index()
     {
-        $typesOfBill = TypesOfBill::all();
-        return view('admin.bill.types', compact('typesOfBill'));
+        try {
+            $typesOfBill = TypesOfBill::all();
+            return view('admin.bill.types', compact('typesOfBill'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
     public function store(Request $request)
     {

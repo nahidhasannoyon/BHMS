@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TypesOfBill extends Model
 {
     use HasFactory;
-    protected $table = "bill_types";
+    protected $table = "types_of_bills";
+    protected $guarded = ['id'];
 }

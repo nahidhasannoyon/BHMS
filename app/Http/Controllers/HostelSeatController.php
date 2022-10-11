@@ -9,8 +9,12 @@ class HostelSeatController extends Controller
 {
     public function index()
     {
-        $hostelSeats = HostelSeat::orderBy('floor', 'asc')->get();
-        return view('admin.hostel.seats', compact('hostelSeats'));
+        try {
+            $hostelSeats = HostelSeat::orderBy('floor', 'asc')->get();
+            return view('admin.hostel.seats', compact('hostelSeats'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
     public function store(Request $request)
     {
@@ -31,8 +35,11 @@ class HostelSeatController extends Controller
 
     public function show($hostelName)
     {
-        // $student = StudentInformation::with('hostelSeat')->find($id);
-        $hostelSeats = HostelSeat::orderBy('floor', 'asc')->get();
-        return view('admin.hostel.seats', compact('hostelSeats', 'hostelName'));
+        try {
+            $hostelSeats = HostelSeat::orderBy('floor', 'asc')->get();
+            return view('admin.hostel.seats', compact('hostelSeats', 'hostelName'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 }
