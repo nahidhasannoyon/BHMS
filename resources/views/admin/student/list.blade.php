@@ -3,9 +3,9 @@
 @section('content')
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row align-items-center">
-            <div class="col-md-12">
+            <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"><u>Student List</u></h3>
-                <table class="table hover data-table-export nowrap">
+                <table class="table table-striped">
                     <thead>
                         {{-- todo add asc and dec toggleable icon  --}}
                         <tr>

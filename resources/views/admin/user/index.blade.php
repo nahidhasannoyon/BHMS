@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="row align-items-center">
-            <div class="col-md-12">
+            <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"> Users </h3>
                 <table class="checkbox-datatable table table-striped text-center">
                     <thead>
