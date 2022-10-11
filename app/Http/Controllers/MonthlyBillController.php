@@ -45,4 +45,13 @@ class MonthlyBillController extends Controller
             return $th->getMessage();
         }
     }
+    public function viewBill()
+    {
+        try {
+            $bills = MonthlyBill::all();
+            return view('admin.bill.view', compact('bills'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
 }
