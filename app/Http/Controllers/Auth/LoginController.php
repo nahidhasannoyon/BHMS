@@ -44,6 +44,15 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showLoginSelection()
+    {
+        try {
+            return view('login_selection');
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
     public function showAdminLoginForm()
     {
         return view('admin.auth.login');
