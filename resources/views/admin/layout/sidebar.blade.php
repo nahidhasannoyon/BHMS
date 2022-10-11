@@ -102,26 +102,30 @@
           <div class="sidebar-menu">
               <ul id="accordion-menu">
                   <li class="dropdown">
-                      <a href="{{ route('admin_home') }}" class="dropdown-toggle no-arrow">
+                      <a href="{{ route('admin_home') }}"
+                          class="dropdown-toggle no-arrow {{ Request::is('admin/home') ? 'active' : '' }}">
                           <span class="micon dw dw-home"></span>
                           <span class="mtext">Dashboard</span>
                       </a>
                   </li>
-                  <li><a href="{{ route('users.index') }}" class="dropdown-toggle no-arrow">
+                  <li><a href="{{ route('users.index') }}"
+                          class="dropdown-toggle no-arrow {{ Request::is('admin/users') ? 'active' : '' }}">
                           <span class="micon fa fa-address-card-o"></span>
                           <span class="mtext">Users</span>
                       </a>
                   </li>
                   <li class="dropdown">
-                      <a href="javascript:;" class="dropdown-toggle">
+                      <a href="javascript:;" class="dropdown-toggle ">
                           <span class="micon bi  bi-file-person"></span><span class="mtext"> Students </span>
                       </a>
                       <ul class="submenu">
-                          <li><a href="{{ route('create_student') }}" class="dropdown-toggle no-arrow">
+                          <li><a href="{{ route('create_student') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/admit_student') ? 'active' : '' }}">
                                   <span class="mtext">Admit New Student</span>
                               </a></li>
                           <li>
-                              <a href="{{ route('student-list') }}" class="dropdown-toggle no-arrow">
+                              <a href="{{ route('student-list') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/student/list') ? 'active' : '' }}">
                                   <span class="mtext">Student List</span>
                               </a>
                           </li>
@@ -131,14 +135,9 @@
                       <a href="javascript:;" class="dropdown-toggle">
                           <span class="micon fa  fa-building-o"></span><span class="mtext"> Hostel </span>
                       </a>
-                      {{-- <ul class="submenu">
-                          <li><a href="{{ route('hostel-seats') }}" class="dropdown-toggle no-arrow">
-                                  <span class="mtext">Hostel Seats</span>
-                              </a></li>
-
-                      </ul> --}}
                       <ul class="submenu">
-                          <li><a href="{{ route('building_list') }}" class="dropdown-toggle no-arrow">
+                          <li><a href="{{ route('building_list') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/building_list') ? 'active' : '' }}">
                                   <span class="mtext">Hostel Buildings</span>
                               </a></li>
 
@@ -150,17 +149,20 @@
                       </a>
                       <ul class="submenu">
                           <li>
-                              <a href="{{ route('view_bill') }}" class="dropdown-toggle no-arrow">
+                              <a href="{{ route('view_bill') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/bill/view') ? 'active' : '' }}">
                                   <span class="mtext">View Bill</span>
                               </a>
                           </li>
                           <li>
-                              <a href="{{ route('types-of-bill') }}" class="dropdown-toggle no-arrow">
+                              <a href="{{ route('types-of-bill') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/bill/types') ? 'active' : '' }}">
                                   <span class="mtext">Types of Bill</span>
                               </a>
                           </li>
                           <li>
-                              <a href="{{ route('generate-bill') }}" class="dropdown-toggle no-arrow">
+                              <a href="{{ route('generate-bill') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/bill/generate') ? 'active' : '' }}">
                                   <span class="mtext">Generate Bill</span>
                               </a>
                           </li>
@@ -172,7 +174,8 @@
                       </a>
                       <ul class="submenu">
                           <li>
-                              <a href="{{ route('meals-list') }}" class="dropdown-toggle no-arrow">
+                              <a href="{{ route('meals-list') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/index') ? 'active' : '' }}">
                                   <span class="mtext">Meals list</span>
                               </a>
                           </li>
