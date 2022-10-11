@@ -21,10 +21,18 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function showAdminHome()
     {
         try {
-            return view("layout.master");
+            return view("admin.layout.master");
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function showStudentHome()
+    {
+        try {
+            return view("student.layout.master");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
