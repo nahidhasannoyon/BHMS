@@ -11,9 +11,12 @@ class HostelMealController extends Controller
 
     public function index()
     {
-
-        $meals = HostelMeal::all();
-        return view('admin.meal.index', compact('meals'));
+        try {
+            $meals = HostelMeal::all();
+            return view('admin.meal.index', compact('meals'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
     public function store(Request $request)
     {

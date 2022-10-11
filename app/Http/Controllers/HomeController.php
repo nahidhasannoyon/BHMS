@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view("layout.master");
+        try {
+            return view("layout.master");
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 }

@@ -16,8 +16,12 @@ class HostelBuildingController extends Controller
      */
     public function index()
     {
-        $hostelBuildings = HostelBuilding::all();
-        return view('admin.hostel.building_list', compact('hostelBuildings'));
+        try {
+            $hostelBuildings = HostelBuilding::all();
+            return view('admin.hostel.building_list', compact('hostelBuildings'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -38,11 +42,15 @@ class HostelBuildingController extends Controller
      */
     public function store(Request $request)
     {
-        $hostelBuilding = new HostelBuilding();
-        $hostelBuilding->name = $request->name;
-        $hostelBuilding->save();
-        toast('New Building Added.', 'success');
-        return redirect()->back();
+        try {
+            $hostelBuilding = new HostelBuilding();
+            $hostelBuilding->name = $request->name;
+            $hostelBuilding->save();
+            toast('New Building Added.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -53,7 +61,11 @@ class HostelBuildingController extends Controller
      */
     public function show(HostelBuilding $hostelBuilding)
     {
-        return $hostelBuilding;
+        try {
+            return $hostelBuilding;
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**

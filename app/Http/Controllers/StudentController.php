@@ -27,9 +27,12 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
-        $hostels = HostelSeat::orderBy('building_name', 'asc')->get();
-        return view("admin.student.create", compact('hostels'));
+        try {
+            $hostels = HostelSeat::orderBy('building_name', 'asc')->get();
+            return view("admin.student.create", compact('hostels'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -79,8 +82,12 @@ class StudentController extends Controller
      */
     public function list()
     {
-        $students = Student::orderBy('studentID', 'asc')->get();
-        return view('admin.student.list', compact('students'));
+        try {
+            $students = Student::orderBy('studentID', 'asc')->get();
+            return view('admin.student.list', compact('students'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
