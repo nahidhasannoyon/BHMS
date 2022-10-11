@@ -8,57 +8,12 @@
                     data-target="#add-meal-type">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Add Meal Type</a>
-                <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myLargeModalLabel">Add New Meal Type From Here</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <form action="{{ route('meals-list') }}" method="post">
-                                            @csrf
-                                            <div class="form-row">
-                                                <div class="form-group col-md-12">
-                                                    <label for="">Meal Day:</label>
-                                                    <input type="text" class="form-control" name="day" required>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="">Meal Type:</label>
-                                                    <input type="text" class="form-control" name="meal_type" required>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="">Meal Items:</label>
-                                                    <input type="text" class="form-control" name="meal_items" required>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label for="">Meal Price:</label>
-                                                    <input type="number" class="form-control" name="price" required>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <button type="submit" class="btn btn-success btn-md float-right">
-                                                        <i class="icon-copy dw dw-add"
-                                                            style="font-family: dropways, Bangla526, sans-serif;"></i> Add
-                                                        meal
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="row align-items-center">
-            <div class="col-md-12">
+            <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"><u>Hostel Meal</u></h3>
-                <table class="table hover data-table-export nowrap">
+                <table class="table table-striped">
                     <thead>
                         <tr>
                             {{--  todo add asc and dec icon to sort --}}
@@ -95,6 +50,49 @@
                         @endforeach
                     </tbody>
                 </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Add New Meal Type From Here</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="{{ route('meals-list') }}" method="post">
+                                @csrf
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="">Meal Day:</label>
+                                        <input type="text" class="form-control" name="day" required>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="">Meal Type:</label>
+                                        <input type="text" class="form-control" name="meal_type" required>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="">Meal Items:</label>
+                                        <input type="text" class="form-control" name="meal_items" required>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <label for="">Meal Price:</label>
+                                        <input type="number" class="form-control" name="price" required>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success btn-md float-right">
+                                            <i class="icon-copy dw dw-add"
+                                                style="font-family: dropways, Bangla526, sans-serif;"></i> Add meal
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
