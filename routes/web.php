@@ -25,9 +25,13 @@ use App\Http\Controllers\HostelBuildingController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/dashboard', function () {
     return view('layout.dashboard');
 })->name('admin-home');
+
+Route::get('/', function () {
+    return view('admin.login');
+});
 
 // Route::get('/', [LoginController::class, 'showStudentLoginForm'])->name('student_login_form');
 // Route::post('/', [LoginController::class, 'studentLogin'])->name('student_login');
