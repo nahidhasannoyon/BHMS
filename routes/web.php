@@ -24,26 +24,14 @@ use App\Http\Controllers\HostelBuildingController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-Route::get('/dashboard', function () {
-    return view('layout.dashboard');
-})->name('admin-home');
-
-Route::get('/', function () {
-    return view('layout.login');
-});
-
-// Route::get('/', [LoginController::class, 'showStudentLoginForm'])->name('student_login_form');
-// Route::post('/', [LoginController::class, 'studentLogin'])->name('student_login');
+Route::get('/', [LoginController::class, 'showLoginSelection'])->name('login_selection');
 Route::prefix('admin')->group(function () {
     Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('admin_login_form');
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin_login');
-    Route::get('/home', function () {
-        return view('layout.dashboard');
-    })->name('admin_home');
+
+    Route::get('/home', [HomeController::class, 'showAdminHome'])->name('admin_home');
+
     Route::get('building_list/', [HostelBuildingController::class, 'index'])->name('building_list');
     Route::post('building_list/', [HostelBuildingController::class, 'store']);
     Route::get('{hostelName}/seat_list/', [HostelSeatController::class, 'show'])->name('seat_list');
