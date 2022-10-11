@@ -150,8 +150,8 @@
                       </a>
                       <ul class="submenu">
                           <li>
-                              <a href="{{ route('monthly-bills') }}" class="dropdown-toggle no-arrow">
-                                  <span class="mtext">Monthly Bill</span>
+                              <a href="{{ route('view_bill') }}" class="dropdown-toggle no-arrow">
+                                  <span class="mtext">View Bill</span>
                               </a>
                           </li>
                           <li>
