@@ -30,9 +30,9 @@
                     <h2 class="text-center">Choose Login Option</h2>
                 </div>
                 <div class="row mb-30">
-                    <div class=" col-md-1">
+                    <div class=" col-md-2">
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="card-box text-center" style="background-color: rgb(77, 116, 212)">
                             <div class="card-img-top bg-light">
                                 <img src="vendors/images/male_female.png" alt="Card image cap"
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="card-box text-center bg-secondary">
                             <div class="card-img-top bg-light">
                                 <img src="vendors/images/admin.png" alt="Card image cap"
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                     </div>
                 </div>
             </div>
