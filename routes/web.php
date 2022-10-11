@@ -47,8 +47,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
     Route::post('/bill/types', [TypesOfBillController::class, 'store']);
-    Route::get('/student/create/', [StudentController::class, 'create'])->name('create_student');
-    Route::post('/student/create/', [StudentController::class, 'store']);
+    Route::get('admit_student', [StudentController::class, 'create'])->name('create_student');
+    Route::post('admit_student', [StudentController::class, 'store']);
     Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
 
     Route::get('bill/generate', [MonthlyBillController::class, 'generateBill'])->name('generate-bill');
