@@ -74,7 +74,5 @@ Auth::routes([
 Route::prefix('student')->group(function () {
     Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('student_login_form');
     Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
-    Route::get('/home', function () {
-        return view('layout.dashboard');
-    })->name('student_home');
+    Route::get('/home', [HomeController::class, 'showStudentHome'])->name('student_home');
 });
