@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Policies\StudentPolicy;
@@ -43,33 +44,53 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function showAdminLoginForm()
+    {
+        return view('admin.auth.login');
+    }
+    public function adminLogin(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                if ($user->role == 'admin') {
+                    Session::put('admin', $user->name);
+                    return redirect()->route('admin_home');
+                } else if ($user->role == 'accountant') {
+                    return redirect()->route('accountant_home');
+                }
+            } else {
+                toast('Password is incorrect', 'error');
+                return redirect()->back();
+            }
+        } else {
+            toast('Invalid User Email.', 'error');
+            return redirect()->back();
+        }
+    }
+
     public function showStudentLoginForm()
     {
         return view('student.auth.login');
     }
     public function studentLogin(Request $request)
     {
-        $studentID = $request->studentID;
-        $enteredPassword = $request->password;
-        $enteredPassword = Hash::make($enteredPassword);
-        $studentCheck = Student::where('studentID', $studentID)->exists();
-        if ($studentCheck) {
-            $existingPassword = Student::select('password')->where('studentID', $studentID)->first();
-            return $existingPassword;
-            $existingPassword = $existingPassword->password;
-            $check = Hash::check($enteredPassword, $existingPassword);
-            return $enteredPassword . ' == ' .  $existingPassword .  $check;
-            if ($check) {
-                Session::put('studentID', $studentID);
-                // return redirect()->route('student-home');
-                return "logged in successfully";
+        $request->validate([
+            'password' => 'required|min:8',
+        ]);
+        $student = Student::where('studentID', $request->studentID)->first();
+        if ($student) {
+            if (Hash::check($request->password, $student->password)) {
+                Session::put('student', $student);
+                return redirect()->route('student_home');
             } else {
-                toast('Invalid Student ID/Password', 'error');
-                return 'Invalid Student ID/Password';
+                toast('Password is incorrect', 'error');
+                return
+                    redirect()->back();
             }
         } else {
-            toast('No Records Found', 'error');
-            return "something went wrong";
+            toast('Invalid Student ID', 'error');
+            return redirect()->back();
         }
     }
 }

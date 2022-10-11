@@ -34,17 +34,6 @@
     </div>
     <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
         <div class="container">
-            <div class="row">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
-            </div>
             <div class="row align-items-center">
                 <div class="col-md-6 col-lg-7">
                     <img src="{{ asset('vendors/images/login-page-img.png') }}" alt="">
@@ -52,13 +41,13 @@
                 <div class="col-md-6 col-lg-5">
                     <div class="login-box bg-white box-shadow border-radius-10">
                         <div class="login-title">
-                            <h2 class="text-center text-primary">Login To HMS Student Portal</h2>
+                            <h2 class="text-center text-primary">Login To HMS Admin Portal</h2>
                         </div>
-                        <form method="POST" action="#"> {{-- {{ route('student_login') }} --}}
+                        <form method="POST" action="#">
                             @csrf
                             <div class="input-group custom">
-                                <input type="number" class="form-control form-control-lg" placeholder="Student ID"
-                                    name="studentID">
+                                <input type="email" class="form-control form-control-lg" placeholder="Email"
+                                    name="email">
                                 <div class="input-group-append custom">
                                     <span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
                                 </div>
