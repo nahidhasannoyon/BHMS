@@ -13,7 +13,7 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <h3 class="text-info text-center pd-10"><u>Monthly Bills</u></h3>
-                <table class="table hover data-table-export nowrap">
+                <table class="data-table table hover data-table-export nowrap">
                     <thead>
                         <tr>
                             {{--  todo add asc and dec icon to sort --}}

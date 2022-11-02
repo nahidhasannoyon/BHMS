@@ -13,7 +13,7 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"><u>Hostel Meal</u></h3>
-                <table class="table table-striped">
+                <table class="data-table table table-striped">
                     <thead>
                         <tr>
                             {{--  todo add asc and dec icon to sort --}}

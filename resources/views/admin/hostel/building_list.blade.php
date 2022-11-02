@@ -13,15 +13,10 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10">Hostel Buildings</h3>
-                <table class="checkbox-datatable table table-striped text-center">
+                <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            <th>
-                                <div class="dt-checkbox">
-                                    <input type="checkbox" name="select_all" value="1" id="example-select-all">
-                                    <span class="dt-checkbox-label"></span>
-                                </div>
-                            </th>
+
                             {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
                             <th>Building Name</th>
@@ -31,7 +26,7 @@
                     <tbody>
                         @foreach ($hostelBuildings as $hostelBuilding)
                             <tr>
-                                <td></td>
+
                                 {{-- todo add check marks before every seat detail --}}
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $hostelBuilding->name }}</td>
@@ -41,8 +36,8 @@
                                     {{-- {{route('student-information.edit', $student->id)}} --}}
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
-                                    <a href="{{ route('seat_list', $hostelBuilding->name) }}" class="btn btn-success btn-sm"
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                    <a href="{{ route('seat_list', $hostelBuilding->id) }}" class="btn btn-success btn-sm"
+                                        data-toggle="tooltip" data-placement="bottom" title="View"><i
                                             class="icon-copy bi bi-arrow-right-square"></i></a>
                                     {{-- {{ route('student-information.destroy',$student->id)}} --}}
                                 </td>
