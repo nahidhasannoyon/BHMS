@@ -24,19 +24,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($hostelBuildings as $hostelBuilding)
+                        @foreach ($hostel_buildings as $hostel_building)
                             <tr>
 
                                 {{-- todo add check marks before every seat detail --}}
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $hostelBuilding->name }}</td>
+                                <td>{{ $hostel_building->name }}</td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
                                     {{-- {{route('student-information.edit', $student->id)}} --}}
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
-                                    <a href="{{ route('seat_list', $hostelBuilding->id) }}" class="btn btn-success btn-sm"
+                                    <a href="{{ route('floor_list', $hostel_building->id) }}" class="btn btn-success btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="View"><i
                                             class="icon-copy bi bi-arrow-right-square"></i></a>
                                     {{-- {{ route('student-information.destroy',$student->id)}} --}}
@@ -58,8 +58,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            {{-- <form action="{{ route('hostel_seats.store') }}" method="post"> --}}
-                            <form action="#" method="post">
+                            <form action="{{ route('add_building') }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
