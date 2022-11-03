@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BuildingName extends Model
+class Building extends Model
 {
     use HasFactory;
-    protected $table = 'building_names';
+    protected $table = 'buildings';
     protected $guarded = ['id'];
 }
