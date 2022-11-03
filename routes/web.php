@@ -8,11 +8,14 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BuildingController;
+use App\Http\Controllers\FlatController;
+use App\Http\Controllers\FloorController;
 use App\Http\Controllers\HostelMealController;
 use App\Http\Controllers\HostelSeatController;
 use App\Http\Controllers\MonthlyBillController;
+use App\Http\Controllers\SeatController;
 use App\Http\Controllers\TypesOfBillController;
-use App\Http\Controllers\HostelBuildingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,11 +41,24 @@ Route::prefix('admin')->group(function () {
     Route::get('admit_student', [StudentController::class, 'admit_student'])->name('admit_student');
     Route::post('admit_student', [StudentController::class, 'add_student'])->name('add_student');
 
+    Route::get('student/list', [StudentController::class, 'list'])->name('student-list');
 
-    Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
 
-    Route::get('building_list/', [HostelBuildingController::class, 'index'])->name('building_list');
-    Route::post('building_list/', [HostelBuildingController::class, 'store']);
+
+    Route::get('building_list', [BuildingController::class, 'building_list'])->name('building_list');
+    Route::post('building_list', [BuildingController::class, 'add_building'])->name('add_building');
+
+    Route::get('{building}/floor_list', [FloorController::class, 'floor_list'])->name('floor_list');
+    Route::post('add_floor', [FloorController::class, 'add_floor'])->name('add_floor');
+
+    Route::get('{floor}/flat_list', [FlatController::class, 'flat_list'])->name('flat_list');
+    Route::post('add_flat', [FlatController::class, 'add_flat'])->name('add_flat');
+
+    Route::get('{flat}/seat_list', [SeatController::class, 'seat_list'])->name('seat_list');
+    Route::post('add_seat', [SeatController::class, 'add_seat'])->name('add_seat');
+
+
+
 
 
 
