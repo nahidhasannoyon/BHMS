@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\HostelBuilding;
 use App\Models\Student;
 use App\Models\HostelSeat;
 use Illuminate\Http\Request;
@@ -25,11 +26,12 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function admit_student()
     {
         try {
+            $hostel_buildings = HostelBuilding::orderby('name', 'asc')->get();
             $hostels = HostelSeat::orderBy('building_name', 'asc')->get();
-            return view("admin.student.create", compact('hostels'));
+            return view("admin.student.create", compact('hostels', 'hostel_buildings'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -41,7 +43,7 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add_student(Request $request)
     {
         try {
             $studentId = Student::where('studentID', $request->studentID)->exists();
