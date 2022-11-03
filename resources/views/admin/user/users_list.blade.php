@@ -13,16 +13,9 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"> Users </h3>
-                <table class="checkbox-datatable table table-striped text-center">
+                <table class="checkbox-datatable data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            <th>
-                                <div class="dt-checkbox">
-                                    <input type="checkbox" name="select_all" value="1" id="example-select-all">
-                                    <span class="dt-checkbox-label"></span>
-                                </div>
-                            </th>
-                            {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
                             <th>Name</th>
                             <th>Role</th>
@@ -34,12 +27,9 @@
 
                         @foreach ($users as $user)
                             <tr>
-                                {{-- todo add check marks before every seat detail --}}
-
-                                <td></td>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->role }}</td>
+                                <td>{{ strtoupper($user->role[0]) . substr($user->role, -strlen($user->role) + 1) }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
@@ -68,8 +58,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            {{-- <form action="{{ route('hostel_seats.store') }}" method="post"> --}}
-                            <form action="#" method="post">
+                            <form action="{{ route('add_user') }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
@@ -86,11 +75,11 @@
                                             <option value="hostel_manager">Hostel Manager</option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <label for="">Email:</label><span class="text-danger">*</span>
                                         <input type="email" class="form-control" name="email" required>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-6">
                                         <label for="">Password:</label><span class="text-danger">*</span>
                                         <input type="password" class="form-control" name="password" required>
                                     </div>

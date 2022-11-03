@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function users_list()
     {
         $users = User::all();
-        return view('admin.user.index', compact('users'));
+        return view('admin.user.users_list', compact('users'));
     }
-    public function store(Request $request)
+    public function add_user(Request $request)
     {
         try {
             $admin = new User();
