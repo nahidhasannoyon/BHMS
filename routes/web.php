@@ -41,9 +41,11 @@ Route::prefix('admin')->group(function () {
     Route::get('admit_student', [StudentController::class, 'admit_student'])->name('admit_student');
     Route::post('admit_student', [StudentController::class, 'add_student'])->name('add_student');
 
+    Route::get('admit_student/{id}/getFloor/', [StudentController::class, 'getFloor'])->name('getFloor');
+    Route::get('admit_student/{id}/getFlat/', [StudentController::class, 'getFlat'])->name('getFlat');
+    Route::get('admit_student/{id}/getSeat/', [StudentController::class, 'getSeat'])->name('getSeat');
+
     Route::get('student/list', [StudentController::class, 'list'])->name('student-list');
-
-
 
     Route::get('building_list', [BuildingController::class, 'building_list'])->name('building_list');
     Route::post('building_list', [BuildingController::class, 'add_building'])->name('add_building');
