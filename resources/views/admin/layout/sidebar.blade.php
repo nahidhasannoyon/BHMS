@@ -102,13 +102,13 @@
           <div class="sidebar-menu">
               <ul id="accordion-menu">
                   <li class="dropdown">
-                      <a href="{{ route('admin_home') }}"
-                          class="dropdown-toggle no-arrow {{ Request::is('admin/home') ? 'active' : '' }}">
+                      <a href="{{ route('admin_dashboard') }}"
+                          class="dropdown-toggle no-arrow {{ Request::is('admin/dashboard') ? 'active' : '' }}">
                           <span class="micon dw dw-home"></span>
                           <span class="mtext">Dashboard</span>
                       </a>
                   </li>
-                  <li><a href="{{ route('users.index') }}"
+                  <li><a href="{{ route('users_list') }}"
                           class="dropdown-toggle no-arrow {{ Request::is('admin/users') ? 'active' : '' }}">
                           <span class="micon fa fa-address-card-o"></span>
                           <span class="mtext">Users</span>
@@ -119,10 +119,11 @@
                           <span class="micon bi  bi-file-person"></span><span class="mtext"> Students </span>
                       </a>
                       <ul class="submenu">
-                          <li><a href="{{ route('create_student') }}"
+                          <li><a href="{{ route('admit_student') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/admit_student') ? 'active' : '' }}">
                                   <span class="mtext">Admit New Student</span>
-                              </a></li>
+                              </a>
+                          </li>
                           <li>
                               <a href="{{ route('student-list') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/student/list') ? 'active' : '' }}">
@@ -139,7 +140,8 @@
                           <li><a href="{{ route('building_list') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/building_list') ? 'active' : '' }}">
                                   <span class="mtext">Hostel Buildings</span>
-                              </a></li>
+                              </a>
+                          </li>
 
                       </ul>
                   </li>

@@ -30,13 +30,24 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('admin_login_form');
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin_login');
 
-    Route::get('/home', [HomeController::class, 'showAdminHome'])->name('admin_home');
+    Route::get('/dashboard', [HomeController::class, 'showAdminDashboard'])->name('admin_dashboard');
+
+    Route::get('users', [UserController::class, 'users_list'])->name('users_list');
+    Route::post('users', [UserController::class, 'add_user'])->name('add_user');
+
+    Route::get('admit_student', [StudentController::class, 'admit_student'])->name('admit_student');
+    Route::post('admit_student', [StudentController::class, 'add_student'])->name('add_student');
+
+
+    Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
 
     Route::get('building_list/', [HostelBuildingController::class, 'index'])->name('building_list');
     Route::post('building_list/', [HostelBuildingController::class, 'store']);
-    Route::get('{hostelName}/seat_list/', [HostelSeatController::class, 'show'])->name('seat_list');
+
+
+
+    Route::get('{hostel_building}/seat_list/', [HostelSeatController::class, 'show'])->name('seat_list');
     Route::post('{hostelName}/seat_list/', [HostelSeatController::class, 'store'])->name('seat_list_store');
-    Route::resource('users', UserController::class);
     Route::get('/hostel/seats/', [HostelSeatController::class, 'index'])->name('hostel-seats');
     Route::post('/hostel/seats/', [HostelSeatController::class, 'store']);
     Route::get('/meal/index/', [HostelMealController::class, 'index'])->name('meals-list');
@@ -47,9 +58,6 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
     Route::post('/bill/types', [TypesOfBillController::class, 'store']);
-    Route::get('admit_student', [StudentController::class, 'create'])->name('create_student');
-    Route::post('admit_student', [StudentController::class, 'store']);
-    Route::get('/student/list', [StudentController::class, 'list'])->name('student-list');
 
     Route::get('bill/generate', [MonthlyBillController::class, 'generateBill'])->name('generate-bill');
     Route::post('bill/generate', [MonthlyBillController::class, 'store']);
