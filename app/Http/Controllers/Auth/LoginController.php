@@ -64,9 +64,9 @@ class LoginController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 if ($user->role == 'admin') {
                     Session::put('admin', $user->name);
-                    return redirect()->route('admin_home');
+                    return redirect()->route('admin_dashboard');
                 } else if ($user->role == 'accountant') {
-                    return redirect()->route('accountant_home');
+                    return redirect()->route('accountant_dashboard');
                 }
             } else {
                 toast('Password is incorrect', 'error');

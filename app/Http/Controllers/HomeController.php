@@ -21,7 +21,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function showAdminHome()
+    public function showAdminDashboard()
     {
         try {
             return view("admin.layout.master");
