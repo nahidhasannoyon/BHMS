@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Flat;
 use App\Models\Seat;
+use App\Models\Floor;
 use Illuminate\Http\Request;
 
 class SeatController extends Controller
@@ -14,7 +15,10 @@ class SeatController extends Controller
     {
         try {
             $seats = Seat::all();
-            return view('admin.hostel.seat_list', compact('seats', 'flat'));
+            $total_seat = Seat::where('flat_id', $flat->id)->get()->count();
+            $seats_available = Seat::where('flat_id', $flat->id)->where('status', '0')->get()->count();
+            $seats_occupied = Seat::where('flat_id', $flat->id)->where('status', '1')->get()->count();
+            return view('admin.hostel.seat_list', compact('seats', 'flat', 'total_seat', 'seats_available', 'seats_occupied',));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -25,6 +29,7 @@ class SeatController extends Controller
         try {
             $seat = new Seat();
             $seat->name = $request->name;
+            $seat->status = $request->status;
             $seat->flat_id = $request->flat_id;
             $seat->save();
             toast('New Seat added.', 'success');
