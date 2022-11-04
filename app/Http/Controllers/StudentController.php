@@ -81,10 +81,18 @@ class StudentController extends Controller
     public function add_student(Request $request)
     {
         try {
-            $studentId = Student::where('studentID', $request->studentID)->exists();
+
+            $id_name_dept = $request->id_name_dept;
+            $id_name_dept = explode("-", $id_name_dept);
+            $id = $id_name_dept[0];
+            $name = $id_name_dept[1];
+            $dept = $id_name_dept[2];
+
+
+            $student_id = Student::where('student_id', $id)->exists();
             $phone = Student::where('phone', $request->phone)->exists();
-            if ($studentId || $phone) {
-                if ($studentId) {
+            if ($student_id || $phone) {
+                if ($student_id) {
                     toast('Student already exists', 'warning');
                 } else {
                     toast('Phone Number already exists', 'warning');
@@ -92,16 +100,18 @@ class StudentController extends Controller
                 return redirect()->back();
             } else {
                 $student = new Student();
-                $student->name = $request->get('name');
-                $student->studentID = $request->get('studentID');
-                $student->dept = $request->get('dept');
-                $student->seat_id = $request->get('seat_id');
+                $student->name = $name;
+                $student->student_id = $id;
+                $student->dept = $dept;
+                $student->building = $request->building;
+                $student->floor = $request->floor;
+                $student->flat = $request->flat;
+                $student->seat = $request->seat;
                 $student->phone = $request->get('phone');
                 $student->g_phone = $request->get('g_phone');
                 $student->remarks = $request->get('remarks');
                 $student->status = 1;
                 $student->password = Hash::make('baiust123#');
-                $student->name = $request->get('name');
                 $student->save();
                 toast('New Student Allocated.', 'success');
                 return redirect()->back();
@@ -120,7 +130,7 @@ class StudentController extends Controller
     public function list()
     {
         try {
-            $students = Student::orderBy('studentID', 'asc')->get();
+            $students = Student::orderBy('student_id', 'asc')->get();
             return view('admin.student.list', compact('students'));
         } catch (\Throwable $th) {
             return $th->getMessage();

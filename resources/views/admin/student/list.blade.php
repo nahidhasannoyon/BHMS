@@ -12,8 +12,6 @@
                             <th>#</th>
                             <th>ID</th>
                             <th>Name</th>
-                            <th>Department</th>
-                            <th>Seat Number</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -23,10 +21,8 @@
                             @if ($student->status == 1)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $student->studentID }}</td>
+                                    <td>{{ $student->student_id }}</td>
                                     <td>{{ $student->name }}</td>
-                                    <td>{{ $student->dept }}</td>
-                                    <td>{{ $student->seat_id }}</td>
                                     <td>{{ $student->status }}</td>
                                     <td>
                                         {{-- todo add functionality in these buttons --}}
