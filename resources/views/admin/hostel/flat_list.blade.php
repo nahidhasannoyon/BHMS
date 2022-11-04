@@ -50,6 +50,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <p class="text-center text-white bg-secondary pd-5">Total Seat: {{ $total_seat }},
+                    Available: {{ $seats_available }} & Occupied:
+                    {{ $seats_occupied }} </p>
             </div>
         </div>
     </div>
