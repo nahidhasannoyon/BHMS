@@ -4,6 +4,9 @@
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row">
             <div class="col-md-12">
+                <a href="{{ route('floor_list', $floor->building_id) }}" class="btn btn-primary btn-md float-left">
+                    <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
+                    Floors</a>
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
                     data-target="#add-meal-type">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>

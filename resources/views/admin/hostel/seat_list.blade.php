@@ -4,6 +4,10 @@
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row">
             <div class="col-md-12">
+
+                <a href="{{ route('flat_list', $flat->floor_id) }}" class="btn btn-primary btn-md float-left">
+                    <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
+                    Flats</a>
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
                     data-target="#add-meal-type">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
@@ -19,6 +23,7 @@
                             {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
                             <th>Seat Name</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,6 +34,14 @@
                                     {{-- todo add check marks before every seat detail --}}
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $seat->name }}</td>
+                                    @if ($seat->status == '0')
+                                        <td class="text-success"><i class="icon-copy fa fa-check-circle"
+                                                aria-hidden="true"></i>Seat
+                                            Available</td>
+                                    @else
+                                        <td class="text-danger"><i class="icon-copy ion-close-circled"></i>Seat Occupied
+                                        </td>
+                                    @endif
                                     <td>
                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit"><i
@@ -47,6 +60,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <p class="text-center text-white bg-secondary pd-5">Total Seat: {{ $total_seat }},
+                    Available: {{ $seats_available }} & Occupied:
+                    {{ $seats_occupied }} </p>
             </div>
         </div>
     </div>
@@ -69,6 +85,7 @@
                                         <input type="text" class="form-control" name="name" required>
                                     </div>
                                     <input type="hidden" name="flat_id" value="{{ $flat->id }}">
+                                    <input type="hidden" name="status" value="0">
                                     <div class="form-group col-md-12">
                                         <button type="submit" class="btn btn-success btn-md float-right">
                                             <i class="icon-copy dw dw-add"
