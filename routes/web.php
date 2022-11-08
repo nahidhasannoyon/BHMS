@@ -38,14 +38,16 @@ Route::prefix('admin')->group(function () {
     Route::get('users', [UserController::class, 'users_list'])->name('users_list');
     Route::post('users', [UserController::class, 'add_user'])->name('add_user');
 
-    Route::get('admit_student', [StudentController::class, 'admit_student'])->name('admit_student');
-    Route::post('admit_student', [StudentController::class, 'add_student'])->name('add_student');
+    Route::prefix('student')->group(function () {
+        Route::get('admit', [StudentController::class, 'admit_student'])->name('admit_student');
+        Route::post('admit', [StudentController::class, 'add_student'])->name('add_student');
 
-    Route::get('admit_student/{id}/getFloor/', [StudentController::class, 'getFloor'])->name('getFloor');
-    Route::get('admit_student/{id}/getFlat/', [StudentController::class, 'getFlat'])->name('getFlat');
-    Route::get('admit_student/{id}/getSeat/', [StudentController::class, 'getSeat'])->name('getSeat');
+        Route::get('admit/{id}/getFloor/', [StudentController::class, 'getFloor'])->name('getFloor');
+        Route::get('admit/{id}/getFlat/', [StudentController::class, 'getFlat'])->name('getFlat');
+        Route::get('admit/{id}/getSeat/', [StudentController::class, 'getSeat'])->name('getSeat');
 
-    Route::get('student/list', [StudentController::class, 'list'])->name('student-list');
+        Route::get('list', [StudentController::class, 'list'])->name('student-list');
+    });
 
     Route::get('building_list', [BuildingController::class, 'building_list'])->name('building_list');
     Route::post('building_list', [BuildingController::class, 'add_building'])->name('add_building');

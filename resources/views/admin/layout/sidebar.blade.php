@@ -120,7 +120,7 @@
                       </a>
                       <ul class="submenu">
                           <li><a href="{{ route('admit_student') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/admit_student') ? 'active' : '' }}">
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/student/admit') ? 'active' : '' }}">
                                   <span class="mtext">Admit New Student</span>
                               </a>
                           </li>
