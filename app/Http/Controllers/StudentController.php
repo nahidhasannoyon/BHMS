@@ -11,6 +11,7 @@ use App\Models\HostelSeat;
 use Illuminate\Http\Request;
 use App\Models\HostelBuilding;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
@@ -33,8 +34,12 @@ class StudentController extends Controller
     public function admit_student()
     {
         try {
+            $students = Http::withHeaders([
+                "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
+            ])->get(env('API_URL'));
+            $students = json_decode($students);
             $buildings = Building::orderby('name', 'asc')->get();
-            return view("admin.student.admit_student", compact('buildings'));
+            return view("admin.student.admit_student", compact('buildings', 'students'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -81,6 +86,7 @@ class StudentController extends Controller
     public function add_student(Request $request)
     {
         try {
+            return $request;
 
             $id_name_dept = $request->id_name_dept;
             $id_name_dept = explode("-", $id_name_dept);
