@@ -48,7 +48,6 @@ class StudentController extends Controller
     public function getFloor($id)
     {
         try {
-
             $floors = Floor::where('building_id', $id)->get();
             return json_encode($floors);
             return response()->json($floors);
@@ -86,14 +85,11 @@ class StudentController extends Controller
     public function add_student(Request $request)
     {
         try {
-            return $request;
-
             $id_name_dept = $request->id_name_dept;
-            $id_name_dept = explode("-", $id_name_dept);
+            $id_name_dept = explode(" - ", $id_name_dept);
             $id = $id_name_dept[0];
             $name = $id_name_dept[1];
             $dept = $id_name_dept[2];
-
 
             $student_id = Student::where('student_id', $id)->exists();
             $phone = Student::where('phone', $request->phone)->exists();
@@ -138,6 +134,16 @@ class StudentController extends Controller
         try {
             $students = Student::orderBy('student_id', 'asc')->get();
             return view('admin.student.list', compact('students'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function view($id)
+    {
+        try {
+            $student = Student::where('id', $id)->first();
+            return view('admin.student.view', compact('student'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

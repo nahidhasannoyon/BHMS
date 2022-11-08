@@ -30,10 +30,10 @@
                                             data-placement="bottom" title="download-student-info"><i
                                                 class="icon-copy dw dw-download"></i></a>
                                         {{-- {{ route('student-information.download',$student->id) }} --}}
-                                        <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip"
-                                            data-placement="bottom" title="View"><i
+                                        <a href="{{ route('view_student', $student->id) }}" class="btn btn-success btn-sm"
+                                            data-toggle="tooltip" data-placement="bottom" title="View"><i
                                                 class="icon-copy fi-torsos-female-male"></i></a>
-                                        {{-- {{route('student-information.show', $student->id)}} --}}
+
                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit"><i
                                                 class="icon-copy dw dw-edit-1"></i></a>
