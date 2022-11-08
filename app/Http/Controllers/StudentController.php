@@ -90,7 +90,6 @@ class StudentController extends Controller
             $id = $id_name_dept[0];
             $name = $id_name_dept[1];
             $dept = $id_name_dept[2];
-
             $student_id = Student::where('student_id', $id)->exists();
             $phone = Student::where('phone', $request->phone)->exists();
             if ($student_id || $phone) {
@@ -115,6 +114,8 @@ class StudentController extends Controller
                 $student->status = 1;
                 $student->password = Hash::make('baiust123#');
                 $student->save();
+                $seat = Seat::where('id', $request->seat)->first();
+                $seat->status = 1;
                 toast('New Student Allocated.', 'success');
                 return redirect()->back();
             }
@@ -157,7 +158,18 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $api_students = Http::withHeaders([
+                "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
+            ])->get(env('API_URL'));
+            $api_students = json_decode($api_students);
+            $student = Student::where('id', $id)->first();
+            $buildings = Building::orderby('name', 'asc')->get();
+            return view('admin.student.edit', compact('student', 'buildings','api_students'));
+        }
+        catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -169,7 +181,25 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $student = new Student();
+                $student->name = $request->name;
+                $student->student_id = $request->id;
+                $student->dept = $request->dept;
+                $student->building = $request->building;
+                $student->floor = $request->floor;
+                $student->flat = $request->flat;
+                $student->seat = $request->seat;
+                $student->phone = $request->get('phone');
+                $student->g_phone = $request->get('g_phone');
+                $student->remarks = $request->get('remarks');
+                $student->status = $request->get('status');
+                $student->save();
+                toast('Student Information Updated.', 'success');
+                return redirect()->back();
+        }
+     catch (\Throwable $th) {
+        return $th->getMessage();
     }
 
     /**
@@ -178,8 +208,6 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    
+}
 }
