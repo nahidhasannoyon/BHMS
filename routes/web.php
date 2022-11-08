@@ -49,27 +49,26 @@ Route::prefix('admin')->group(function () {
         Route::get('list', [StudentController::class, 'list'])->name('student-list');
     });
 
-    Route::get('building_list', [BuildingController::class, 'building_list'])->name('building_list');
-    Route::post('building_list', [BuildingController::class, 'add_building'])->name('add_building');
+    Route::prefix('hostel')->group(function () {
+        Route::get('list', [BuildingController::class, 'building_list'])->name('building_list');
+        Route::post('list', [BuildingController::class, 'add_building'])->name('add_building');
 
-    Route::get('{building}/floor_list', [FloorController::class, 'floor_list'])->name('floor_list');
-    Route::post('add_floor', [FloorController::class, 'add_floor'])->name('add_floor');
+        Route::prefix('{building}/floor')->group(function () {
+            Route::get('list', [FloorController::class, 'floor_list'])->name('floor_list');
+            Route::post('add_floor', [FloorController::class, 'add_floor'])->name('add_floor');
 
-    Route::get('{floor}/flat_list', [FlatController::class, 'flat_list'])->name('flat_list');
-    Route::post('add_flat', [FlatController::class, 'add_flat'])->name('add_flat');
+            Route::prefix('{floor}/flat')->group(function () {
+                Route::get('list', [FlatController::class, 'flat_list'])->name('flat_list');
+                Route::post('add_flat', [FlatController::class, 'add_flat'])->name('add_flat');
 
-    Route::get('{flat}/seat_list', [SeatController::class, 'seat_list'])->name('seat_list');
-    Route::post('add_seat', [SeatController::class, 'add_seat'])->name('add_seat');
+                Route::prefix('{flat}/seat')->group(function () {
+                    Route::get('list', [SeatController::class, 'seat_list'])->name('seat_list');
+                    Route::post('add_seat', [SeatController::class, 'add_seat'])->name('add_seat');
+                });
+            });
+        });
+    });
 
-
-
-
-
-
-    Route::get('{hostel_building}/seat_list/', [HostelSeatController::class, 'show'])->name('seat_list');
-    Route::post('{hostelName}/seat_list/', [HostelSeatController::class, 'store'])->name('seat_list_store');
-    Route::get('/hostel/seats/', [HostelSeatController::class, 'index'])->name('hostel-seats');
-    Route::post('/hostel/seats/', [HostelSeatController::class, 'store']);
     Route::get('/meal/index/', [HostelMealController::class, 'index'])->name('meals-list');
     Route::post('/meal/index/', [HostelMealController::class, 'store']);
 
