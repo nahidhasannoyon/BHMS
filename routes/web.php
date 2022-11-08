@@ -47,7 +47,8 @@ Route::prefix('admin')->group(function () {
         Route::get('admit/{id}/getSeat/', [StudentController::class, 'getSeat'])->name('getSeat');
 
         Route::get('list', [StudentController::class, 'list'])->name('student-list');
-        Route::get('view/{id}', [StudentController::class, 'view'])->name('view_student');
+        Route::get('{id}/view', [StudentController::class, 'view'])->name('view_student');
+        Route::get('{id}/edit', [StudentController::class, 'edit'])->name('edit_student');
     });
 
     Route::prefix('hostel')->group(function () {
