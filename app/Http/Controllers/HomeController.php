@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function showAdminDashboard()
     {
         try {
-            return view("admin.layout.master");
+            return view("admin.layout.dashboard");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -32,7 +32,7 @@ class HomeController extends Controller
     public function showStudentHome()
     {
         try {
-            return view("student.layout.master");
+            return view("student.layout.dashboard");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
