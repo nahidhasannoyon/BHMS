@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Flat;
 use App\Models\Seat;
 use App\Models\Floor;
+use App\Models\Building;
 use Illuminate\Http\Request;
 
 class FlatController extends Controller
 {
-    public function flat_list(Floor $floor)
+    public function flat_list(Building $building, Floor $floor)
     {
         try {
             $flats = Flat::all();
@@ -22,7 +23,7 @@ class FlatController extends Controller
                 $seats_available += Seat::where('flat_id', $selected_flat->id)->where('status', '0')->get()->count();
                 $seats_occupied += Seat::where('flat_id', $selected_flat->id)->where('status', '1')->get()->count();
             }
-            return view('admin.hostel.flat_list', compact('flats', 'floor', 'total_seat', 'seats_available', 'seats_occupied',));
+            return view('admin.hostel.flat_list', compact('flats', 'floor', 'total_seat', 'seats_available', 'seats_occupied', 'building'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

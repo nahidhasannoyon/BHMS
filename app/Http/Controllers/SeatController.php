@@ -5,20 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Flat;
 use App\Models\Seat;
 use App\Models\Floor;
+use App\Models\Building;
 use Illuminate\Http\Request;
 
 class SeatController extends Controller
 {
 
 
-    public function seat_list(Flat $flat)
+    public function seat_list(Building $building, Floor $floor, Flat $flat)
     {
         try {
             $seats = Seat::all();
             $total_seat = Seat::where('flat_id', $flat->id)->get()->count();
             $seats_available = Seat::where('flat_id', $flat->id)->where('status', '0')->get()->count();
             $seats_occupied = Seat::where('flat_id', $flat->id)->where('status', '1')->get()->count();
-            return view('admin.hostel.seat_list', compact('seats', 'flat', 'total_seat', 'seats_available', 'seats_occupied',));
+            return view('admin.hostel.seat_list', compact(
+                'building',
+                'floor',
+                'flat',
+                'seats',
+                'total_seat',
+                'seats_available',
+                'seats_occupied',
+            ));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

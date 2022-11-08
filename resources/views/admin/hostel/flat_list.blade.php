@@ -40,9 +40,9 @@
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Delete"><i
                                                 class="icon-copy dw dw-trash1"></i></a>
-                                        <a href="{{ route('seat_list', $flat->id) }}" class="btn btn-success btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="View"><i
-                                                class="icon-copy bi bi-arrow-right-square"></i></a>
+                                        <a href="{{ route('seat_list', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
+                                            class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                            title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
                                         {{-- {{ route('student-information.destroy',$student->id)}} --}}
                                     </td>
                                 </tr>
@@ -67,7 +67,8 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <form action="{{ route('add_flat') }}" method="post">
+                            <form action="{{ route('add_flat', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                                method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">

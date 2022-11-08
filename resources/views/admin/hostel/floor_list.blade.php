@@ -36,14 +36,13 @@
                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit"><i
                                                 class="icon-copy dw dw-edit-1"></i></a>
-                                        {{-- {{route('student-information.edit', $student->id)}} --}}
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Delete"><i
                                                 class="icon-copy dw dw-trash1"></i></a>
-                                        <a href="{{ route('flat_list', $floor->id) }}" class="btn btn-success btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="View"><i
-                                                class="icon-copy bi bi-arrow-right-square"></i></a>
-                                        {{-- {{ route('student-information.destroy',$student->id)}} --}}
+                                        <a href="{{ route('flat_list', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                                            class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                            title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
+
                                     </td>
                                 </tr>
                             @endif
@@ -66,7 +65,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('add_floor') }}" method="post">
+                            <form action="{{ route('add_floor', $building->id) }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
