@@ -138,7 +138,7 @@
                       </a>
                       <ul class="submenu">
                           <li><a href="{{ route('building_list') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/building_list') ? 'active' : '' }}">
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/hostel/*') ? 'active' : '' }} ">
                                   <span class="mtext">Hostel Buildings</span>
                               </a>
                           </li>
