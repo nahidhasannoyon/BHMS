@@ -34,7 +34,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin_login');
 
     Route::get('/dashboard', [HomeController::class, 'showAdminDashboard'])->name('admin_dashboard');
-
+    // todo move this admin dashboard to admin controller 
     Route::get('users', [UserController::class, 'users_list'])->name('users_list');
     Route::post('users', [UserController::class, 'add_user'])->name('add_user');
 
