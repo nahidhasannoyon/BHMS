@@ -12,8 +12,15 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label>Student Id - Name - Department :</label><span class="text-danger">*</span>
-                            <input class="form-control" type="text" name="id_name_dept" placeholder="Id - Name - Dept. "
-                                required value="">
+                            <select name="id_name_dept" class="custom-select2" style="width: 100%" required>
+                                <option value="" selected disabled>Please select a student...</option>
+                                @foreach ($students as $student)
+                                    <option
+                                        value="{{ $student->Registration_Number . ' - ' . $student->Full_Name . ' - ' . $student->Program }}">
+                                        {{ $student->Registration_Number . ' - ' . $student->Full_Name . ' - ' . $student->Program }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
 
                         <div class="form-group col-md-4">
@@ -94,7 +101,7 @@
                 $('#floor').append(`<option value="0" disabled selected>Searching...</option>`);
                 $.ajax({
                     type: 'GET',
-                    url: 'admit_student/' +
+                    url: 'admit/' +
                         id + ' /getFloor/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
@@ -120,7 +127,7 @@
                 $('#flat').append(`<option value="0" disabled selected>Searching...</option>`);
                 $.ajax({
                     type: 'GET',
-                    url: 'admit_student/' +
+                    url: 'admit/' +
                         id + ' /getFlat/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
@@ -145,7 +152,7 @@
                 $('#seat').append(`<option value="0" disabled selected>Searching...</option>`);
                 $.ajax({
                     type: 'GET',
-                    url: 'admit_student/' +
+                    url: 'admit/' +
                         id + ' /getSeat/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
