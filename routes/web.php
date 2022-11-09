@@ -35,29 +35,39 @@ Route::prefix('admin')->group(function () {
 
     Route::get('dashboard', [HomeController::class, 'showAdminDashboard'])->name('admin_dashboard');
     // todo move this admin dashboard to admin controller 
+    // * User Routes
     Route::get('users', [UserController::class, 'users_list'])->name('users_list');
     Route::post('users', [UserController::class, 'add_user'])->name('add_user');
 
+    // * Student Routes
     Route::prefix('student')->group(function () {
+        // * Fetch Hostel floors, flats, seats to add student
+        Route::prefix('admit/{id}')->group(function () {
+            Route::get('getFloor', [StudentController::class, 'getFloor']);
+            Route::get('getFlat', [StudentController::class, 'getFlat']);
+            Route::get('getSeat', [StudentController::class, 'getSeat']);
+        });
+        // * Add new Student
         Route::get('admit', [StudentController::class, 'admit_student'])->name('admit_student');
         Route::post('admit', [StudentController::class, 'add_student'])->name('add_student');
 
-        Route::prefix('admit/{id}')->group(function () {
-            Route::get('getFloor', [StudentController::class, 'getFloor'])->name('getFloor');
-            Route::get('getFlat', [StudentController::class, 'getFlat'])->name('getFlat');
-            Route::get('getSeat', [StudentController::class, 'getSeat'])->name('getSeat');
-        });
-
+        // * Student List
         Route::get('list', [StudentController::class, 'list'])->name('student-list');
+
+        // * Student list Actions
+        Route::get('{id}/download', [StudentController::class, 'download'])->name('download_student');
         Route::get('{id}/view', [StudentController::class, 'view'])->name('view_student');
         Route::get('{id}/edit', [StudentController::class, 'edit'])->name('edit_student');
+        Route::get('{id}/delete', [StudentController::class, 'delete'])->name('delete_student');
 
+
+        //* Fetch Hostel floors, flats, seats to edit student
         Route::prefix('{student}/edit/{id}')->group(function () {
             Route::get('updateFloor', [StudentController::class, 'updateFloor']);
             Route::get('updateFlat', [StudentController::class, 'updateFlat']);
             Route::get('updateSeat', [StudentController::class, 'updateSeat']);
         });
-
+        // * Update Student
         Route::post('{id}/update', [StudentController::class, 'update'])->name('update_student');
     });
 
