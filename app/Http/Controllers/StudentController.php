@@ -7,6 +7,7 @@ use App\Models\Seat;
 use App\Models\Floor;
 use App\Models\Student;
 use App\Models\Building;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\HostelSeat;
 use Illuminate\Http\Request;
 use App\Models\HostelBuilding;
@@ -39,7 +40,7 @@ class StudentController extends Controller
             ])->get(env('API_URL'));
             $students = json_decode($students);
             $buildings = Building::orderby('name', 'asc')->get();
-            return view("admin.student.admit_student", compact('buildings', 'students'));
+            return view("admin.student.admit", compact('buildings', 'students'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -249,5 +250,32 @@ class StudentController extends Controller
          * @param  int  $id
          * @return \Illuminate\Http\Response
          */
+    }
+    public function delete($id)
+    {
+        try {
+            $student = Student::where('id', $id)->first();
+            $student->delete();
+            toast('Student Deleted.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function download($id)
+    {
+        try {
+            $student = Student::where('id', $id)->first();
+            $building = Building::where('id', $student->building)->first();
+            $floor = Floor::where('id', $student->floor)->first();
+            $flat = Flat::where('id', $student->flat)->first();
+            $seat = Seat::where('id', $student->seat)->first();
+
+            $pdf = PDF::loadView('admin.student.download', compact('student', 'building', 'floor', 'flat', 'seat'));
+            return $pdf->download($student->student_id . '-' . $student->name . '.pdf');
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 }
