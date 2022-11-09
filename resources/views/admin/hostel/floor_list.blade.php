@@ -35,33 +35,33 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $floor->name }}</td>
                                     @php
-                                        $floor_capacity = 0;
-                                        $floor_available = 0;
-                                        $floor_occupied = 0;
+                                        $seat_capacity = 0;
+                                        $seat_available = 0;
+                                        $seat_occupied = 0;
                                     @endphp
                                     @foreach ($flats as $flat)
                                         @if ($flat->floor_id == $floor->id)
                                             @foreach ($seats as $seat)
                                                 @if ($seat->flat_id == $flat->id)
                                                     @php
-                                                        $floor_capacity++;
+                                                        $seat_capacity++;
                                                     @endphp
                                                     @if ($seat->status == 0)
                                                         @php
-                                                            $floor_available++;
+                                                            $seat_available++;
                                                         @endphp
                                                     @else
                                                         @php
-                                                            $floor_occupied++;
+                                                            $seat_occupied++;
                                                         @endphp
                                                     @endif
                                                 @endif
                                             @endforeach
                                         @endif
                                     @endforeach
-                                    <td> {{ $floor_capacity }}</td>
-                                    <td> {{ $floor_available }}</td>
-                                    <td> {{ $floor_occupied }}</td>
+                                    <td> {{ $seat_capacity }}</td>
+                                    <td> {{ $seat_available }}</td>
+                                    <td> {{ $seat_occupied }}</td>
                                     <td>
                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit"><i
