@@ -30,10 +30,10 @@ use App\Http\Controllers\TypesOfBillController;
 
 Route::get('/', [LoginController::class, 'showLoginSelection'])->name('login_selection');
 Route::prefix('admin')->group(function () {
-    Route::get('/login', [LoginController::class, 'showAdminLoginForm'])->name('admin_login_form');
-    Route::post('/login', [LoginController::class, 'adminLogin'])->name('admin_login');
+    Route::get('login', [LoginController::class, 'showAdminLoginForm'])->name('admin_login_form');
+    Route::post('login', [LoginController::class, 'adminLogin'])->name('admin_login');
 
-    Route::get('/dashboard', [HomeController::class, 'showAdminDashboard'])->name('admin_dashboard');
+    Route::get('dashboard', [HomeController::class, 'showAdminDashboard'])->name('admin_dashboard');
     // todo move this admin dashboard to admin controller 
     Route::get('users', [UserController::class, 'users_list'])->name('users_list');
     Route::post('users', [UserController::class, 'add_user'])->name('add_user');
@@ -42,13 +42,23 @@ Route::prefix('admin')->group(function () {
         Route::get('admit', [StudentController::class, 'admit_student'])->name('admit_student');
         Route::post('admit', [StudentController::class, 'add_student'])->name('add_student');
 
-        Route::get('admit/{id}/getFloor/', [StudentController::class, 'getFloor'])->name('getFloor');
-        Route::get('admit/{id}/getFlat/', [StudentController::class, 'getFlat'])->name('getFlat');
-        Route::get('admit/{id}/getSeat/', [StudentController::class, 'getSeat'])->name('getSeat');
+        Route::prefix('admit/{id}')->group(function () {
+            Route::get('getFloor', [StudentController::class, 'getFloor'])->name('getFloor');
+            Route::get('getFlat', [StudentController::class, 'getFlat'])->name('getFlat');
+            Route::get('getSeat', [StudentController::class, 'getSeat'])->name('getSeat');
+        });
 
         Route::get('list', [StudentController::class, 'list'])->name('student-list');
         Route::get('{id}/view', [StudentController::class, 'view'])->name('view_student');
         Route::get('{id}/edit', [StudentController::class, 'edit'])->name('edit_student');
+
+        Route::prefix('{student}/edit/{id}')->group(function () {
+            Route::get('updateFloor', [StudentController::class, 'updateFloor']);
+            Route::get('updateFlat', [StudentController::class, 'updateFlat']);
+            Route::get('updateSeat', [StudentController::class, 'updateSeat']);
+        });
+
+        Route::post('{id}/update', [StudentController::class, 'update'])->name('update_student');
     });
 
     Route::prefix('hostel')->group(function () {
@@ -71,14 +81,14 @@ Route::prefix('admin')->group(function () {
         });
     });
 
-    Route::get('/meal/index/', [HostelMealController::class, 'index'])->name('meals-list');
-    Route::post('/meal/index/', [HostelMealController::class, 'store']);
+    Route::get('meal/index', [HostelMealController::class, 'index'])->name('meals-list');
+    Route::post('meal/index', [HostelMealController::class, 'store']);
 
-    Route::get('/bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
-    Route::post('/bill/monthly', [MonthlyBillController::class, 'store']);
+    Route::get('bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
+    Route::post('bill/monthly', [MonthlyBillController::class, 'store']);
 
-    Route::get('/bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
-    Route::post('/bill/types', [TypesOfBillController::class, 'store']);
+    Route::get('bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
+    Route::post('bill/types', [TypesOfBillController::class, 'store']);
 
     Route::get('bill/generate', [MonthlyBillController::class, 'generateBill'])->name('generate-bill');
     Route::post('bill/generate', [MonthlyBillController::class, 'store']);
