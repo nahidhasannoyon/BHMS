@@ -33,8 +33,8 @@
                                 @endif
                                 <td>
                                     {{-- todo add functionality in these buttons --}}
-                                    <a href="#" class="btn btn-info btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="download-student-info"><i
+                                    <a href="{{ route('download_student', $student->id) }}" class="btn btn-info btn-sm"
+                                        data-toggle="tooltip" data-placement="bottom" title="download-student-info"><i
                                             class="icon-copy dw dw-download"></i></a>
                                     {{-- {{ route('student-information.download',$student->id) }} --}}
                                     <a href="{{ route('view_student', $student->id) }}" class="btn btn-success btn-sm"
@@ -44,7 +44,6 @@
                                     <a href="{{ route('edit_student', $student->id) }}" class="btn btn-warning btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="Edit"><i
                                             class="icon-copy dw dw-edit-1"></i></a>
-                                    {{-- {{route('student-information.edit', $student->id)}} --}}
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
                                     {{-- {{ route('student-information.destroy',$student->id)}} --}}
