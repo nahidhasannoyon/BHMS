@@ -14,6 +14,9 @@ class BuildingController extends Controller
     {
         try {
             $hostel_buildings = Building::all();
+            $floors = Floor::all();
+            $flats = Flat::all();
+            $seats = Seat::all();
             $total_seat = 0;
             $seats_available = 0;
             $seats_occupied = 0;
@@ -28,7 +31,7 @@ class BuildingController extends Controller
                     }
                 }
             }
-            return view('admin.hostel.building_list', compact('hostel_buildings', 'total_seat', 'seats_available', 'seats_occupied',));
+            return view('admin.hostel.building_list', compact('hostel_buildings', 'total_seat', 'seats_available', 'seats_occupied', 'floors', 'flats', 'seats'));
         } catch (\Exception $th) {
             return $th->getMessage();
         }
