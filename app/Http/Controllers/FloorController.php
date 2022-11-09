@@ -19,6 +19,8 @@ class FloorController extends Controller
     {
         try {
             $floors = Floor::all();
+            $flats = Flat::all();
+            $seats = Seat::all();
             $total_seat = 0;
             $seats_available = 0;
             $seats_occupied = 0;
@@ -31,7 +33,7 @@ class FloorController extends Controller
                     $seats_occupied += Seat::where('flat_id', $selected_flat->id)->where('status', '1')->get()->count();
                 }
             }
-            return view('admin.hostel.floor_list', compact('floors', 'building', 'total_seat', 'seats_available', 'seats_occupied',));
+            return view('admin.hostel.floor_list', compact('floors', 'building', 'total_seat', 'seats_available', 'seats_occupied', 'flats', 'seats'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

@@ -22,6 +22,9 @@
                             {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
                             <th>Floor Name</th>
+                            <th>Capacity</th>
+                            <th>Available</th>
+                            <th>Occupied</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -29,9 +32,36 @@
                         @foreach ($floors as $floor)
                             @if ($floor->building_id == $building->id)
                                 <tr>
-                                    {{-- todo add check marks before every seat detail --}}
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $floor->name }}</td>
+                                    @php
+                                        $floor_capacity = 0;
+                                        $floor_available = 0;
+                                        $floor_occupied = 0;
+                                    @endphp
+                                    @foreach ($flats as $flat)
+                                        @if ($flat->floor_id == $floor->id)
+                                            @foreach ($seats as $seat)
+                                                @if ($seat->flat_id == $flat->id)
+                                                    @php
+                                                        $floor_capacity++;
+                                                    @endphp
+                                                    @if ($seat->status == 0)
+                                                        @php
+                                                            $floor_available++;
+                                                        @endphp
+                                                    @else
+                                                        @php
+                                                            $floor_occupied++;
+                                                        @endphp
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                    <td> {{ $floor_capacity }}</td>
+                                    <td> {{ $floor_available }}</td>
+                                    <td> {{ $floor_occupied }}</td>
                                     <td>
                                         <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Edit"><i
@@ -42,7 +72,6 @@
                                         <a href="{{ route('flat_list', ['building' => $building->id, 'floor' => $floor->id]) }}"
                                             class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
                                             title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
-
                                     </td>
                                 </tr>
                             @endif
