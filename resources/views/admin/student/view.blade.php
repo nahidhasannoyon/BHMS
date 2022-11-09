@@ -34,19 +34,19 @@
                         </tr>
                         <tr>
                             <td>Hostel Building: </td>
-                            <td>{{ $student->building }}</td>
+                            <td>{{ $building->name }}</td>
                         </tr>
                         <tr>
                             <td>Hostel Floor: </td>
-                            <td>{{ $student->floor }}</td>
+                            <td>{{ $floor->name }}</td>
                         </tr>
                         <tr>
                             <td>Hostel Flat: </td>
-                            <td>{{ $student->flat }}</td>
+                            <td>{{ $flat->name }}</td>
                         </tr>
                         <tr>
                             <td>Hostel Seat: </td>
-                            <td>{{ $student->seat }}</td>
+                            <td>{{ $seat->name }}</td>
                         </tr>
                         <tr>
                             <td>Status: </td>
