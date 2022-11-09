@@ -144,7 +144,11 @@ class StudentController extends Controller
     {
         try {
             $student = Student::where('id', $id)->first();
-            return view('admin.student.view', compact('student'));
+            $building = Building::where('id', $student->building)->first();
+            $floor = Floor::where('id', $student->floor)->first();
+            $flat = Flat::where('id', $student->flat)->first();
+            $seat = Seat::where('id', $student->seat)->first();
+            return view('admin.student.view', compact('student', 'building', 'floor', 'flat', 'seat'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -165,9 +169,11 @@ class StudentController extends Controller
             $api_students = json_decode($api_students);
             $student = Student::where('id', $id)->first();
             $buildings = Building::orderby('name', 'asc')->get();
-            return view('admin.student.edit', compact('student', 'buildings','api_students'));
-        }
-        catch (\Throwable $th) {
+            $floors = Floor::orderby('name', 'asc')->get();
+            $flats = Flat::orderby('name', 'asc')->get();
+            $seats = Seat::orderby('name', 'asc')->get();
+            return view('admin.student.edit', compact('student', 'buildings', 'api_students', 'floors', 'flats', 'seats'));
+        } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
@@ -179,35 +185,69 @@ class StudentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateFloor($student, $id)
+    {
+        try {
+            $floors = Floor::where('building_id', $id)->get();
+            return json_encode($floors);
+            return response()->json($floors);
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function updateFlat($student, $id)
+    {
+        try {
+            $flats = Flat::where('floor_id', $id)->get();
+            return json_encode($flats);
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function updateSeat($student, $id)
+    {
+        try {
+            $seats = Seat::where('flat_id', $id)->get();
+            return json_encode($seats);
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
     public function update(Request $request, $id)
     {
         try {
-            $student = new Student();
-                $student->name = $request->name;
-                $student->student_id = $request->id;
-                $student->dept = $request->dept;
-                $student->building = $request->building;
-                $student->floor = $request->floor;
-                $student->flat = $request->flat;
-                $student->seat = $request->seat;
-                $student->phone = $request->get('phone');
-                $student->g_phone = $request->get('g_phone');
-                $student->remarks = $request->get('remarks');
-                $student->status = $request->get('status');
-                $student->save();
-                toast('Student Information Updated.', 'success');
-                return redirect()->back();
-        }
-     catch (\Throwable $th) {
-        return $th->getMessage();
-    }
+            $id_name_dept = $request->id_name_dept;
+            $id_name_dept = explode(" - ", $id_name_dept);
+            $std_id = $id_name_dept[0];
+            $name = $id_name_dept[1];
+            $dept = $id_name_dept[2];
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-}
+            $student = Student::where('id', $id)->first();
+            $student->name = $name;
+            $student->student_id = $std_id;
+            $student->dept = $dept;
+            $student->building = $request->building;
+            $student->floor = $request->floor;
+            $student->flat = $request->flat;
+            $student->seat = $request->seat;
+            $student->phone = $request->get('phone');
+            $student->g_phone = $request->get('g_phone');
+            $student->remarks = $request->get('remarks');
+            $student->status = $request->get('status');
+            $student->save();
+            toast('Student Information Updated.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+
+        /**
+         * Remove the specified resource from storage.
+         *
+         * @param  int  $id
+         * @return \Illuminate\Http\Response
+         */
+    }
 }
