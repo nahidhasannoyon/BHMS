@@ -105,7 +105,6 @@
                         id + ' /getFloor/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
-                        console.log(response);
                         $('#floor').empty();
                         $('#floor').append(
                             `<option value="0" disabled selected>Select Floor</option>`
@@ -131,7 +130,6 @@
                         id + ' /getFlat/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
-                        console.log(response);
                         $('#flat').empty();
                         $('#flat').append(
                             `<option value="0" disabled selected>Select Flat</option>`
@@ -156,7 +154,6 @@
                         id + ' /getSeat/ ',
                     success: function(response) {
                         var response = JSON.parse(response);
-                        console.log(response);
                         $('#seat').empty();
                         $('#seat').append(
                             `<option value="0" disabled selected>Select Seat</option>`
