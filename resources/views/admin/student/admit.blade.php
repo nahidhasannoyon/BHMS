@@ -162,9 +162,10 @@
                             `<option value="0" disabled selected>Select Seat</option>`
                         );
                         response.forEach(element => {
-                            $('#seat').append(
-                                `<option value="${element['id']}">${element['name']}</option>`
-                            );
+                            if (element['status'] == 0)
+                                $('#seat').append(
+                                    `<option value="${element['id']}">${element['name']}</option>`
+                                );
                         });
                     }
                 });
