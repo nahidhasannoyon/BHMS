@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <a href="{{ route('flat_list', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                <a href="{{ route('admin.hostel.floor.flat.list', ['building' => $building->id, 'floor' => $floor->id]) }}"
                     class="btn btn-primary btn-md float-left">
                     <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Flats</a>
@@ -77,7 +77,7 @@
                         <div class="col-md-12">
 
                             <form
-                                action="{{ route('add_seat', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
+                                action="{{ route('admin.hostel.floor.flat.seat.add', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
                                 method="post">
                                 @csrf
                                 <div class="form-row">

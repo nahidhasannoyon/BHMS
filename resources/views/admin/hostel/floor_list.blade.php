@@ -4,7 +4,7 @@
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{ route('building_list') }}" class="btn btn-primary btn-md float-left">
+                <a href="{{ route('admin.hostel.list') }}" class="btn btn-primary btn-md float-left">
                     <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Buildings</a>
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
@@ -69,7 +69,7 @@
                                         <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
                                             data-placement="bottom" title="Delete"><i
                                                 class="icon-copy dw dw-trash1"></i></a>
-                                        <a href="{{ route('flat_list', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                                        <a href="{{ route('admin.hostel.floor.flat.list', ['building' => $building->id, 'floor' => $floor->id]) }}"
                                             class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
                                             title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
                                     </td>
@@ -94,7 +94,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('add_floor', $building->id) }}" method="post">
+                            <form action="{{ route('admin.hostel.floor.add', $building->id) }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">

@@ -11,7 +11,7 @@ class UserController extends Controller
     public function users_list()
     {
         $users = User::all();
-        return view('admin.user.users_list', compact('users'));
+        return view('admin.user.list', compact('users'));
     }
     public function add_user(Request $request)
     {

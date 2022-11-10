@@ -33,19 +33,19 @@
                                 @endif
                                 <td>
                                     {{-- todo add functionality in these buttons --}}
-                                    <a href="{{ route('download_student', $student->id) }}" class="btn btn-info btn-sm"
+                                    <a href="{{ route('admin.student.download', $student->id) }}" class="btn btn-info btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="download-student-info"><i
                                             class="icon-copy dw dw-download"></i></a>
-                                    <a href="{{ route('view_student', $student->id) }}" class="btn btn-success btn-sm"
+                                    <a href="{{ route('admin.student.view', $student->id) }}" class="btn btn-success btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="View"><i
                                             class="icon-copy fi-torsos-female-male"></i></a>
 
-                                    <a href="{{ route('edit_student', $student->id) }}" class="btn btn-warning btn-sm"
+                                    <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-warning btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="Edit"><i
                                             class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="{{ route('delete_student', $student->id) }}" class="btn btn-danger btn-sm"
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete"><i
-                                            class="icon-copy dw dw-trash1"></i></a>
+                                    <a href="{{ route('admin.student.delete', $student->id) }}"
+                                        class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
                                 </td>
                             </tr>
                         @endforeach

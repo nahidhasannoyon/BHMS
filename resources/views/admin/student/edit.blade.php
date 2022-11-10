@@ -6,7 +6,7 @@
         </div>
         {{-- {{ route('admin.student.store') }} --}}
         <div class="col-md-12">
-            <form action="{{ route('update_student', $student->id) }}" method="POST">
+            <form action="{{ route('admin.student.update', $student->id) }}" method="POST">
                 @csrf
                 <div class="col-md-12">
                     <div class="form-row">
