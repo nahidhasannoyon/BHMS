@@ -61,6 +61,19 @@ class StudentController extends Controller
     {
         try {
             $flats = Flat::where('floor_id', $id)->get();
+            // foreach ($flats as $flat) {
+            //     if (Seat::where('flat_id', $flat->id)->where('status', '0')->exists()) {
+            //     } else {
+            //         $flat->remove();
+            //     }
+            // }
+            // $flats = $flats->map(function ($flat) {
+            //     if (Seat::where('flat_id', $flat->id)->where('status', 1)->exists()) {
+            //     } else {
+            //         return $flat;
+            //     }
+            // });
+
             return json_encode($flats);
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -70,7 +83,7 @@ class StudentController extends Controller
     public function getSeat($id)
     {
         try {
-            $seats = Seat::where('flat_id', $id)->get();
+            $seats = Seat::where('flat_id', $id)->where('status', '0')->get();
             return json_encode($seats);
         } catch (\Throwable $th) {
             return $th->getMessage();
