@@ -36,14 +36,33 @@
                                     {{-- todo add check marks before every seat detail --}}
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $flat->name }}</td>
+                                    @php
+                                        $seat_capacity = 0;
+                                        $seat_available = 0;
+                                        $seat_occupied = 0;
+                                    @endphp
                                     @foreach ($seats as $seat)
-                                        <td>{{ $seat->where('flat_id', $flat->id)->get()->count() }}</td>
-                                        <td>{{ $seat->where('flat_id', $flat->id)->where('status', '0')->get()->count() }}
-                                        </td>
-                                        <td>{{ $seat->where('flat_id', $flat->id)->where('status', '1')->get()->count() }}
-                                        </td>
+                                        @php
+                                            $seat_capacity = $seat
+                                                ->where('flat_id', $flat->id)
+                                                ->get()
+                                                ->count();
+                                            $seat_available = $seat
+                                                ->where('flat_id', $flat->id)
+                                                ->where('status', '0')
+                                                ->get()
+                                                ->count();
+                                            $seat_occupied = $seat
+                                                ->where('flat_id', $flat->id)
+                                                ->where('status', '1')
+                                                ->get()
+                                                ->count();
+                                        @endphp
                                     @break
                                 @endforeach
+                                <td> {{ $seat_capacity }}</td>
+                                <td> {{ $seat_available }}</td>
+                                <td> {{ $seat_occupied }}</td>
 
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
