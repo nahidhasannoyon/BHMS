@@ -27,15 +27,17 @@
                             <select class="custom-select2 form-control" id="building" style="width: 100%; height: 38px;"
                                 name="building" data-validation="required" placeholder='Select a Value'
                                 data-dependant="floor" required>
-                                @empty($building)
-                                    <option value="">No Available Seat</option>
-                                @endempty
-                                @foreach ($buildings as $building)
-                                    <option selected disabled value>Choose...</option>
-                                    <option value="{{ $building->id }}">
-                                        {{ $building->name }}
-                                    </option>
-                                @endforeach
+                                @if ($buildings->count() > 0)
+                                    <option value="" selected disabled>Please select a building...</option>
+
+                                    @foreach ($buildings as $building)
+                                        <option value="{{ $building->id }}">
+                                            {{ $building->name }}
+                                        </option>
+                                    @endforeach
+                                @else
+                                    <option value="" selected disabled>No Available Building</option>
+                                @endif
                             </select>
                         </div>
                         <div class="form-group col-md-4">
@@ -109,7 +111,7 @@
                         var response = JSON.parse(response);
                         $('#floor').empty();
                         $('#floor').append(
-                            `<option value="0" disabled selected>Select Floor</option>`
+                            `<option value="0" disabled selected>Please select a Floor</option>`
                         );
                         response.forEach(element => {
                             $('#floor').append(
@@ -134,7 +136,7 @@
                         var response = JSON.parse(response);
                         $('#flat').empty();
                         $('#flat').append(
-                            `<option value="0" disabled selected>Select Flat</option>`
+                            `<option value="0" disabled selected>Please select a Flat</option>`
                         );
                         response.forEach(element => {
                             $('#flat').append(
@@ -158,7 +160,7 @@
                         var response = JSON.parse(response);
                         $('#seat').empty();
                         $('#seat').append(
-                            `<option value="0" disabled selected>Select Seat</option>`
+                            `<option value="0" disabled selected>Please select a Seat</option>`
                         );
                         response.forEach(element => {
                             if (element['status'] == 0)
