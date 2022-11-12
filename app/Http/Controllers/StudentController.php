@@ -242,12 +242,13 @@ class StudentController extends Controller
             $student->remarks = $request->get('remarks');
             $student->status = $request->get('status');
             $student->save();
-            $seat = Seat::where('id', $request->seat)->first();
-            $seat->status = 1;
-            $seat->save();
             $seat = Seat::where('id', $request->old_seat)->first();
             $seat->status = 0;
             $seat->save();
+            $seat = Seat::where('id', $request->seat)->first();
+            $seat->status = 1;
+            $seat->save();
+
             toast('Student Information Updated.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
