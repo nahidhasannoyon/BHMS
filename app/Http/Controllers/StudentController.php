@@ -130,6 +130,7 @@ class StudentController extends Controller
                 $student->save();
                 $seat = Seat::where('id', $request->seat)->first();
                 $seat->status = 1;
+                $seat->save();
                 toast('New Student Allocated.', 'success');
                 return redirect()->back();
             }
