@@ -40,7 +40,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center">Student Portal</h5>
-                                <a class="btn btn-success" href="{{ route('student_login_form') }}">Login</a>
+                                <a class="btn btn-success" href="{{ route('student.login_form') }}">Login</a>
                             </div>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-center">Admin Portal</h5>
-                                <a class="btn btn-info" href="{{ route('admin_login_form') }}">Login</a>
+                                <a class="btn btn-info" href="{{ route('admin.login_form') }}">Login</a>
                             </div>
                         </div>
                     </div>

@@ -135,9 +135,8 @@ Auth::routes([
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 
-
-Route::prefix('student')->group(function () {
-    Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('student_login_form');
+Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
+    Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('login_form');
     Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
     Route::get('/home', [HomeController::class, 'showStudentHome'])->name('student_home');
 });
