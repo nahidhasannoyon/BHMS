@@ -29,10 +29,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($floors as $floor)
                             @if ($floor->building_id == $building->id)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i++ }}</td>
                                     <td>{{ $floor->name }}</td>
                                     @php
                                         $seat_capacity = 0;

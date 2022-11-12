@@ -27,11 +27,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($hostel_buildings as $hostel_building)
                             <tr>
-
-                                {{-- todo add check marks before every seat detail --}}
-                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ $i++ }}</td>
                                 <td>{{ $hostel_building->name }}</td>
                                 @php
                                     $seat_capacity = 0;

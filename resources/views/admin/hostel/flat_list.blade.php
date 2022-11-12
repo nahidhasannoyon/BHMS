@@ -30,11 +30,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($flats as $flat)
                             @if ($flat->floor_id == $floor->id)
                                 <tr>
-                                    {{-- todo add check marks before every seat detail --}}
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i++ }}</td>
                                     <td>{{ $flat->name }}</td>
                                     @php
                                         $seat_capacity = 0;

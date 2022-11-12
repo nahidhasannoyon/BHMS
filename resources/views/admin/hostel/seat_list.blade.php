@@ -21,7 +21,6 @@
                 <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            {{--  todo add asc and dec icon to sort --}}
                             <th>#</th>
                             <th>Seat Name</th>
                             <th>Status</th>
@@ -29,11 +28,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i = 1;
+                        @endphp
                         @foreach ($seats as $seat)
                             @if ($seat->flat_id == $flat->id)
                                 <tr>
-                                    {{-- todo add check marks before every seat detail --}}
-                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $i++ }}</td>
                                     <td>{{ $seat->name }}</td>
                                     @if ($seat->status == '0')
                                         <td class="text-success"><i class="icon-copy fa fa-check-circle"
