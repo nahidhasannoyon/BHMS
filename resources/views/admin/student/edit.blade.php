@@ -79,6 +79,8 @@
                                 @endforeach
                             </select>
                         </div>
+
+                        <input type="hidden" name="old_seat" value="{{ $student->seat }}">
                         {{ csrf_field() }}
 
                         <div class="form-group col-md-4">

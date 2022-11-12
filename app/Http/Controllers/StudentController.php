@@ -39,7 +39,8 @@ class StudentController extends Controller
                 "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
             ])->get(env('API_URL'));
             $students = json_decode($students);
-            $buildings = Building::orderby('name', 'asc')->get();
+            $building_ids = Seat::where('status', '0')->pluck('building_id')->toArray();
+            $buildings = Building::whereIn('id', $building_ids)->orderby('name', 'asc')->get();
             return view("admin.student.admit", compact('buildings', 'students'));
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -49,9 +50,9 @@ class StudentController extends Controller
     public function getFloor($id)
     {
         try {
-            $floors = Floor::where('building_id', $id)->get();
+            $floor_ids = Seat::where('status', '0')->where('building_id', $id)->pluck('floor_id')->toArray();
+            $floors = Floor::whereIn('id', $floor_ids)->orderby('name', 'asc')->get();
             return json_encode($floors);
-            return response()->json($floors);
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -60,20 +61,8 @@ class StudentController extends Controller
     public function getFlat($id)
     {
         try {
-            $flats = Flat::where('floor_id', $id)->get();
-            // foreach ($flats as $flat) {
-            //     if (Seat::where('flat_id', $flat->id)->where('status', '0')->exists()) {
-            //     } else {
-            //         $flat->remove();
-            //     }
-            // }
-            // $flats = $flats->map(function ($flat) {
-            //     if (Seat::where('flat_id', $flat->id)->where('status', 1)->exists()) {
-            //     } else {
-            //         return $flat;
-            //     }
-            // });
-
+            $flat_ids = Seat::where('status', '0')->where('floor_id', $id)->pluck('flat_id')->toArray();
+            $flats = Flat::whereIn('id', $flat_ids)->orderby('name', 'asc')->get();
             return json_encode($flats);
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -203,9 +192,9 @@ class StudentController extends Controller
     public function updateFloor($student, $id)
     {
         try {
-            $floors = Floor::where('building_id', $id)->get();
+            $floor_ids = Seat::where('status', '0')->where('building_id', $id)->pluck('floor_id')->toArray();
+            $floors = Floor::whereIn('id', $floor_ids)->orderby('name', 'asc')->get();
             return json_encode($floors);
-            return response()->json($floors);
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -214,7 +203,8 @@ class StudentController extends Controller
     public function updateFlat($student, $id)
     {
         try {
-            $flats = Flat::where('floor_id', $id)->get();
+            $flat_ids = Seat::where('status', '0')->where('floor_id', $id)->pluck('flat_id')->toArray();
+            $flats = Flat::whereIn('id', $flat_ids)->orderby('name', 'asc')->get();
             return json_encode($flats);
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -252,6 +242,12 @@ class StudentController extends Controller
             $student->remarks = $request->get('remarks');
             $student->status = $request->get('status');
             $student->save();
+            $seat = Seat::where('id', $request->seat)->first();
+            $seat->status = 1;
+            $seat->save();
+            $seat = Seat::where('id', $request->old_seat)->first();
+            $seat->status = 0;
+            $seat->save();
             toast('Student Information Updated.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
