@@ -4,9 +4,8 @@
         <div class="text-center">
             <h4 class="text-blue" style="padding-bottom: 10px"><u>Add Student</u></h4>
         </div>
-        {{-- {{ route('admin.student.store') }} --}}
         <div class="col-md-12">
-            <form action="#" method="POST">
+            <form action="{{ route('admin.student.add') }}" method="POST">
                 @csrf
                 <div class="col-md-12">
                     <div class="form-row">
@@ -28,8 +27,11 @@
                             <select class="custom-select2 form-control" id="building" style="width: 100%; height: 38px;"
                                 name="building" data-validation="required" placeholder='Select a Value'
                                 data-dependant="floor" required>
-                                <option selected disabled value>Choose...</option>
+                                @empty($building)
+                                    <option value="">No Available Seat</option>
+                                @endempty
                                 @foreach ($buildings as $building)
+                                    <option selected disabled value>Choose...</option>
                                     <option value="{{ $building->id }}">
                                         {{ $building->name }}
                                     </option>
