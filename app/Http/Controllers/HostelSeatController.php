@@ -48,11 +48,17 @@ class HostelSeatController extends Controller
     public function add_building(Request $request)
     {
         try {
-            $building = new Building();
-            $building->name = $request->name;
-            $building->save();
-            toast('New Hostel Building added.', 'success');
-            return redirect()->back();
+            $is_exist = Building::where('name', $request->name)->first();
+            if ($is_exist) {
+                toast('Building name already exist.', 'error');
+                return redirect()->back();
+            } else {
+                $building = new Building();
+                $building->name = $request->name;
+                $building->save();
+                toast('New Hostel Building added.', 'success');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -93,12 +99,18 @@ class HostelSeatController extends Controller
     public function add_floor(Request $request)
     {
         try {
-            $floor = new Floor();
-            $floor->name = $request->name;
-            $floor->building_id = $request->building_id;
-            $floor->save();
-            toast('New Floor added.', 'success');
-            return redirect()->back();
+            $is_exist = floor::where('name', $request->name)->first();
+            if ($is_exist) {
+                toast('Floor name already exist.', 'error');
+                return redirect()->back();
+            } else {
+                $floor = new Floor();
+                $floor->name = $request->name;
+                $floor->building_id = $request->building_id;
+                $floor->save();
+                toast('New Floor added.', 'success');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -143,13 +155,19 @@ class HostelSeatController extends Controller
     public function add_flat(Request $request)
     {
         try {
-            $flat = new Flat();
-            $flat->name = $request->name;
-            $flat->building_id = $request->building_id;
-            $flat->floor_id = $request->floor_id;
-            $flat->save();
-            toast('New Flat added.', 'success');
-            return redirect()->back();
+            $is_exist = Flat::where('name', $request->name)->first();
+            if ($is_exist) {
+                toast('Flat name already exist.', 'error');
+                return redirect()->back();
+            } else {
+                $flat = new Flat();
+                $flat->name = $request->name;
+                $flat->building_id = $request->building_id;
+                $flat->floor_id = $request->floor_id;
+                $flat->save();
+                toast('New Flat added.', 'success');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -187,15 +205,21 @@ class HostelSeatController extends Controller
     public function add_seat(Request $request)
     {
         try {
-            $seat = new Seat();
-            $seat->name = $request->name;
-            $seat->status = $request->status;
-            $seat->building_id = $request->building_id;
-            $seat->floor_id = $request->floor_id;
-            $seat->flat_id = $request->flat_id;
-            $seat->save();
-            toast('New Seat added.', 'success');
-            return redirect()->back();
+            $is_exist = Seat::where('name', $request->name)->first();
+            if ($is_exist) {
+                toast('Seat name already exist.', 'error');
+                return redirect()->back();
+            } else {
+                $seat = new Seat();
+                $seat->name = $request->name;
+                $seat->status = $request->status;
+                $seat->building_id = $request->building_id;
+                $seat->floor_id = $request->floor_id;
+                $seat->flat_id = $request->flat_id;
+                $seat->save();
+                toast('New Seat added.', 'success');
+                return redirect()->back();
+            }
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
