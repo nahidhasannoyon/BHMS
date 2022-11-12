@@ -64,7 +64,7 @@ class LoginController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 if ($user->role == 'admin') {
                     Session::put('admin', $user->name);
-                    return redirect()->route('admin_dashboard');
+                    return redirect()->route('admin.dashboard');
                 } else if ($user->role == 'accountant') {
                     return redirect()->route('accountant_dashboard');
                 }
