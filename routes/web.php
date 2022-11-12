@@ -31,13 +31,14 @@ use Illuminate\Routing\Route as RoutingRoute;
 
 Route::get('/', [LoginController::class, 'showLoginSelection'])->name('login_selection');
 
+// * Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // * Admin Login
     Route::get('login', [LoginController::class, 'showAdminLoginForm'])->name('login_form');
     Route::post('login', [LoginController::class, 'adminLogin'])->name('login');
 
     Route::get('dashboard', [HomeController::class, 'showAdminDashboard'])->name('dashboard');
-    // todo move this admin dashboard to admin controller 
+    // todo move this admin dashboard to admin controller
 
     Route::controller(UserController::class)->group(function () {
         Route::group(['as' => 'users.'], function () {
@@ -51,14 +52,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::controller(StudentController::class)->group(function () {
         Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
             // * Add new Student
-            Route::get('admit',  'admit_student')->name('admit');
+            Route::get('admit', 'admit_student')->name('admit');
             // * Fetch Hostel floors, flats, seats to add student
             Route::prefix('admit/{id}')->group(function () {
-                Route::get('getFloor',  'getFloor');
-                Route::get('getFlat',  'getFlat');
-                Route::get('getSeat',  'getSeat');
+                Route::get('getFloor', 'getFloor');
+                Route::get('getFlat', 'getFlat');
+                Route::get('getSeat', 'getSeat');
             });
-            Route::post('admit',  'add_student')->name('add');
+            Route::post('admit', 'add_student')->name('add');
 
             // * Student List
             Route::get('list', 'list')->name('list');
@@ -82,26 +83,27 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
     });
 
+    Route::controller(HostelSeatController::class)->group(function () {
+        Route::group(['prefix' => 'hostel', 'as' => 'hostel.'], function () {
+            // * Hostel Buildings
+            Route::get('list', 'building_list')->name('list');
+            Route::post('list', 'add_building')->name('add');
 
-    Route::group(['prefix' => 'hostel', 'as' => 'hostel.'], function () {
-        // * Hostel Buildings
-        Route::get('list', [BuildingController::class, 'building_list'])->name('list');
-        Route::post('list', [BuildingController::class, 'add_building'])->name('add');
+            // * Hostel Floors
+            Route::group(['prefix' => '{building}/floor', 'as' => 'floor.'], function () {
+                Route::get('list', 'floor_list')->name('list');
+                Route::post('add_floor', 'add_floor')->name('add');
 
-        // * Hostel Floors
-        Route::group(['prefix' => '{building}/floor', 'as' => 'floor.'], function () {
-            Route::get('list', [FloorController::class, 'floor_list'])->name('list');
-            Route::post('add_floor', [FloorController::class, 'add_floor'])->name('add');
+                // * Hostel Flats
+                Route::group(['prefix' => '{floor}/flat', 'as' => 'flat.'], function () {
+                    Route::get('list', 'flat_list')->name('list');
+                    Route::post('add_flat', 'add_flat')->name('add');
 
-            // * Hostel Flats
-            Route::group(['prefix' => '{floor}/flat', 'as' => 'flat.'], function () {
-                Route::get('list', [FlatController::class, 'flat_list'])->name('list');
-                Route::post('add_flat', [FlatController::class, 'add_flat'])->name('add');
-
-                // * Hostel Seats
-                Route::group(['prefix' => '{flat}/seat', 'as' => 'seat.'], function () {
-                    Route::get('list', [SeatController::class, 'seat_list'])->name('list');
-                    Route::post('add_seat', [SeatController::class, 'add_seat'])->name('add');
+                    // * Hostel Seats
+                    Route::group(['prefix' => '{flat}/seat', 'as' => 'seat.'], function () {
+                        Route::get('list', 'seat_list')->name('list');
+                        Route::post('add_seat', 'add_seat')->name('add');
+                    });
                 });
             });
         });
@@ -121,8 +123,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('bill/view', [MonthlyBillController::class, 'viewBill'])->name('view_bill');
 });
 
-
-
 // Route::resource('student', StudentController::class);
 // Route::prefix('admin')->name('users.')->group(function () {
 //     Route::resource('users', UserController::class);
@@ -134,7 +134,7 @@ Auth::routes([
 ]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-
+// * Student Routes
 Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('login_form');
     Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
