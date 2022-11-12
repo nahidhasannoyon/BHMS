@@ -86,6 +86,8 @@
                                         <input type="text" class="form-control" name="name" required>
                                     </div>
                                     <input type="hidden" name="flat_id" value="{{ $flat->id }}">
+                                    <input type="hidden" name="floor_id" value="{{ $floor->id }}">
+                                    <input type="hidden" name="building_id" value="{{ $building->id }}">
                                     <input type="hidden" name="status" value="0">
                                     <div class="form-group col-md-12">
                                         <button type="submit" class="btn btn-success btn-md float-right">

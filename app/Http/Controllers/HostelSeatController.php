@@ -114,6 +114,7 @@ class HostelSeatController extends Controller
         try {
             $flat = new Flat();
             $flat->name = $request->name;
+            $flat->building_id = $request->building_id;
             $flat->floor_id = $request->floor_id;
             $flat->save();
             toast('New Flat added.', 'success');
@@ -150,6 +151,8 @@ class HostelSeatController extends Controller
             $seat = new Seat();
             $seat->name = $request->name;
             $seat->status = $request->status;
+            $seat->building_id = $request->building_id;
+            $seat->floor_id = $request->floor_id;
             $seat->flat_id = $request->flat_id;
             $seat->save();
             toast('New Seat added.', 'success');
