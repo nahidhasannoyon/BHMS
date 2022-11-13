@@ -267,6 +267,9 @@ class StudentController extends Controller
         try {
             $student = Student::where('id', $id)->first();
             $student->delete();
+            $seat = Seat::where('id', $student->seat)->first();
+            $seat->status = 0;
+            $seat->save();
             toast('Student Deleted.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
