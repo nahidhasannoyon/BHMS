@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function users_list()
+    public function list()
     {
         $users = User::all();
         return view('admin.user.list', compact('users'));
     }
-    public function add_user(Request $request)
+    public function add(Request $request)
     {
         try {
             $email = $request->email;
@@ -28,6 +28,18 @@ class UserController extends Controller
             $admin->password = Hash::make($request->password);
             $admin->save();
             toast('New User Added.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $user = User::find($id);
+            $user->delete();
+            toast('User Deleted.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
