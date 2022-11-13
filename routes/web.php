@@ -41,10 +41,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // todo move this admin dashboard to admin controller
 
     Route::controller(UserController::class)->group(function () {
-        Route::group(['as' => 'users.'], function () {
+        Route::group(['prefix' => 'admin', 'as' => 'users.'], function () {
             // * User Routes
-            Route::get('users', 'users_list')->name('list');
-            Route::post('users', 'add_user')->name('add');
+            Route::get('users', 'list')->name('list');
+            Route::post('users', 'add')->name('add');
+
+            Route::group(['prefix' => '{id}'], function () {
+                Route::get('edit', 'edit')->name('edit');
+                Route::get('delete', 'delete')->name('delete');
+            });
         });
     });
 
