@@ -34,6 +34,35 @@ class UserController extends Controller
         }
     }
 
+    public function edit($id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            return view('admin.user.edit', compact('user'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $user = User::where('id', $id)->first();
+            $user->name = $request->name;
+            $user->role = $request->role;
+            $user->email = $request->email;
+            if ($request->password != null) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+            toast('User Updated.', 'success');
+            return
+                redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
     public function delete($id)
     {
         try {
