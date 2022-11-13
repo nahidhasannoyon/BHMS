@@ -91,7 +91,7 @@ class LoginController extends Controller
         if ($student) {
             if (Hash::check($request->password, $student->password)) {
                 Session::put('student', $student);
-                return redirect()->route('student_home');
+                return redirect()->route('student.dashboard');
             } else {
                 toast('Password is incorrect', 'error');
                 return
