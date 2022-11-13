@@ -16,6 +16,11 @@ class UserController extends Controller
     public function add_user(Request $request)
     {
         try {
+            $email = $request->email;
+            if (User::where('email', $email)->exists()) {
+                toast('Email already exists', 'error');
+                return redirect()->back();
+            }
             $admin = new User();
             $admin->name = $request->name;
             $admin->role = $request->role;
