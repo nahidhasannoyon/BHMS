@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
-                    data-target="#add-meal-type">
+                    data-target="#add-bill-for">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Add Bills</a>
             </div>
@@ -32,13 +32,11 @@
                                     <a href="#" class="btn btn-warning btn-md" data-toggle="tooltip"
                                         data-placement="top" title="Edit"><i class="icon-copy dw dw-edit-1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                    {{-- {{ route('monthly-bills.edit', $bill->id) }} --}}
                                     <a href="#" class="btn btn-danger btn-md" data-toggle="tooltip"
                                         data-placement="top" title="Delete"
                                         onclick="return confirm('Are you sure to delete this Bill?')"><i
                                             class="icon-copy dw dw-trash1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                    {{-- {{ route('monthly-bills.destroy', $bill->id) }} --}}
                                 </td>
                             </tr>
                         @endforeach

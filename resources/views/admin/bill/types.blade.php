@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
-                    data-target="#add-meal-type">
+                    data-target="#add-types-of-bill">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Add Bills</a>
             </div>
@@ -16,8 +16,6 @@
                 <table class="data-table table table-striped">
                     <thead>
                         <tr>
-                            {{--  todo add asc and dec icon to sort --}}
-                            <td>#</td>
                             <td>Name</td>
                             <td>Status</td>
                             <th>Action</th>
@@ -26,7 +24,6 @@
                     <tbody>
                         @foreach ($typesOfBill as $tBill)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $tBill->name }}</td>
                                 @if ($tBill->status == '0')
                                     <td class="text-danger"><i class="icon-copy ion-close-circled"
@@ -51,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-lg" id="add-types-of-bill" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">

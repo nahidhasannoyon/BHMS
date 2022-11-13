@@ -10,7 +10,7 @@
                     <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Flats</a>
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
-                    data-target="#add-meal-type">
+                    data-target="#add-new-seat">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Add Seat</a>
             </div>
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-lg" id="add-new-seat" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
