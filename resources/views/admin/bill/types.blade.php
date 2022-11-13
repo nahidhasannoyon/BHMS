@@ -40,7 +40,7 @@
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
                                     <a href="#" class="btn btn-danger btn-md" data-toggle="tooltip"
                                         data-placement="top" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this item from the list?')"><i
+                                        onclick="return confirm('Are you sure to delete this Type of Bill?')"><i
                                             class="icon-copy dw dw-trash1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
                                 </td>

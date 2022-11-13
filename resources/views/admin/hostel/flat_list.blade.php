@@ -38,7 +38,9 @@
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
+                                        data-placement="bottom" title="Delete"
+                                        onclick="return confirm('Are you sure to delete this Flat?')"><i
+                                            class="icon-copy dw dw-trash1"></i></a>
                                     <a href="{{ route('admin.hostel.floor.flat.seat.list', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
                                         class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
                                         title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
