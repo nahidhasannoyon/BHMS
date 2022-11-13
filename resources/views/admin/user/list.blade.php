@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ strtoupper($user->role[0]) . substr($user->role, -strlen($user->role) + 1) }}</td>
+                                <td>{{ ucfirst($user->role) }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
