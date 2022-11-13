@@ -29,7 +29,7 @@ class HomeController extends Controller
             return $th->getMessage();
         }
     }
-    public function showStudentHome()
+    public function showStudentDashboard()
     {
         try {
             return view("student.layout.dashboard");
