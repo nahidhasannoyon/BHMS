@@ -78,9 +78,9 @@ class StudentController extends Controller
             $phone = Student::where('phone', $request->phone)->exists();
             if ($student_id || $phone) {
                 if ($student_id) {
-                    toast('Student already exists', 'warning');
+                    toast('Student already exists', 'error');
                 } else {
-                    toast('Phone Number already exists', 'warning');
+                    toast('Phone Number already exists', 'error');
                 }
                 return redirect()->back();
             } else {
