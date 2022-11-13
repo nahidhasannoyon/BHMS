@@ -24,20 +24,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($hostel_buildings as $hostel_building)
+                        @foreach ($hostels as $hostel)
                             <tr>
-                                <td>{{ $hostel_building->name }}</td>
-                                <td> {{ $hostel_building->seats->count() }}</td>
-                                <td>{{ $hostel_building->seats->where('status', 0)->count() }} </td>
-                                <td>{{ $hostel_building->seats->where('status', 1)->count() }} </td>
+                                <td>{{ $hostel->name }}</td>
+                                <td> {{ $hostel->seats->count() }}</td>
+                                <td>{{ $hostel->seats->where('status', 0)->count() }} </td>
+                                <td>{{ $hostel->seats->where('status', 1)->count() }} </td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this Building?')"><i
+                                    <a href="{{ route('admin.hostel.edit_building', $hostel->id) }}"
+                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
+                                    <a href="{{ route('admin.hostel.delete_building', $hostel->id) }}"
+                                        class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Delete" onclick="return confirm('Are you sure to delete this Building?')"><i
                                             class="icon-copy dw dw-trash1"></i></a>
-                                    <a href="{{ route('admin.hostel.floor.list', $hostel_building->id) }}"
+                                    <a href="{{ route('admin.hostel.floor.list', $hostel->id) }}"
                                         class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
                                         title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
                                 </td>
