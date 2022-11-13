@@ -14,32 +14,10 @@ class HostelSeatController extends Controller
     {
         try {
             $hostel_buildings = Building::all();
-            $floors = Floor::all();
-            $flats = Flat::all();
-            $seats = Seat::all();
-            $total_seat = 0;
-            $seats_available = 0;
-            $seats_occupied = 0;
-            foreach ($hostel_buildings as $hostel_building) {
-                $selected_floors = Floor::where('building_id', $hostel_building->id)->get();
-                foreach ($selected_floors as $selected_floor) {
-                    $selected_flats = Flat::where('floor_id', $selected_floor->id)->get();
-                    foreach ($selected_flats as $selected_flat) {
-                        $total_seat += Seat::where('flat_id', $selected_flat->id)
-                            ->get()
-                            ->count();
-                        $seats_available += Seat::where('flat_id', $selected_flat->id)
-                            ->where('status', '0')
-                            ->get()
-                            ->count();
-                        $seats_occupied += Seat::where('flat_id', $selected_flat->id)
-                            ->where('status', '1')
-                            ->get()
-                            ->count();
-                    }
-                }
-            }
-            return view('admin.hostel.building_list', compact('hostel_buildings', 'total_seat', 'seats_available', 'seats_occupied', 'floors', 'flats', 'seats'));
+            $total_seat = Seat::count();
+            $seats_available = Seat::where('status', 0)->count();
+            $seats_occupied = Seat::where('status', 1)->count();
+            return view('admin.hostel.building_list', compact('hostel_buildings', 'total_seat', 'seats_available', 'seats_occupied'));
         } catch (\Exception $th) {
             return $th->getMessage();
         }
@@ -67,30 +45,11 @@ class HostelSeatController extends Controller
     public function floor_list(Building $building)
     {
         try {
-            $floors = Floor::all();
-            $flats = Flat::all();
-            $seats = Seat::all();
-            $total_seat = 0;
-            $seats_available = 0;
-            $seats_occupied = 0;
-            $selected_floors = Floor::where('building_id', $building->id)->get();
-            foreach ($selected_floors as $selected_floor) {
-                $selected_flats = Flat::where('floor_id', $selected_floor->id)->get();
-                foreach ($selected_flats as $selected_flat) {
-                    $total_seat += Seat::where('flat_id', $selected_flat->id)
-                        ->get()
-                        ->count();
-                    $seats_available += Seat::where('flat_id', $selected_flat->id)
-                        ->where('status', '0')
-                        ->get()
-                        ->count();
-                    $seats_occupied += Seat::where('flat_id', $selected_flat->id)
-                        ->where('status', '1')
-                        ->get()
-                        ->count();
-                }
-            }
-            return view('admin.hostel.floor_list', compact('floors', 'building', 'total_seat', 'seats_available', 'seats_occupied', 'flats', 'seats'));
+            $floors = Floor::where('building_id', $building->id)->get();
+            $total_seat = Seat::where('building_id', $building->id)->count();
+            $seats_available = Seat::where('building_id', $building->id)->where('status', 0)->count();
+            $seats_occupied = Seat::where('building_id', $building->id)->where('status', 1)->count();
+            return view('admin.hostel.floor_list', compact('building', 'floors',  'total_seat', 'seats_available', 'seats_occupied'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -119,34 +78,11 @@ class HostelSeatController extends Controller
     public function flat_list(Building $building, Floor $floor)
     {
         try {
-            $flats = Flat::all();
-            $seats = Seat::all();
-            $total_seat = 0;
-            $seats_available = 0;
-            $seats_occupied = 0;
-            $selected_flats = Flat::where('floor_id', $floor->id)->get();
-            foreach ($selected_flats as $selected_flat) {
-                $total_seat += Seat::where('flat_id', $selected_flat->id)
-                    ->get()
-                    ->count();
-                $seats_available += Seat::where('flat_id', $selected_flat->id)
-                    ->where('status', '0')
-                    ->get()
-                    ->count();
-                $seats_occupied += Seat::where('flat_id', $selected_flat->id)
-                    ->where('status', '1')
-                    ->get()
-                    ->count();
-            }
-            return view('admin.hostel.flat_list', compact(
-                'flats',
-                'floor',
-                'total_seat',
-                'seats_available',
-                'seats_occupied',
-                'building',
-                'seats'
-            ));
+            $flats = Flat::where('floor_id', $floor->id)->get();
+            $total_seat = Seat::where('floor_id', $floor->id)->count();
+            $seats_available = Seat::where('floor_id', $floor->id)->where('status', 0)->count();
+            $seats_occupied = Seat::where('floor_id', $floor->id)->where('status', 1)->count();
+            return view('admin.hostel.flat_list', compact('building', 'floor', 'flats', 'total_seat', 'seats_available', 'seats_occupied'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -176,27 +112,11 @@ class HostelSeatController extends Controller
     public function seat_list(Building $building, Floor $floor, Flat $flat)
     {
         try {
-            $seats = Seat::all();
-            $total_seat = Seat::where('flat_id', $flat->id)
-                ->get()
-                ->count();
-            $seats_available = Seat::where('flat_id', $flat->id)
-                ->where('status', '0')
-                ->get()
-                ->count();
-            $seats_occupied = Seat::where('flat_id', $flat->id)
-                ->where('status', '1')
-                ->get()
-                ->count();
-            return view('admin.hostel.seat_list', compact(
-                'building',
-                'floor',
-                'flat',
-                'seats',
-                'total_seat',
-                'seats_available',
-                'seats_occupied'
-            ));
+            $seats = Seat::where('flat_id', $flat->id)->get();
+            $total_seat = Seat::where('flat_id', $flat->id)->count();
+            $seats_available = Seat::where('flat_id', $flat->id)->where('status', '0')->count();
+            $seats_occupied = Seat::where('flat_id', $flat->id)->where('status', '1')->count();
+            return view('admin.hostel.seat_list', compact('building', 'floor', 'flat', 'seats', 'total_seat', 'seats_available', 'seats_occupied'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
