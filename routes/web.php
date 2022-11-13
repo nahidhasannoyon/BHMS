@@ -135,8 +135,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
     });
 
-    Route::get('meal/index', [HostelMealController::class, 'index'])->name('meals-list');
-    Route::post('meal/index', [HostelMealController::class, 'store']);
+    Route::controller(HostelMealController::class)->group(function () {
+        Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
+            Route::get('list',  'list')->name('list');
+            Route::post('list',  'add')->name('add');
+        });
+    });
 
     Route::get('bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
     Route::post('bill/monthly', [MonthlyBillController::class, 'store']);
