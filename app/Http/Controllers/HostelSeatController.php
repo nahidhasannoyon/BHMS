@@ -13,11 +13,11 @@ class HostelSeatController extends Controller
     public function building_list()
     {
         try {
-            $hostel_buildings = Building::all();
+            $hostels = Building::all();
             $total_seat = Seat::count();
             $seats_available = Seat::where('status', 0)->count();
             $seats_occupied = Seat::where('status', 1)->count();
-            return view('admin.hostel.building_list', compact('hostel_buildings', 'total_seat', 'seats_available', 'seats_occupied'));
+            return view('admin.hostel.building_list', compact('hostels', 'total_seat', 'seats_available', 'seats_occupied'));
         } catch (\Exception $th) {
             return $th->getMessage();
         }
@@ -37,6 +37,41 @@ class HostelSeatController extends Controller
                 toast('New Hostel Building added.', 'success');
                 return redirect()->back();
             }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function edit_building($id)
+    {
+        try {
+            $building = Building::where('id', $id)->first();
+            return view('admin.hostel.edit_building', compact('building'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function update_building(Request $request)
+    {
+        try {
+            $building = Building::where('id', $request->id)->first();
+            $building->name = $request->name;
+            $building->save();
+            toast('Hostel Building updated.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function delete_building($id)
+    {
+        try {
+            $building = Building::where('id', $id)->first();
+            $building->delete();
+            toast('Hostel Building deleted.', 'success');
+            return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
