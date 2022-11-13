@@ -94,26 +94,41 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             // * Hostel Buildings
             Route::get('list', 'building_list')->name('list');
             Route::post('list', 'add_building')->name('add');
-            Route::group(['prefix' => '{id}'], function () {
-                Route::get('edit', 'edit_building')->name('edit_building');
-                Route::get('delete', 'delete_building')->name('delete_building');
-                Route::post('update', 'update_building')->name('update_building');
+            Route::group(['prefix' => '{building_id}'], function () {
+                Route::get('edit', 'edit_building')->name('edit');
+                Route::get('delete', 'delete_building')->name('delete');
+                Route::post('update', 'update_building')->name('update');
             });
 
             // * Hostel Floors
             Route::group(['prefix' => '{building}/floor', 'as' => 'floor.'], function () {
                 Route::get('list', 'floor_list')->name('list');
-                Route::post('add_floor', 'add_floor')->name('add');
+                Route::post('add', 'add_floor')->name('add');
+                Route::group(['prefix' => '{floor}'], function () {
+                    Route::get('edit', 'edit_floor')->name('edit');
+                    Route::get('delete', 'delete_floor')->name('delete');
+                    Route::post('update', 'update_floor')->name('update');
+                });
 
                 // * Hostel Flats
                 Route::group(['prefix' => '{floor}/flat', 'as' => 'flat.'], function () {
                     Route::get('list', 'flat_list')->name('list');
                     Route::post('add_flat', 'add_flat')->name('add');
+                    Route::group(['prefix' => '{flat}'], function () {
+                        Route::get('edit', 'edit_flat')->name('edit');
+                        Route::get('delete', 'delete_flat')->name('delete');
+                        Route::post('update', 'update_flat')->name('update');
+                    });
 
                     // * Hostel Seats
                     Route::group(['prefix' => '{flat}/seat', 'as' => 'seat.'], function () {
                         Route::get('list', 'seat_list')->name('list');
-                        Route::post('add_seat', 'add_seat')->name('add');
+                        Route::post('add', 'add_seat')->name('add');
+                        Route::group(['prefix' => '{seat}'], function () {
+                            Route::get('edit', 'edit_seat')->name('edit');
+                            Route::get('delete', 'delete_seat')->name('delete');
+                            Route::post('update', 'update_seat')->name('update');
+                        });
                     });
                 });
             });
