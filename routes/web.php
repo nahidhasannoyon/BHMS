@@ -139,6 +139,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
             Route::get('list',  'list')->name('list');
             Route::post('list',  'add')->name('add');
+            Route::group(['prefix' => '{meal}'], function () {
+                Route::get('edit', 'edit')->name('edit');
+                Route::get('delete', 'delete')->name('delete');
+                Route::post('update', 'update')->name('update');
+            });
         });
     });
 
