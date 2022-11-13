@@ -31,11 +31,12 @@
                                 <td>{{ $meal->meal_items }}</td>
                                 <td>{{ $meal->price }}</td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-md" data-toggle="tooltip"
-                                        data-placement="top" title="Edit"><i class="icon-copy dw dw-edit-1"
+                                    <a href="{{ route('admin.meal.edit', $meal->id) }}" class="btn btn-warning btn-md"
+                                        data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                            class="icon-copy dw dw-edit-1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                    <a href="#" class="btn btn-danger btn-md" data-toggle="tooltip"
-                                        data-placement="top" title="Delete"
+                                    <a href="{{ route('admin.meal.delete', $meal->id) }}" class="btn btn-danger btn-md"
+                                        data-toggle="tooltip" data-placement="top" title="Delete"
                                         onclick="return confirm('Are you sure to delete this item from the list?')"><i
                                             class="icon-copy dw dw-trash1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
@@ -57,23 +58,40 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('admin.meal.list') }}" method="post">
+                            <form action="{{ route('admin.meal.list', $meal->id) }}" method="post">
                                 @csrf
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
-                                        <label for="">Meal Day:</label>
-                                        <input type="text" class="form-control" name="day" required>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Meal Day:</label><span class="text-danger">*</span>
+                                        <select name="day" class="custom-select2 form-control"
+                                            style="width: 100%; height: 38px;" data-validation="required" required>
+                                            <option selected disabled value>Choose...</option>
+                                            <option value="Saturday">Saturday</option>
+                                            <option value="Sunday">Sunday</option>
+                                            <option value="Monday">Monday</option>
+                                            <option value="Tuesday">Tuesday</option>
+                                            <option value="Wednesday">Wednesday</option>
+                                            <option value="Thursday">Thursday</option>
+                                            <option value="Friday">Friday</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="">Meal Type:</label>
-                                        <input type="text" class="form-control" name="meal_type" required>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Meal Type:</label><span class="text-danger">*</span>
+                                        <select name="meal_type" class="custom-select2 form-control"
+                                            style="width: 100%; height: 38px;" data-validation="required" required>
+                                            <option selected disabled value>Choose...</option>
+                                            <option value="Breakfast">Breakfast</option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Dinner">Dinner</option>
+                                        </select>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="">Meal Items:</label>
+
+                                    <div class="form-group col-md-6">
+                                        <label for="">Meal Items:</label><span class="text-danger">*</span>
                                         <input type="text" class="form-control" name="meal_items" required>
                                     </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="">Meal Price:</label>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Meal Price:</label><span class="text-danger">*</span>
                                         <input type="number" class="form-control" name="price" required>
                                     </div>
                                     <div class="form-group col-md-12">
