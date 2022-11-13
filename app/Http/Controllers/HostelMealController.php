@@ -33,4 +33,42 @@ class HostelMealController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function edit($id)
+    {
+        try {
+            $meal = HostelMeal::find($id);
+            return view('admin.meal.edit', compact('meal'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $meal = HostelMeal::find($id);
+            $meal->day = $request->day;
+            $meal->meal_type = $request->meal_type;
+            $meal->meal_items = $request->meal_items;
+            $meal->price = $request->price;
+            $meal->save();
+            toast('Meal Updated.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function delete($id)
+    {
+        try {
+            $meal = HostelMeal::find($id);
+            $meal->delete();
+            toast('Meal Deleted.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
 }
