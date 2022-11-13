@@ -95,8 +95,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             Route::get('list', 'building_list')->name('list');
             Route::post('list', 'add_building')->name('add');
             Route::group(['prefix' => '{id}'], function () {
-                Route::get('edit', 'edit')->name('edit');
-                Route::get('delete', 'delete')->name('delete');
+                Route::get('edit', 'edit_building')->name('edit_building');
+                Route::get('delete', 'delete_building')->name('delete_building');
+                Route::post('update', 'update_building')->name('update_building');
             });
 
             // * Hostel Floors
