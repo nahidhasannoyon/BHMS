@@ -63,7 +63,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('meals-list') }}" method="post">
+                            <form action="{{ route('admin.meals-list') }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
