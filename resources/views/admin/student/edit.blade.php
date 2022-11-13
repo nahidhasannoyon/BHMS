@@ -29,11 +29,16 @@
                             <select class="custom-select2 form-control" id="building" style="width: 100%; height: 38px;"
                                 name="building" data-validation="required" placeholder='Select a Value'
                                 data-dependant="floor" required>
-                                @foreach ($buildings as $building)
-                                    <option value="{{ $building->id }}"
-                                        {{ $student->building == $building->id ? 'selected' : '' }}>
-                                        {{ $building->name }}</option>
-                                @endforeach
+                                @if ($buildings->count() > 0)
+                                    <option value="" selected disabled>Please select a building...</option>
+                                    @foreach ($buildings as $building)
+                                        <option value="{{ $building->id }}"
+                                            {{ $student->building == $building->id ? 'selected' : '' }}>
+                                            {{ $building->name }}</option>
+                                    @endforeach
+                                @else
+                                    <option value="" selected disabled>No Available Building</option>
+                                @endif
                             </select>
                         </div>
 
@@ -103,9 +108,8 @@
                             <select class="custom-select2 form-control" value="{{ $student->status }}" name="status"
                                 placeholder='Select a Value' required>
                                 <option value="1" {{ $student->status == 1 ? 'selected' : '' }}>Active</option>
-                                <option value="2" {{ $student->status == 2 ? 'selected' : '' }}>Inactive</option>
-                                <option value="3" {{ $student->status == 3 ? 'selected' : '' }}>Cancelled</option>
-                                <option value="4" {{ $student->status == 4 ? 'selected' : '' }}>Left</option>
+                                <option value="0" {{ $student->status == 0 ? 'selected' : '' }}>Inactive</option>
+
                             </select>
 
                         </div>
