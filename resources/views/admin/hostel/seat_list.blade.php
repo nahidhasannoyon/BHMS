@@ -21,27 +21,20 @@
                 <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Seat Name</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
                         @foreach ($seats as $seat)
                             @if ($seat->flat_id == $flat->id)
                                 <tr>
-                                    <td>{{ $i++ }}</td>
                                     <td>{{ $seat->name }}</td>
                                     @if ($seat->status == '0')
-                                        <td class="text-success"><i class="icon-copy fa fa-check-circle"
-                                                aria-hidden="true"></i>Seat
-                                            Available</td>
+                                        <td class="text-success"><i aria-hidden="true"></i>Available</td>
                                     @else
-                                        <td class="text-danger"><i class="icon-copy ion-close-circled"></i>Seat Occupied
+                                        <td class="text-danger"><i></i>Occupied
                                         </td>
                                     @endif
                                     <td>

@@ -16,9 +16,6 @@
                 <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-
-                            {{--  todo add asc and dec icon to sort --}}
-                            <th>#</th>
                             <th>Building Name</th>
                             <th>Capacity</th>
                             <th>Available</th>
@@ -27,46 +24,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
                         @foreach ($hostel_buildings as $hostel_building)
                             <tr>
-                                <td>{{ $i++ }}</td>
                                 <td>{{ $hostel_building->name }}</td>
-                                @php
-                                    $seat_capacity = 0;
-                                    $seat_available = 0;
-                                    $seat_occupied = 0;
-                                @endphp
-                                @foreach ($floors as $floor)
-                                    @if ($floor->building_id == $hostel_building->id)
-                                        @foreach ($flats as $flat)
-                                            @if ($flat->floor_id == $floor->id)
-                                                @foreach ($seats as $seat)
-                                                    @if ($seat->flat_id == $flat->id)
-                                                        @php
-                                                            $seat_capacity++;
-                                                        @endphp
-                                                        @if ($seat->status == 0)
-                                                            @php
-                                                                $seat_available++;
-                                                            @endphp
-                                                        @else
-                                                            @php
-                                                                $seat_occupied++;
-                                                            @endphp
-                                                        @endif
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    @endif
-                                @endforeach
-
-                                <td> {{ $seat_capacity }}</td>
-                                <td> {{ $seat_available }}</td>
-                                <td> {{ $seat_occupied }}</td>
+                                <td> {{ $hostel_building->seats->count() }}</td>
+                                <td>{{ $hostel_building->seats->where('status', 0)->count() }} </td>
+                                <td>{{ $hostel_building->seats->where('status', 1)->count() }} </td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>

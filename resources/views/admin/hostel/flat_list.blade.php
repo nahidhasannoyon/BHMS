@@ -20,8 +20,6 @@
                 <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            {{--  todo add asc and dec icon to sort --}}
-                            <th>#</th>
                             <th>Flat Name</th>
                             <th>Capacity</th>
                             <th>Available</th>
@@ -30,100 +28,65 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
                         @foreach ($flats as $flat)
-                            @if ($flat->floor_id == $floor->id)
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $flat->name }}</td>
-                                    @php
-                                        $seat_capacity = 0;
-                                        $seat_available = 0;
-                                        $seat_occupied = 0;
-                                    @endphp
-                                    @foreach ($seats as $seat)
-                                        @php
-                                            $seat_capacity = $seat
-                                                ->where('flat_id', $flat->id)
-                                                ->get()
-                                                ->count();
-                                            $seat_available = $seat
-                                                ->where('flat_id', $flat->id)
-                                                ->where('status', '0')
-                                                ->get()
-                                                ->count();
-                                            $seat_occupied = $seat
-                                                ->where('flat_id', $flat->id)
-                                                ->where('status', '1')
-                                                ->get()
-                                                ->count();
-                                        @endphp
-                                    @break
-                                @endforeach
-                                <td> {{ $seat_capacity }}</td>
-                                <td> {{ $seat_available }}</td>
-                                <td> {{ $seat_occupied }}</td>
-
+                            <tr>
+                                <td>{{ $flat->name }}</td>
+                                <td> {{ $flat->seats->count() }}</td>
+                                <td>{{ $flat->seats->where('status', 0)->count() }} </td>
+                                <td>{{ $flat->seats->where('status', 1)->count() }} </td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Edit"><i
-                                            class="icon-copy dw dw-edit-1"></i></a>
-                                    {{-- {{route('student-information.edit', $student->id)}} --}}
+                                        data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
                                     <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"><i
-                                            class="icon-copy dw dw-trash1"></i></a>
+                                        data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
                                     <a href="{{ route('admin.hostel.floor.flat.seat.list', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
                                         class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
                                         title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
-                                    {{-- {{ route('student-information.destroy',$student->id)}} --}}
                                 </td>
                             </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
-            <p class="text-center text-white bg-secondary pd-5">Total Seat: {{ $total_seat }},
-                Available: {{ $seats_available }} & Occupied:
-                {{ $seats_occupied }} </p>
+                        @endforeach
+                    </tbody>
+                </table>
+                <p class="text-center text-white bg-secondary pd-5">Total Seat: {{ $total_seat }},
+                    Available: {{ $seats_available }} & Occupied:
+                    {{ $seats_occupied }} </p>
+            </div>
         </div>
     </div>
-</div>
-<div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">Add New Flat From Here</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
+    <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myLargeModalLabel">Add New Flat From Here</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
 
-                        <form
-                            action="{{ route('admin.hostel.floor.flat.add', ['building' => $building->id, 'floor' => $floor->id]) }}"
-                            method="post">
-                            @csrf
-                            <div class="form-row">
-                                <div class="form-group col-md-12">
-                                    <label for="">Flat Name:</label><span class="text-danger">*</span>
-                                    <input type="text" class="form-control" name="name" required>
+                            <form
+                                action="{{ route('admin.hostel.floor.flat.add', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                                method="post">
+                                @csrf
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="">Flat Name:</label><span class="text-danger">*</span>
+                                        <input type="text" class="form-control" name="name" required>
+                                    </div>
+                                    <input type="hidden" name="floor_id" value="{{ $floor->id }}">
+                                    <input type="hidden" name="building_id" value="{{ $building->id }}">
+                                    <div class="form-group col-md-12">
+                                        <button type="submit" class="btn btn-success btn-md float-right">
+                                            <i class="icon-copy dw dw-add"
+                                                style="font-family: dropways, Bangla526, sans-serif;"></i> Add Floor
+                                        </button>
+                                    </div>
                                 </div>
-                                <input type="hidden" name="floor_id" value="{{ $floor->id }}">
-                                <input type="hidden" name="building_id" value="{{ $building->id }}">
-                                <div class="form-group col-md-12">
-                                    <button type="submit" class="btn btn-success btn-md float-right">
-                                        <i class="icon-copy dw dw-add"
-                                            style="font-family: dropways, Bangla526, sans-serif;"></i> Add Floor
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

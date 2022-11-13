@@ -19,8 +19,6 @@
                 <table class="data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            {{--  todo add asc and dec icon to sort --}}
-                            <th>#</th>
                             <th>Floor Name</th>
                             <th>Capacity</th>
                             <th>Available</th>
@@ -29,55 +27,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $i = 1;
-                        @endphp
                         @foreach ($floors as $floor)
-                            @if ($floor->building_id == $building->id)
-                                <tr>
-                                    <td>{{ $i++ }}</td>
-                                    <td>{{ $floor->name }}</td>
-                                    @php
-                                        $seat_capacity = 0;
-                                        $seat_available = 0;
-                                        $seat_occupied = 0;
-                                    @endphp
-                                    @foreach ($flats as $flat)
-                                        @if ($flat->floor_id == $floor->id)
-                                            @foreach ($seats as $seat)
-                                                @if ($seat->flat_id == $flat->id)
-                                                    @php
-                                                        $seat_capacity++;
-                                                    @endphp
-                                                    @if ($seat->status == 0)
-                                                        @php
-                                                            $seat_available++;
-                                                        @endphp
-                                                    @else
-                                                        @php
-                                                            $seat_occupied++;
-                                                        @endphp
-                                                    @endif
-                                                @endif
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-                                    <td> {{ $seat_capacity }}</td>
-                                    <td> {{ $seat_available }}</td>
-                                    <td> {{ $seat_occupied }}</td>
-                                    <td>
-                                        <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
-                                            data-placement="bottom" title="Edit"><i
-                                                class="icon-copy dw dw-edit-1"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                            data-placement="bottom" title="Delete"><i
-                                                class="icon-copy dw dw-trash1"></i></a>
-                                        <a href="{{ route('admin.hostel.floor.flat.list', ['building' => $building->id, 'floor' => $floor->id]) }}"
-                                            class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                            title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
-                                    </td>
-                                </tr>
-                            @endif
+                            <tr>
+                                <td>{{ $floor->name }}</td>
+                                <td> {{ $floor->seats->count() }}</td>
+                                <td>{{ $floor->seats->where('status', 0)->count() }} </td>
+                                <td>{{ $floor->seats->where('status', 1)->count() }} </td>
+                                <td>
+                                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
+                                        data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
+                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
+                                        data-placement="bottom" title="Delete"><i class="icon-copy dw dw-trash1"></i></a>
+                                    <a href="{{ route('admin.hostel.floor.flat.list', ['building' => $building->id, 'floor' => $floor->id]) }}"
+                                        class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="View"><i class="icon-copy bi bi-arrow-right-square"></i></a>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
