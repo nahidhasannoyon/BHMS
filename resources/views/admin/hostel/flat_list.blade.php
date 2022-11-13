@@ -35,11 +35,20 @@
                                 <td>{{ $flat->seats->where('status', 0)->count() }} </td>
                                 <td>{{ $flat->seats->where('status', 1)->count() }} </td>
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this Flat?')"><i
+                                    <a href="{{ route('admin.hostel.floor.flat.edit', [
+                                        'building' => $building->id,
+                                        'floor' => $floor->id,
+                                        'flat' => $flat->id,
+                                    ]) }}"
+                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
+                                    <a href="{{ route('admin.hostel.floor.flat.delete', [
+                                        'building' => $building->id,
+                                        'floor' => $floor->id,
+                                        'flat' => $flat->id,
+                                    ]) }}"
+                                        class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                        title="Delete" onclick="return confirm('Are you sure to delete this Flat?')"><i
                                             class="icon-copy dw dw-trash1"></i></a>
                                     <a href="{{ route('admin.hostel.floor.flat.seat.list', ['building' => $building->id, 'floor' => $floor->id, 'flat' => $flat->id]) }}"
                                         class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
