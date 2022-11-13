@@ -29,7 +29,7 @@
                             <label for="">Floor Name:</label><span class="text-danger">*</span>
                             <input type="text" class="form-control" name="name" required value="{{ $floor->name }}">
                         </div>
-                        <input type="hidden" name="floor_id" value="{{ $floor->id }}">
+                        <input type="hidden" name="id" value="{{ $floor->id }}">
                         <input type="hidden" name="building_id" value="{{ $floor->building_id }}">
                         <div class="form-group col-md-12">
                             <button type="submit" class="btn btn-success btn-md float-right">
