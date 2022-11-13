@@ -41,14 +41,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     // todo move this admin dashboard to admin controller
 
     Route::controller(UserController::class)->group(function () {
-        Route::group(['prefix' => 'admin', 'as' => 'users.'], function () {
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
             // * User Routes
-            Route::get('users', 'list')->name('list');
-            Route::post('users', 'add')->name('add');
+            Route::get('', 'list')->name('list');
+            Route::post('', 'add')->name('add');
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::get('edit', 'edit')->name('edit');
                 Route::get('delete', 'delete')->name('delete');
+                Route::post('update', 'update')->name('update');
             });
         });
     });
@@ -93,6 +94,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             // * Hostel Buildings
             Route::get('list', 'building_list')->name('list');
             Route::post('list', 'add_building')->name('add');
+            Route::group(['prefix' => '{id}'], function () {
+                Route::get('edit', 'edit')->name('edit');
+                Route::get('delete', 'delete')->name('delete');
+            });
 
             // * Hostel Floors
             Route::group(['prefix' => '{building}/floor', 'as' => 'floor.'], function () {
