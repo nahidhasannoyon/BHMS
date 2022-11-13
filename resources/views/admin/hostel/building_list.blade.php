@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
-                    data-target="#add-meal-type">
+                    data-target="#add-new-building">
                     <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
                     Add Hostel Building</a>
             </div>
@@ -31,12 +31,12 @@
                                 <td>{{ $hostel->seats->where('status', 0)->count() }} </td>
                                 <td>{{ $hostel->seats->where('status', 1)->count() }} </td>
                                 <td>
-                                    <a href="{{ route('admin.hostel.edit_building', $hostel->id) }}"
-                                        class="btn btn-warning btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                        title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="{{ route('admin.hostel.delete_building', $hostel->id) }}"
-                                        class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                        title="Delete" onclick="return confirm('Are you sure to delete this Building?')"><i
+                                    <a href="{{ route('admin.hostel.edit', $hostel->id) }}" class="btn btn-warning btn-sm"
+                                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                            class="icon-copy dw dw-edit-1"></i></a>
+                                    <a href="{{ route('admin.hostel.delete', $hostel->id) }}" class="btn btn-danger btn-sm"
+                                        data-toggle="tooltip" data-placement="bottom" title="Delete"
+                                        onclick="return confirm('Are you sure to delete this Building?')"><i
                                             class="icon-copy dw dw-trash1"></i></a>
                                     <a href="{{ route('admin.hostel.floor.list', $hostel->id) }}"
                                         class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade bs-example-modal-lg" id="add-meal-type" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade bs-example-modal-lg" id="add-new-building" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
