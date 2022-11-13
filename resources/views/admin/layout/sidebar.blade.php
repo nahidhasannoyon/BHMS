@@ -176,8 +176,8 @@
                       </a>
                       <ul class="submenu">
                           <li>
-                              <a href="{{ route('admin.meals-list') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/index') ? 'active' : '' }}">
+                              <a href="{{ route('admin.meal.list') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/list') ? 'active' : '' }}">
                                   <span class="mtext">Meals list</span>
                               </a>
                           </li>
