@@ -16,7 +16,6 @@
                 <table class="checkbox-datatable data-table table table-striped text-center">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Name</th>
                             <th>Role</th>
                             <th>Email</th>
@@ -27,15 +26,14 @@
 
                         @foreach ($users as $user)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ ucfirst($user->role) }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="#" class="btn btn-warning btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Edit"><i class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Delete"
+                                    <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger btn-sm"
+                                        data-toggle="tooltip" data-placement="bottom" title="Delete"
                                         onclick="return confirm('Are you sure to delete this User from the list?')"><i
                                             class="icon-copy dw dw-trash1"></i></a>
                                     <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip"
