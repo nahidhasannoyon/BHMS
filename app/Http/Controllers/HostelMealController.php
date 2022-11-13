@@ -9,16 +9,16 @@ use RealRashid\SweetAlert\Toaster;
 class HostelMealController extends Controller
 {
 
-    public function index()
+    public function list()
     {
         try {
             $meals = HostelMeal::all();
-            return view('admin.meal.index', compact('meals'));
+            return view('admin.meal.list', compact('meals'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
-    public function store(Request $request)
+    public function add(Request $request)
     {
         try {
             $meal = new HostelMeal();
