@@ -17,21 +17,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function admit_student()
     {
         try {
@@ -79,12 +65,7 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function add_student(Request $request)
     {
         try {
@@ -128,12 +109,6 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function list()
     {
         try {
@@ -158,12 +133,6 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         try {
@@ -182,13 +151,6 @@ class StudentController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function updateFloor($student, $id)
     {
         try {
@@ -233,35 +195,45 @@ class StudentController extends Controller
             $student->name = $name;
             $student->student_id = $std_id;
             $student->dept = $dept;
-            $student->building = $request->building;
-            $student->floor = $request->floor;
-            $student->flat = $request->flat;
-            $student->seat = $request->seat;
+            if ($request->old_seat) {
+                $seat = Seat::where('id', $request->old_seat)->first();
+                $seat->status = 0;
+                $seat->save();
+            }
+            if ($request->get('status') == 1) {
+                $student->building = $request->building;
+                $student->floor = $request->floor;
+                $student->flat = $request->flat;
+                $student->seat = $request->seat;
+                $student->status = 1;
+                if ($request->old_seat != $request->seat) {
+                    $seat = Seat::where('id', $request->seat)->first();
+                    $seat->status = 1;
+                    $seat->save();
+                }
+            } else {
+                $student->status = 0;
+                $student->building = 0;
+                $student->floor = 0;
+                $student->flat = 0;
+                $student->seat = 0;
+                if ($request->old_seat) {
+                    $seat = Seat::where('id', $request->old_seat)->first();
+                    $seat->status = 0;
+                    $seat->save();
+                }
+            }
             $student->phone = $request->get('phone');
             $student->g_phone = $request->get('g_phone');
             $student->remarks = $request->get('remarks');
-            $student->status = $request->get('status');
             $student->save();
-            $seat = Seat::where('id', $request->old_seat)->first();
-            $seat->status = 0;
-            $seat->save();
-            $seat = Seat::where('id', $request->seat)->first();
-            $seat->status = 1;
-            $seat->save();
-
             toast('Student Information Updated.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
-
-        /**
-         * Remove the specified resource from storage.
-         *
-         * @param  int  $id
-         * @return \Illuminate\Http\Response
-         */
     }
+
     public function delete($id)
     {
         try {
