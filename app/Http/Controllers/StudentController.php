@@ -281,4 +281,63 @@ class StudentController extends Controller
             return $th->getMessage();
         }
     }
+
+    public function updateStudentImage(Request $request)
+    {
+        try {
+            $student = Student::where('student_id', 1109020)->first();
+            if ($student->image) {
+                unlink(public_path('uploads/student/profile-images/' . $student->image));
+            }
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $image_name = $student->student_id . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/student/profile-images/'), $image_name);
+                $student->image = $image_name;
+            } else {
+                $student->image = NULL;
+            }
+            $student->save();
+            toast('Image Updated.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function updateStudentPassword(Request $request)
+    {
+        try {
+            $student = Student::where('student_id', 1109020)->first();
+            return $request->all();
+            $old_password = Hash::make($request->old_password);
+            if (Hash::check($old_password, $student->password)) {
+                return 'true';
+                if ($request->new_password == $request->confirm_password) {
+                    return 'ok';
+                    $student->password = Hash::make($request->new_password);
+                    $student->save();
+                    toast('Password Updated.', 'success');
+                    return redirect()->back();
+                }
+            } else {
+                toast('Old Password is incorrect.', 'error');
+                return redirect()->back();
+            }
+            return $request->all();
+            if (Hash::check($request->old_password, $student->password)) {
+                $student->password = Hash::make($request->password);
+            }
+
+            // $student->save();
+            toast('Password Updated.', 'success');
+            return redirect()->back();
+            $student->password = Hash::make($request->get('password'));
+            // $student->save();
+            toast('Password Updated.', 'success');
+            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
 }
