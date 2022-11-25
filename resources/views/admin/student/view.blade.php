@@ -52,12 +52,8 @@
                             <td>Status: </td>
                             @if ($student->status == 1)
                                 <td class="text-success"> Active </td>
-                            @elseif($student->status == 2)
+                            @elseif($student->status == 0)
                                 <td class="text-secondary"> Inactive </td>
-                            @elseif($student->status == 3)
-                                <td class="text-warning"> Cancelled </td>
-                            @else
-                                <td class="text-danger"> Left </td>
                             @endif
                         </tr>
 
