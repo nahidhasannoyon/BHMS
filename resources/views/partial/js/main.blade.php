@@ -36,7 +36,6 @@
   <script src="{{ asset('src/plugins/datatables/js/responsive.bootstrap4.min.js') }}"></script>
   <script src="{{ asset('vendors/scripts/dashboard3.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
   @include('sweetalert::alert')
   @stack('js')
