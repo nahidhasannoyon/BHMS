@@ -175,5 +175,12 @@ Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
     Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
     Route::get('dashboard', [HomeController::class, 'showStudentDashboard'])->name('dashboard');
 
-    Route::get('profile', [StudentController::class, 'showStudentProfile'])->name('profile');
+
+    Route::controller(StudentController::class)->group(function () {
+        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
+            Route::get('',  'showStudentProfile')->name('view');
+            Route::post('update_image',  'updateStudentImage')->name('update-image');
+            Route::post('update_password', 'updateStudentPassword')->name('update-password');
+        });
+    });
 });
