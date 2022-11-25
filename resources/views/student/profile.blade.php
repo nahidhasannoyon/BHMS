@@ -8,7 +8,7 @@
 @section('content')
     <div class="pd-20 card-box mb-30">
         <div class="text-center">
-            <h4 class="text-blue" style="padding-bottom: 10px"><u>Add Student</u></h4>
+            <h4 class="text-blue" style="padding-bottom: 10px"><u>My Profile</u></h4>
         </div>
 
         <div class="col-md-12">
@@ -30,7 +30,6 @@
                                 <label for="dept">Department: </label>
                                 <input type="text" class="form-control" id="dept" name="dept"
                                     value="{{ $student->dept }}" disabled>
-
                             </div>
                             <div class="form-group col-4">
                                 <label for="phone">Phone: </label>
@@ -67,37 +66,80 @@
                                 <input type="text" class="form-control" id="seat" name="seat"
                                     value="{{ $seat->name ?? '---' }}" disabled>
                             </div>
+                            <div>
+                                <div class="col-xxl-6">
+                                    <div class=" px-4 py-5 rounded">
+                                        <form action="{{ route('student.profile.update-password') }}" method="post">
+                                            @csrf
+                                            <div class="form-row g-3">
+                                                <div class="col-md-12">
+                                                    <h4 class="my-12">Change Password</h4>
+                                                    <hr>
+                                                </div>
+                                                <div class="form-group col-md-6"> <label for="old_password"
+                                                        class="form-label">Old
+                                                        Password</label> <input type="password" class="form-control"
+                                                        id="old_password" name="old_password" placeholder="Old Password"
+                                                        required>
+                                                </div>
+                                                <div class="form-group col-md-6"> <label for="new_password"
+                                                        class="form-label">New
+                                                        Password</label> <input type="password" class="form-control"
+                                                        id="new_password" name="new_password" placeholder="New Password"
+                                                        required>
+                                                </div>
+                                                <div class="form-group col-md-6"> <label for="confirm_password"
+                                                        class="form-label">Confirm Password</label> <input type="password"
+                                                        class="form-control" id="confirm_password"
+                                                        name="confirm_password" placeholder="Confirm Password" required>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Change
+                                                        Password</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
                     <div class="col-4">
-                        <form method="POST" action="#" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('student.profile.update-image') }}"
+                            enctype="multipart/form-data">
+                            @csrf
                             <div class="card card-box">
                                 <div class="pd-10">
                                     <img id="showImage" class="card-img-top"
-                                        src="{{ empty($student->image) ? asset('vendors/images/student-default-pic.jpg') : asset('upload/student/profile_images/' . $student->image) }} ">
+                                        src="{{ empty($student->image) ? asset('vendors/images/student-default-pic.jpg') : asset('uploads/student/profile-images/' . $student->image) }} ">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title weight-500">Upload your profile
                                         photo</h5>
                                     <div class="row">
                                         <div class="col-7">
-                                            <input type="file" id="image" name="file" hidden="">
+                                            <input type="file" id="image" name="image" hidden="">
                                             <label class="btn btn-outline-success col-6" for="image">Upload</label>
                                         </div>
                                         <div class="col-2">
                                             <button id="remove-image" type="button"
                                                 class="btn btn-outline-danger">Remove</button>
                                         </div>
-
-                                        <button class="btn btn-primary" type="submit">Update Image</button>
-
+                                        <div class="pl-3 ">
+                                            <button id="updateImgBtn" class="btn btn-primary pd-10" type="submit"
+                                                disabled>Update
+                                                Image</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
+
+
                 </div>
+
             </div>
         </div>
     @endsection
@@ -106,7 +148,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 $('#image').change(function(e) {
-                    console.log(e.target.result);
+                    $('#updateImgBtn').removeAttr('disabled');
                     var reader = new FileReader();
                     reader.onload = function(e) {
                         $('#showImage').attr('src', e.target.result);
@@ -116,6 +158,7 @@
             });
             $(document).ready(function() {
                 $('#remove-image').click(function(e) {
+                    $('#updateImgBtn').removeAttr('disabled');
                     $('#showImage').attr('src', "{{ asset('vendors/images/student-default-pic.jpg') }}");
                 });
             });
