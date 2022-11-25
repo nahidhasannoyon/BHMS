@@ -264,4 +264,21 @@ class StudentController extends Controller
             return $th->getMessage();
         }
     }
+
+
+
+    // * Student functions
+    public function showStudentProfile()
+    {
+        try {
+            $student = Student::where('student_id', 1109020)->first();
+            $building = Building::where('id', $student->building)->first();
+            $floor = Floor::where('id', $student->floor)->first();
+            $flat = Flat::where('id', $student->flat)->first();
+            $seat = Seat::where('id', $student->seat)->first();
+            return view('student.profile', compact('student', 'building', 'floor', 'flat', 'seat'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
 }
