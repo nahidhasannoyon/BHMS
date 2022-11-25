@@ -102,7 +102,8 @@
           <div class="sidebar-menu">
               <ul id="accordion-menu">
                   <li class="dropdown">
-                      <a href="{{ route('student.dashboard') }}" class="dropdown-toggle no-arrow">
+                      <a href="{{ route('student.dashboard') }}"
+                          class="dropdown-toggle no-arrow {{ Request::is('student/dashboard') ? 'active' : '' }}">
                           <span class="micon dw dw-home"></span>
                           <span class="mtext">Dashboard</span>
                       </a>
