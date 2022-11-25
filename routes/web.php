@@ -174,4 +174,6 @@ Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
     Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('login_form');
     Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
     Route::get('dashboard', [HomeController::class, 'showStudentDashboard'])->name('dashboard');
+
+    Route::get('profile', [StudentController::class, 'showStudentProfile'])->name('profile');
 });
