@@ -309,33 +309,20 @@ class StudentController extends Controller
     {
         try {
             $student = Student::where('student_id', 1109020)->first();
-            return $request->all();
-            $old_password = Hash::make($request->old_password);
-            if (Hash::check($old_password, $student->password)) {
-                return 'true';
+            if (Hash::check($request->old_password, $student->password)) {
                 if ($request->new_password == $request->confirm_password) {
-                    return 'ok';
                     $student->password = Hash::make($request->new_password);
                     $student->save();
                     toast('Password Updated.', 'success');
+                    return redirect()->back();
+                } else {
+                    toast('New Password and Confirm Password does not match.', 'error');
                     return redirect()->back();
                 }
             } else {
                 toast('Old Password is incorrect.', 'error');
                 return redirect()->back();
             }
-            return $request->all();
-            if (Hash::check($request->old_password, $student->password)) {
-                $student->password = Hash::make($request->password);
-            }
-
-            // $student->save();
-            toast('Password Updated.', 'success');
-            return redirect()->back();
-            $student->password = Hash::make($request->get('password'));
-            // $student->save();
-            toast('Password Updated.', 'success');
-            return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

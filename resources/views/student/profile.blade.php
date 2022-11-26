@@ -86,12 +86,13 @@
                                                         class="form-label">New
                                                         Password</label> <input type="password" class="form-control"
                                                         id="new_password" name="new_password" placeholder="New Password"
-                                                        required>
+                                                        required minlength=6>
                                                 </div>
                                                 <div class="form-group col-md-6"> <label for="confirm_password"
                                                         class="form-label">Confirm Password</label> <input type="password"
                                                         class="form-control" id="confirm_password"
-                                                        name="confirm_password" placeholder="Confirm Password" required>
+                                                        name="confirm_password" placeholder="Confirm Password" required
+                                                        minlength=6>
                                                 </div>
                                                 <div class="col-12">
                                                     <button type="submit" class="btn btn-primary">Change
@@ -102,7 +103,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="col-4">
