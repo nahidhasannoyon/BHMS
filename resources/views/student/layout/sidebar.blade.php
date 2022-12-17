@@ -90,7 +90,7 @@
   </div>
   <div class="left-side-bar">
       <div class="brand-logo">
-          <a href="index.html">
+          <a href="{{ route('student.dashboard') }}">
               <img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo" />
               <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
           </a>

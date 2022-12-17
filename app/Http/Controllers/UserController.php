@@ -11,6 +11,8 @@ class UserController extends Controller
     public function list()
     {
         $users = User::all();
+        $user = User::where('id', 3)->first();
+        $user->givePermissionTo('add-student');
         return view('admin.user.list', compact('users'));
     }
     public function add(Request $request)
