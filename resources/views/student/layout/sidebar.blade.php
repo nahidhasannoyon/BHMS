@@ -91,8 +91,8 @@
   <div class="left-side-bar">
       <div class="brand-logo">
           <a href="{{ route('student.dashboard') }}">
-              <img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo" />
-              <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+              <img src="{{ asset('vendors/images/logo-bhms-light.png') }}" alt="" class="dark-logo" />
+              <img src="{{ asset('vendors/images/logo-bhms-dark.png') }}" alt="" class="light-logo" />
           </a>
           <div class="close-sidebar" data-toggle="left-sidebar-close">
               <i class="ion-close-round"></i>
@@ -108,7 +108,26 @@
                           <span class="mtext">Dashboard</span>
                       </a>
                   </li>
+                  <li class="dropdown">
+                      <a href="javascript:;" class="dropdown-toggle ">
+                          <span class="micon bi  bi-file-person"></span><span class="mtext">Meal </span>
+                      </a>
+                      <ul class="submenu">
+                          <li><a href="{{ route('student.meal.chart') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('student/meal/chart') ? 'active' : '' }}">
+                                  <span class="mtext">Chart</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{ route('student.meal.book') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('student/meal/book') ? 'active' : '' }} {{ Request::is('student/meal/find') ? 'active' : '' }}">
+                                  <span class="mtext">Book</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
               </ul>
+
           </div>
       </div>
   </div>
