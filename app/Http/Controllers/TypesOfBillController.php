@@ -19,16 +19,27 @@ class TypesOfBillController extends Controller
     public function store(Request $request)
     {
         try {
-            $typesOfBill = new TypesOfBill();
-            $typesOfBill->name = $request->name;
-            if ($request->status == 'active') {
-                $typesOfBill->status = 1;
-            } else if ($request->status == 'inactive') {
-                $typesOfBill->status = 0;
-            }
-            $typesOfBill->save();
+            TypesOfBill::create($request->all());
             toast('New Type of Bill added.', 'success');
             return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function edit(TypesOfBill $typesOfBill)
+    {
+        try {
+            return view('admin.bill.edit', compact('typesOfBill'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function update(Request $request, TypesOfBill $typesOfBill)
+    {
+        try {
+            $typesOfBill->update($request->all());
+            toast('Type of Bill updated.', 'success');
+            return redirect()->route('admin.types-of-bill');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
