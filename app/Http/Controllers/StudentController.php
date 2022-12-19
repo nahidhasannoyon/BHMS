@@ -7,12 +7,13 @@ use App\Models\Seat;
 use App\Models\Floor;
 use App\Models\Student;
 use App\Models\Building;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\HostelSeat;
 use Illuminate\Http\Request;
 use App\Models\HostelBuilding;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
@@ -271,7 +272,7 @@ class StudentController extends Controller
     public function showStudentProfile()
     {
         try {
-            $student = Student::where('student_id', 1109020)->first();
+            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
             $building = Building::where('id', $student->building)->first();
             $floor = Floor::where('id', $student->floor)->first();
             $flat = Flat::where('id', $student->flat)->first();
@@ -285,14 +286,11 @@ class StudentController extends Controller
     public function updateStudentImage(Request $request)
     {
         try {
-            $student = Student::where('student_id', 1109020)->first();
-            if ($student->image) {
-                unlink(public_path('uploads/student/profile-images/' . $student->image));
-            }
+            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
                 $image_name = $student->student_id . '.' . $image->getClientOriginalExtension();
-                $image->move(public_path('uploads/student/profile-images/'), $image_name);
+                Storage::disk('public')->put('uploads/student/profile-images/' . $image_name,  file_get_contents($image));
                 $student->image = $image_name;
             } else {
                 $student->image = NULL;
@@ -308,7 +306,7 @@ class StudentController extends Controller
     public function updateStudentPassword(Request $request)
     {
         try {
-            $student = Student::where('student_id', 1109020)->first();
+            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
             if (Hash::check($request->old_password, $student->password)) {
                 if ($request->new_password == $request->confirm_password) {
                     $student->password = Hash::make($request->new_password);
