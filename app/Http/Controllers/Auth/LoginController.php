@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -62,14 +63,11 @@ class LoginController extends Controller
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                if ($user->role == 'admin') {
-                    Session::put('admin', $user->name);
-                    return redirect()->route('admin.dashboard');
-                } else if ($user->role == 'accountant') {
-                    return redirect()->route('accountant_dashboard');
-                }
+                Auth::loginUsingId($user->id);
+                $request->session()->regenerate();
+                return redirect()->route('admin.dashboard');
             } else {
-                toast('Password is incorrect', 'error');
+                toast('Invalid Password.', 'error');
                 return redirect()->back();
             }
         } else {
@@ -84,22 +82,22 @@ class LoginController extends Controller
     }
     public function studentLogin(Request $request)
     {
-        $request->validate([
-            'password' => 'required|min:8',
-        ]);
-        $student = Student::where('studentID', $request->studentID)->first();
-        if ($student) {
-            if (Hash::check($request->password, $student->password)) {
-                Session::put('student', $student);
-                return redirect()->route('student.dashboard');
+        try {
+            $student = Student::where('student_id', $request->student_id)->first();
+            if ($student) {
+                if (Hash::check($request->password, $student->password)) {
+                    Auth::guard('student')->loginUsingId($student->id);
+                    return redirect()->route('student.dashboard');
+                } else {
+                    toast('Invalid Password.', 'error');
+                    return redirect()->back();
+                }
             } else {
-                toast('Password is incorrect', 'error');
-                return
-                    redirect()->back();
+                toast('Invalid Student ID.', 'error');
+                return redirect()->back();
             }
-        } else {
-            toast('Invalid Student ID', 'error');
-            return redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
         }
     }
 }
