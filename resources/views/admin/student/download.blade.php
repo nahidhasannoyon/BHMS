@@ -10321,7 +10321,6 @@ a.text-dark:hover, a.text-dark:focus {
                                 <td class="text-danger"> Left </td>
                             @endif
                         </tr>
-
                     </tbody>
                 </table>
         </div>

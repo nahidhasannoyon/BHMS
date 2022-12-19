@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"><u>Student List</u></h3>
-                <table class="data-table table table-striped">
+                <table class="data-table table stripe">
                     <thead>
                         {{-- todo add asc and dec toggleable icon  --}}
                         <tr>
