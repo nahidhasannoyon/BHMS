@@ -39,9 +39,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
     Route::get('dashboard', [HomeController::class, 'showAdminDashboard'])->name('dashboard');
     // todo move this admin dashboard to admin controller
+    Route::get('logout', [HomeController::class, 'adminLogout'])->name('logout');
 
+    Route::get('profile', [HomeController::class, 'adminProfile'])->name('profile');
+    Route::patch('profile', [HomeController::class, 'updateProfile'])->name('update');
     Route::controller(UserController::class)->group(function () {
-        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+        Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth'], function () {
             // * User Routes
             Route::get('', 'list')->name('list');
             Route::post('', 'add')->name('add');
@@ -138,6 +141,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::controller(HostelMealController::class)->group(function () {
         Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
             Route::get('list',  'list')->name('list');
+            Route::get('today',  'today')->name('today');
             Route::post('list',  'add')->name('add');
             Route::group(['prefix' => '{meal}'], function () {
                 Route::get('edit', 'edit')->name('edit');
@@ -147,15 +151,22 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
     });
 
-    Route::get('bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
-    Route::post('bill/monthly', [MonthlyBillController::class, 'store']);
+    Route::controller(MonthlyBillController::class)->group(function () {
+        Route::group(['prefix' => 'bill', 'as' => 'bill.'], function () {
+            Route::get('find',  'find')->name('find');
+            Route::post('generate',  'generate')->name('generate');
+            Route::post('update',  'update')->name('update');
+            Route::get('download/{student_id}/{date}',  'download')->name('download');
+        });
+    });
+
+    // Route::get('bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
+    // Route::post('bill/monthly', [MonthlyBillController::class, 'store']);
 
     Route::get('bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
     Route::post('bill/types', [TypesOfBillController::class, 'store']);
-
-    Route::get('bill/generate', [MonthlyBillController::class, 'generateBill'])->name('generate-bill');
-    Route::post('bill/generate', [MonthlyBillController::class, 'store']);
-    Route::get('bill/view', [MonthlyBillController::class, 'viewBill'])->name('view_bill');
+    Route::get('edit/{typesOfBill}', [TypesOfBillController::class, 'edit'])->name('edit-bill');
+    Route::post('update/{typesOfBill}', [TypesOfBillController::class, 'update'])->name('update-bill');
 });
 
 // Route::resource('student', StudentController::class);
@@ -167,20 +178,3 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 Auth::routes([
     'logout' => false,
 ]);
-
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
-// * Student Routes
-Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
-    Route::get('/login', [LoginController::class, 'showStudentLoginForm'])->name('login_form');
-    Route::post('/login', [LoginController::class, 'studentLogin'])->name('student_login');
-    Route::get('dashboard', [HomeController::class, 'showStudentDashboard'])->name('dashboard');
-
-
-    Route::controller(StudentController::class)->group(function () {
-        Route::group(['prefix' => 'profile', 'as' => 'profile.'], function () {
-            Route::get('',  'showStudentProfile')->name('view');
-            Route::post('update_image',  'updateStudentImage')->name('update-image');
-            Route::post('update_password', 'updateStudentPassword')->name('update-password');
-        });
-    });
-});
