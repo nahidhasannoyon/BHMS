@@ -91,8 +91,8 @@
   <div class="left-side-bar">
       <div class="brand-logo">
           <a href="{{ route('admin.dashboard') }}">
-              <img src="{{ asset('vendors/images/deskapp-logo.svg') }}" alt="" class="dark-logo" />
-              <img src="{{ asset('vendors/images/deskapp-logo-white.svg') }}" alt="" class="light-logo" />
+              <img src="{{ asset('vendors/images/logo-bhms-light.png') }}" alt="" class="dark-logo" />
+              <img src="{{ asset('vendors/images/logo-bhms-dark.png') }}" alt="" class="light-logo" />
           </a>
           <div class="close-sidebar" data-toggle="left-sidebar-close">
               <i class="ion-close-round"></i>
@@ -150,12 +150,7 @@
                           <span class="micon dw dw-invoice-1"></span><span class="mtext"> Bill </span>
                       </a>
                       <ul class="submenu">
-                          <li>
-                              <a href="{{ route('admin.view_bill') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/bill/view') ? 'active' : '' }}">
-                                  <span class="mtext">View Bill</span>
-                              </a>
-                          </li>
+
                           <li>
                               <a href="{{ route('admin.types-of-bill') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/bill/types') ? 'active' : '' }}">
@@ -163,8 +158,8 @@
                               </a>
                           </li>
                           <li>
-                              <a href="{{ route('admin.generate-bill') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/bill/generate') ? 'active' : '' }}">
+                              <a href="{{ route('admin.bill.find') }}"
+                                  class="dropdown-toggle no-arrow  {{ Request::is('admin/bill/generate') ? 'active' : '' }} {{ Request::is('admin/bill/find') ? 'active' : '' }}">
                                   <span class="mtext">Generate Bill</span>
                               </a>
                           </li>
@@ -181,7 +176,12 @@
                                   <span class="mtext">Meals list</span>
                               </a>
                           </li>
-
+                          <li>
+                              <a href="{{ route('admin.meal.today') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/list') ? 'active' : '' }}">
+                                  <span class="mtext">Today's Meals</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
               </ul>
