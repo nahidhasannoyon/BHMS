@@ -24,25 +24,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($meals as $meal)
-                            <tr>
-                                <td>{{ $meal->day }}</td>
-                                <td>{{ $meal->meal_type }}</td>
-                                <td>{{ $meal->meal_items }}</td>
-                                <td>{{ $meal->price }}</td>
-                                <td>
-                                    <a href="{{ route('admin.meal.edit', $meal->id) }}" class="btn btn-warning btn-md"
-                                        data-toggle="tooltip" data-placement="top" title="Edit"><i
-                                            class="icon-copy dw dw-edit-1"
-                                            style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                    <a href="{{ route('admin.meal.delete', $meal->id) }}" class="btn btn-danger btn-md"
-                                        data-toggle="tooltip" data-placement="top" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this item from the list?')"><i
-                                            class="icon-copy dw dw-trash1"
-                                            style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                </td>
-                            </tr>
-                        @endforeach
+                        @if ($meals->count() > 0)
+                            @foreach ($meals as $meal)
+                                <tr>
+                                    <td>{{ $meal->day }}</td>
+                                    <td>{{ $meal->meal_type }}</td>
+                                    <td>{{ $meal->meal_items }}</td>
+                                    <td>{{ $meal->price }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.meal.edit', $meal->id) }}" class="btn btn-warning btn-md"
+                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                                class="icon-copy dw dw-edit-1"
+                                                style="font-family: dropways, Bangla791, sans-serif;"></i></a>
+                                        <a href="{{ route('admin.meal.delete', $meal->id) }}" class="btn btn-danger btn-md"
+                                            data-toggle="tooltip" data-placement="top" title="Delete"
+                                            onclick="return confirm('Are you sure to delete this item from the list?')"><i
+                                                class="icon-copy dw dw-trash1"
+                                                style="font-family: dropways, Bangla791, sans-serif;"></i></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                 </table>
             </div>
@@ -58,7 +60,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('admin.meal.list', $meal->id) }}" method="post">
+                            <form action="{{ route('admin.meal.list') }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
