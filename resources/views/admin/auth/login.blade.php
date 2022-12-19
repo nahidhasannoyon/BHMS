@@ -7,7 +7,8 @@
     <title>{{ env('APP_NAME') }}</title>
 
     <!-- Site favicon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('src/images/login_icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('vendors/images/logo.png') }}" />
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('vendors/images/logo.png') }}" />
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,10 +20,11 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/styles/core.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/styles/icon-font.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('vendors/styles/style.css') }}">
-    @include('sweetalert::alert')
+
 </head>
 
 <body class="login-page">
+    @include('sweetalert::alert')
     <div class="login-header box-shadow">
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
@@ -43,7 +45,7 @@
                         <div class="login-title">
                             <h2 class="text-center text-primary">Login To HMS Admin Portal</h2>
                         </div>
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{ route('admin.login') }}">
                             @csrf
                             <div class="input-group custom">
                                 <input type="email" class="form-control form-control-lg" placeholder="Email"
