@@ -108,9 +108,6 @@ jQuery(document).ready(function () {
 		});
 	});
 
-	// custom select 2 init
-	$(".custom-select2").select2();
-
 	// Bootstrap Select
 	//$('.selectpicker').selectpicker();
 
