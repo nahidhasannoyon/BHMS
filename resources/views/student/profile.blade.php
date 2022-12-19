@@ -1,7 +1,6 @@
 @extends('student.layout.master')
 
 @push('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('vendors/styles/student-profile.css') }}" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" />
 @endpush()
 
@@ -112,7 +111,7 @@
                             <div class="card card-box">
                                 <div class="pd-10">
                                     <img id="showImage" class="card-img-top"
-                                        src="{{ empty($student->image) ? asset('vendors/images/student-default-pic.jpg') : asset('uploads/student/profile-images/' . $student->image) }} ">
+                                        src="{{ empty($student->image) ? asset('vendors/images/student-default-pic.jpg') : Storage::url('uploads/student/profile-images/' . auth('student')->user()->image) }} ">
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title weight-500">Upload your profile
@@ -122,10 +121,7 @@
                                             <input type="file" id="image" name="image" hidden="">
                                             <label class="btn btn-outline-success col-6" for="image">Upload</label>
                                         </div>
-                                        <div class="col-2">
-                                            <button id="remove-image" type="button"
-                                                class="btn btn-outline-danger">Remove</button>
-                                        </div>
+
                                         <div class="pl-3 ">
                                             <button id="updateImgBtn" class="btn btn-primary pd-10" type="submit"
                                                 disabled>Update
