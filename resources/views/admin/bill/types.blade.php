@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <td>Name</td>
+                            <td>Amount</td>
                             <td>Status</td>
                             <th>Action</th>
                         </tr>
@@ -25,21 +26,19 @@
                         @foreach ($typesOfBill as $tBill)
                             <tr>
                                 <td>{{ $tBill->name }}</td>
-                                @if ($tBill->status == '0')
+                                <td>{{ $tBill->amount }}</td>
+                                @if ($tBill->status == Status::Inactive)
                                     <td class="text-danger"><i class="icon-copy ion-close-circled"
                                             aria-hidden="true"></i>Inactive</td>
                                 @else
                                     <td class="text-success"><i class="icon-copy fa fa-check-circle"></i>Active</td>
                                 @endif
                                 <td>
-                                    <a href="#" class="btn btn-warning btn-md" data-toggle="tooltip"
-                                        data-placement="top" title="Edit"><i class="icon-copy dw dw-edit-1"
+                                    <a href="{{ route('admin.edit-bill', $tBill->id) }}" class="btn btn-warning btn-md"
+                                        data-toggle="tooltip" data-placement="top" title="Edit"><i
+                                            class="icon-copy dw dw-edit-1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                    <a href="#" class="btn btn-danger btn-md" data-toggle="tooltip"
-                                        data-placement="top" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this Type of Bill?')"><i
-                                            class="icon-copy dw dw-trash1"
-                                            style="font-family: dropways, Bangla791, sans-serif;"></i></a>
+
                                 </td>
                             </tr>
                         @endforeach
@@ -61,17 +60,20 @@
                             <form action="{{ route('admin.types-of-bill') }}" method="post">
                                 @csrf
                                 <div class="form-row">
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-lg-4 col-md-4 col-sm-12">
                                         <label for="">Name:</label>
                                         <input type="text" class="form-control" name="name" required>
                                     </div>
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-lg-4 col-md-4 col-sm-12">
+                                        <label for="">Amount:</label>
+                                        <input type="number" class="form-control" name="amount" required>
+                                    </div>
+                                    <div class="form-group col-lg-4 col-md-4 col-sm-12">
                                         <label for="">Status:</label>
-                                        <select name="status" class="custom-select2 form-control"
-                                            style="width: 100%; height: 38px;" data-validation="required" required>
+                                        <select name="status" class="form-control" required>
                                             <option selected disabled value>Choose...</option>
-                                            <option value="active">Active</option>
-                                            <option value="inactive">Inactive</option>
+                                            <option value="{{ Status::Active->value }}">Active</option>
+                                            <option value="{{ Status::Inactive->value }}">Inactive</option>
 
                                         </select>
                                     </div>
