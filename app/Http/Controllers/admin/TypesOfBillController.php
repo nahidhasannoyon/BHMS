@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\TypesOfBill;
 use Illuminate\Http\Request;
 
 class TypesOfBillController extends Controller
 {
-    public function index()
+    public function list()
     {
         try {
             $typesOfBill = TypesOfBill::all();
@@ -39,7 +40,7 @@ class TypesOfBillController extends Controller
         try {
             $typesOfBill->update($request->all());
             toast('Type of Bill updated.', 'success');
-            return redirect()->route('admin.types-of-bill');
+            return redirect()->route('admin.bill.types');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

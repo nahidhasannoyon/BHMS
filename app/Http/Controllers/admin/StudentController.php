@@ -1,25 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Flat;
 use App\Models\Seat;
 use App\Models\Floor;
 use App\Models\Student;
 use App\Models\Building;
-use App\Models\HostelSeat;
 use Illuminate\Http\Request;
-use App\Models\HostelBuilding;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
-use RealRashid\SweetAlert\Facades\Alert;
 
 class StudentController extends Controller
 {
 
-    public function admit_student()
+    public function admit()
     {
         try {
             $students = Http::withHeaders([
@@ -67,7 +64,7 @@ class StudentController extends Controller
     }
 
 
-    public function add_student(Request $request)
+    public function store(Request $request)
     {
         try {
             $id_name_dept = $request->id_name_dept;
@@ -183,6 +180,7 @@ class StudentController extends Controller
             return $th->getMessage();
         }
     }
+
     public function update(Request $request, $id)
     {
         try {
@@ -261,66 +259,6 @@ class StudentController extends Controller
 
             $pdf = PDF::loadView('admin.student.download', compact('student', 'building', 'floor', 'flat', 'seat'));
             return $pdf->download($student->student_id . '-' . $student->name . '.pdf');
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
-    }
-
-
-
-    // * Student functions
-    public function showStudentProfile()
-    {
-        try {
-            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
-            $building = Building::where('id', $student->building)->first();
-            $floor = Floor::where('id', $student->floor)->first();
-            $flat = Flat::where('id', $student->flat)->first();
-            $seat = Seat::where('id', $student->seat)->first();
-            return view('student.profile', compact('student', 'building', 'floor', 'flat', 'seat'));
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
-    }
-
-    public function updateStudentImage(Request $request)
-    {
-        try {
-            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $image_name = $student->student_id . '.' . $image->getClientOriginalExtension();
-                Storage::disk('public')->put('uploads/student/profile-images/' . $image_name,  file_get_contents($image));
-                $student->image = $image_name;
-            } else {
-                $student->image = NULL;
-            }
-            $student->save();
-            toast('Image Updated.', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
-    }
-
-    public function updateStudentPassword(Request $request)
-    {
-        try {
-            $student = Student::where('student_id', auth('student')->user()->student_id)->first();
-            if (Hash::check($request->old_password, $student->password)) {
-                if ($request->new_password == $request->confirm_password) {
-                    $student->password = Hash::make($request->new_password);
-                    $student->save();
-                    toast('Password Updated.', 'success');
-                    return redirect()->back();
-                } else {
-                    toast('New Password and Confirm Password does not match.', 'error');
-                    return redirect()->back();
-                }
-            } else {
-                toast('Old Password is incorrect.', 'error');
-                return redirect()->back();
-            }
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

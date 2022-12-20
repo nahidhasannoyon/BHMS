@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Models\BookedMeal;
 use App\Models\HostelMeal;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Toaster;
-use App\Http\Controllers\Controller;
 
 class HostelMealController extends Controller
 {
@@ -21,6 +20,7 @@ class HostelMealController extends Controller
             return $th->getMessage();
         }
     }
+
     public function add(Request $request)
     {
         try {
@@ -79,9 +79,9 @@ class HostelMealController extends Controller
     {
         try {
             $meals = BookedMeal::where('date', Carbon::now()->addDays()->format('Y-m-d'))->get();
-            $total_breakfast = $meals->sum('breakfast_quantity');
-            $total_lunch = $meals->sum('lunch_quantity');
-            $total_dinner = $meals->sum('dinner_quantity');
+            $total_breakfast = $meals->sum('breakfast');
+            $total_lunch = $meals->sum('lunch');
+            $total_dinner = $meals->sum('dinner');
 
             return view('admin.meal.today', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner'));
         } catch (\Throwable $th) {

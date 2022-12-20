@@ -1,32 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use Carbon\Carbon;
-use App\Models\Seat;
 use App\Models\Student;
 use App\Models\BookedMeal;
-use App\Models\Building;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MonthlyBill;
 use App\Models\TypesOfBill;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Date;
-use Illuminate\Support\Facades\Http;
 
 class MonthlyBillController extends Controller
 {
-    public function index()
-    {
-        try {
-            $bills = MonthlyBill::all();
-            return view('admin.bill.monthly', compact('bills'));
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
-    }
-
     public function find()
     {
         try {
@@ -49,6 +35,7 @@ class MonthlyBillController extends Controller
             $date = $request->date;
             $month = Carbon::parse($request->date)->format('m');
             $year = Carbon::parse($request->date)->format('Y');
+
             $meal_bill = BookedMeal::where('student_id', $request->student_id)->whereMonth('date', $month)->whereYear('date', $year)->sum('total');
             $other_bills = MonthlyBill::where('student_id', $request->student_id)->whereMonth('date', $month)->whereYear('date', $year)->get();
             return view('admin.bill.find', compact('hostel_bill', 'meal_bill', 'students', 'student_id', 'other_bills', 'date'));
