@@ -4,7 +4,7 @@
     <div class="card-box pd-20 height-100-p mb-30">
         <div class="row">
             <div class="col-md-12">
-                <form action="{{ route('admin.update-bill', $typesOfBill->id) }}" method="post">
+                <form action="{{ route('admin.bill.update', $typesOfBill->id) }}" method="post">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-lg-4 col-md-4 col-sm-12">

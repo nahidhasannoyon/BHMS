@@ -10,26 +10,20 @@
                 <table class="table hover data-table-export nowrap">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>Student Id</th>
+                            <th>User Id</th>
                             <th>Breafast<br>Quantity</th>
                             <th>Lunch<br>Quantity</th>
                             <th>Dinner<br>Quantity</th>
-                            <th>Total</th>
-                            <th>Comment</th>
                             {{-- <th>Status</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($meals as $item)
                             <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->student_id }}</td>
-                                <td>{{ $item->breakfast_quantity }}</td>
-                                <td>{{ $item->lunch_quantity }}</td>
-                                <td>{{ $item->dinner_quantity }}</td>
-                                <td>{{ $item->total }}</td>
-                                <td>{{ $item->comments }}</td>
+                                <td>{{ $item->user_id }}</td>
+                                <td>{{ $item->breakfast }}</td>
+                                <td>{{ $item->lunch }}</td>
+                                <td>{{ $item->dinner }}</td>
                                 {{-- <td>
                                     @if ($item->status == 0)
                                         <a href="{{ url('booked-meal/status/1') }}/{{ $item->id }}"

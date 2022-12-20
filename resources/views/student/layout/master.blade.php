@@ -29,6 +29,7 @@
     @include('student.layout.sidebar')
 
     {{-- Main content --}}
+
     <div class="main-container">
         <div class="pd-ltr-20">
             @yield('content')

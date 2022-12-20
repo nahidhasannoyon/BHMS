@@ -34,11 +34,10 @@
                                     <td class="text-success"><i class="icon-copy fa fa-check-circle"></i>Active</td>
                                 @endif
                                 <td>
-                                    <a href="{{ route('admin.edit-bill', $tBill->id) }}" class="btn btn-warning btn-md"
+                                    <a href="{{ route('admin.bill.edit', $tBill->id) }}" class="btn btn-warning btn-md"
                                         data-toggle="tooltip" data-placement="top" title="Edit"><i
                                             class="icon-copy dw dw-edit-1"
                                             style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-
                                 </td>
                             </tr>
                         @endforeach
@@ -57,7 +56,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="{{ route('admin.types-of-bill') }}" method="post">
+                            <form action="{{ route('admin.bill.store') }}" method="post">
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-lg-4 col-md-4 col-sm-12">

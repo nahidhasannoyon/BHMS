@@ -5,7 +5,7 @@
             <h4 class="text-blue" style="padding-bottom: 10px"><u>Add Student</u></h4>
         </div>
         <div class="col-md-12">
-            <form action="{{ route('admin.student.add') }}" method="POST">
+            <form action="{{ route('admin.student.store') }}" method="POST">
                 @csrf
                 <div class="col-md-12">
                     <div class="form-row">

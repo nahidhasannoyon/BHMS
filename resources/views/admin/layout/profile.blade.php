@@ -5,7 +5,7 @@
         <div class="text-center">
             <h4 class="text-blue" style="padding-bottom: 10px"><u>My Profile</u></h4>
         </div>
-        <form action="{{ route('admin.update') }}" method="post">
+        <form action="{{ route('admin.profile.update') }}" method="post">
             @csrf
             @method('patch')
             <div class="form-row">

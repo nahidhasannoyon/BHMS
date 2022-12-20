@@ -1,10 +1,10 @@
 @extends('admin.layout.master')
 @section('content')
-    <div class="container">
+    <div class="container-fluid">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{ route('admin.bill.generate') }}" method="post">
+                    <form action="{{ route('admin.monthly_bill.generate') }}" method="post">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-8">
@@ -34,7 +34,7 @@
                 </div>
             </div>
         </div>
-        @if (Request::routeIs('admin.bill.generate'))
+        @if (Request::routeIs('admin.monthly_bill.generate'))
             <div class="page-header">
                 <div class="col-md-12">
                     <h4 class="p-2 text-center">Bills of {{ $date }}</h4>
