@@ -1,55 +1,46 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\student\ProfileController;
 use App\Http\Controllers\student\DashboardController;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\student\HostelMealController;
 
-Route::group(["prefix" => "student", "as" => "student."], function () {
-    Route::get("/login", [
-        LoginController::class,
-        "showStudentLoginForm",
-    ])->name("login_form");
-    Route::post("/login", [LoginController::class, "studentLogin"])->name(
-        "login"
-    );
-    route::get("/logout", [DashboardController::class, "logout"])->name(
-        "logout"
-    );
+// * Student Login Routes
+Route::controller(LoginController::class)->group(function () {
+    Route::group(["prefix" => "student/login", "as" => "student."], function () {
+        Route::get("", "showStudentLoginForm",)->name("login_form");
+        Route::post("",  "studentLogin")->name("login");
+    });
+});
+
+Route::group(["prefix" => "student", "as" => "student.", "middleware" => "auth:student"], function () {
+    // * Student Dashboard and Logout
     Route::controller(DashboardController::class)->group(function () {
-        Route::group(["middleware" => "auth:student"], function () {
-            Route::get("dashboard", "showStudentDashboard")->name("dashboard");
-            Route::get("meal/chart", "mealChart")->name("meal.chart");
-            Route::get("meal/book", "mealBook")->name("meal.book");
-            Route::post("meal/find", "findMeal")->name("meal.find");
-            Route::post("meal/generate", "generateMeal")->name("meal.generate");
-            Route::get("meal/select", "selectMeal")->name("meal.select");
-            Route::post("meal/store", "storeMeal")->name("meal.store");
-            Route::get("meal/edit/{bookedMeal}", "editMeal")->name("meal.edit");
-            Route::patch("meal/update/{bookedMeal}", "updateMeal")->name(
-                "meal.update"
-            );
-            Route::get("meal/delete/{bookedMeal}", "deleteMeal")->name(
-                "meal.delete"
-            );
+        Route::get("dashboard", "dashboard")->name("dashboard");
+        Route::get("logout",  "logout")->name("logout");
+    });
+
+    // * Student Meal Chart, Booking and Actions
+    Route::controller(HostelMealController::class)->group(function () {
+        Route::group(["prefix" => "meal", "as" => "meal."], function () {
+            Route::get("chart", "Chart")->name("chart");
+            Route::get("book", "Book")->name("book");
+            Route::post("store", "store")->name("store");
+            Route::get("edit/{bookedMeal}", "edit")->name("edit");
+            Route::patch("update/{bookedMeal}", "update")->name("update");
+            Route::get("/delete/{bookedMeal}", "delete")->name("delete");
         });
     });
-    Route::controller(StudentController::class)->group(function () {
+
+    // * Student Profile View and Update
+    Route::controller(ProfileController::class)->group(function () {
         Route::group(
-            [
-                "prefix" => "profile",
-                "as" => "profile.",
-                "middleware" => "auth:student",
-            ],
+            ["prefix" => "profile", "as" => "profile."],
             function () {
-                Route::get("", "showStudentProfile")->name("view");
-                Route::post("update_image", "updateStudentImage")->name(
-                    "update-image"
-                );
-                Route::post("update_password", "updateStudentPassword")->name(
-                    "update-password"
-                );
+                Route::get("", "profile")->name("view");
+                Route::post("update_image", "updateImage")->name("update-image");
+                Route::post("update_password", "updatePassword")->name("update-password");
             }
         );
     });

@@ -1,22 +1,16 @@
 <?php
 
-use App\Models\TypesOfBill;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\StudentController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\BuildingController;
-use App\Http\Controllers\FlatController;
-use App\Http\Controllers\FloorController;
-use App\Http\Controllers\HostelMealController;
-use App\Http\Controllers\HostelSeatController;
-use App\Http\Controllers\MonthlyBillController;
-use App\Http\Controllers\SeatController;
-use App\Http\Controllers\TypesOfBillController;
-use Illuminate\Routing\Route as RoutingRoute;
+use App\Http\Controllers\admin\HostelMealController;
+use App\Http\Controllers\admin\MonthlyBillController;
+use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\admin\StudentController;
+use App\Http\Controllers\admin\HostelSeatController;
+use App\Http\Controllers\admin\TypesOfBillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,22 +23,42 @@ use Illuminate\Routing\Route as RoutingRoute;
 |
 */
 
-Route::get('/', [LoginController::class, 'showLoginSelection'])->name('login_selection');
+// * Admin Login Routes
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/', 'showLoginSelection')->name('login_selection');
+    Route::group(
+        ["prefix" => "admin/login", "as" => "admin."],
+        function () {
+            Route::get('',  'showAdminLoginForm')->name('login_form');
+            Route::post('',  'adminLogin')->name('login');
+        }
+    );
+});
 
 // * Admin Routes
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    // * Admin Login
-    Route::get('login', [LoginController::class, 'showAdminLoginForm'])->name('login_form');
-    Route::post('login', [LoginController::class, 'adminLogin'])->name('login');
+Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], function () {
+    // * Admin Login 
 
-    Route::get('dashboard', [HomeController::class, 'showAdminDashboard'])->name('dashboard');
-    // todo move this admin dashboard to admin controller
-    Route::get('logout', [HomeController::class, 'adminLogout'])->name('logout');
+    // * Admin Dashboard and Logout
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get("dashboard", "dashboard")->name("dashboard");
+        Route::get("logout",  "logout")->name("logout");
+    });
 
-    Route::get('profile', [HomeController::class, 'adminProfile'])->name('profile');
-    Route::patch('profile', [HomeController::class, 'updateProfile'])->name('update');
+    // * Admin Profile View and Update
+    Route::controller(ProfileController::class)->group(function () {
+        Route::group(
+            ["prefix" => "profile", "as" => "profile."],
+            function () {
+                Route::get("", "profile")->name("view");
+                Route::patch("", "update")->name("update");
+            }
+        );
+    });
+
+    // * Admin User list and actions
     Route::controller(UserController::class)->group(function () {
-        Route::group(['prefix' => 'users', 'as' => 'users.', 'middleware' => 'auth'], function () {
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
             // * User Routes
             Route::get('', 'list')->name('list');
             Route::post('', 'add')->name('add');
@@ -61,14 +75,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::controller(StudentController::class)->group(function () {
         Route::group(['prefix' => 'student', 'as' => 'student.'], function () {
             // * Add new Student
-            Route::get('admit', 'admit_student')->name('admit');
+            Route::get('admit', 'admit')->name('admit');
             // * Fetch Hostel floors, flats, seats to add student
             Route::prefix('admit/{id}')->group(function () {
                 Route::get('getFloor', 'getFloor');
                 Route::get('getFlat', 'getFlat');
                 Route::get('getSeat', 'getSeat');
             });
-            Route::post('admit', 'add_student')->name('add');
+            Route::post('admit', 'store')->name('store');
 
             // * Student List
             Route::get('list', 'list')->name('list');
@@ -92,6 +106,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
     });
 
+    // * Hostel Building, Floor, Flat and Seat list and actions
     Route::controller(HostelSeatController::class)->group(function () {
         Route::group(['prefix' => 'hostel', 'as' => 'hostel.'], function () {
             // * Hostel Buildings
@@ -138,6 +153,29 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
         });
     });
 
+    // * Hostel Types of Bill list and actions
+    Route::controller(TypesOfBillController::class)->group(
+        function () {
+            Route::group(['prefix' => 'bill', 'as' => 'bill.'], function () {
+                Route::get('types',  'list')->name('types');
+                Route::post('types',  'store')->name('store');
+                Route::get('edit/{typesOfBill}',  'edit')->name('edit');
+                Route::post('update/{typesOfBill}',  'update')->name('update');
+            });
+        }
+    );
+
+    // * Hostel Monthly Bill list and actions
+    Route::controller(MonthlyBillController::class)->group(function () {
+        Route::group(['prefix' => 'monthly_bill', 'as' => 'monthly_bill.'], function () {
+            Route::get('find',  'find')->name('find');
+            Route::post('generate',  'generate')->name('generate');
+            Route::post('update',  'update')->name('update');
+            Route::get('download/{student_id}/{date}',  'download')->name('download');
+        });
+    });
+
+    // * Hostel Meal list and actions
     Route::controller(HostelMealController::class)->group(function () {
         Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
             Route::get('list',  'list')->name('list');
@@ -150,30 +188,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
             });
         });
     });
-
-    Route::controller(MonthlyBillController::class)->group(function () {
-        Route::group(['prefix' => 'bill', 'as' => 'bill.'], function () {
-            Route::get('find',  'find')->name('find');
-            Route::post('generate',  'generate')->name('generate');
-            Route::post('update',  'update')->name('update');
-            Route::get('download/{student_id}/{date}',  'download')->name('download');
-        });
-    });
-
-    // Route::get('bill/monthly', [MonthlyBillController::class, 'index'])->name('monthly-bills');
-    // Route::post('bill/monthly', [MonthlyBillController::class, 'store']);
-
-    Route::get('bill/types', [TypesOfBillController::class, 'index'])->name('types-of-bill');
-    Route::post('bill/types', [TypesOfBillController::class, 'store']);
-    Route::get('edit/{typesOfBill}', [TypesOfBillController::class, 'edit'])->name('edit-bill');
-    Route::post('update/{typesOfBill}', [TypesOfBillController::class, 'update'])->name('update-bill');
 });
-
-// Route::resource('student', StudentController::class);
-// Route::prefix('admin')->name('users.')->group(function () {
-//     Route::resource('users', UserController::class);
-// });
-// Route::resource('hostel-seats', HostelSeatController::class);
 
 Auth::routes([
     'logout' => false,
