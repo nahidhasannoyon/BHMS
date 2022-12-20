@@ -6,37 +6,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title text-center"> Meal Chart</h4>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Day</th>
-                                    <th>Meal Type</th>
-                                    <th>Items</th>
-                                    <th>Price</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($meals as $meal)
-                                    <tr>
-                                        <td>{{ $meal->day }}</td>
-                                        <td>{{ $meal->meal_type }}</td>
-                                        <td>{{ $meal->meal_items }}</td>
-                                        <td>{{ $meal->price }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title text-center"> Meal Chart</h4>
                         <table class="table table-striped table-bordered">
                             <thead class="thead-dark">
                                 <tr>
