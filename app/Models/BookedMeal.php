@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\Type;
 use Illuminate\Database\Eloquent\Model;
 
 class BookedMeal extends Model
 {
-    protected $table = 'booked_meals';
-    protected $guarded = ['id'];
+    protected $table = "booked_meals";
+    protected $guarded = ["id"];
+
+    protected $casts = ["user_type" => Type::class];
 }

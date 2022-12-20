@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\student;
 
+use App\Enums\Type;
 use Carbon\Carbon;
 use App\Models\BookedMeal;
 use App\Models\HostelMeal;
@@ -13,7 +14,7 @@ class DashboardController extends Controller
     public function showStudentDashboard()
     {
         try {
-            return view('student.layout.dashboard');
+            return view("student.layout.dashboard");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -23,7 +24,7 @@ class DashboardController extends Controller
         try {
             $meals = HostelMeal::all();
             // return $meals;
-            return view('student.meal.chart', compact('meals'));
+            return view("student.meal.chart", compact("meals"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -32,9 +33,16 @@ class DashboardController extends Controller
     public function mealBook()
     {
         try {
-            $studentMeals = BookedMeal::where('student_id', auth()->guard('student')->user()->student_id)->whereMonth('date', date('m'))->get();
+            $studentMeals = BookedMeal::where(
+                "student_id",
+                auth()
+                    ->guard("student")
+                    ->user()->student_id
+            )
+                ->whereMonth("date", date("m"))
+                ->get();
 
-            return view('student.meal.book', compact('studentMeals'));
+            return view("student.meal.book", compact("studentMeals"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -42,21 +50,89 @@ class DashboardController extends Controller
     public function findMeal(Request $request)
     {
         try {
-            $day = Carbon::parse($request->date)->format('l');
-            $mealList = HostelMeal::where('day', $day)->get();
+            $day = Carbon::parse($request->date)->format("l");
+            $mealList = HostelMeal::where("day", $day)->get();
             $date = $request->date;
-            return view('student.meal.book', compact('mealList', 'date'));
+            return view("student.meal.book", compact("mealList", "date"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
 
-    public function storeMeal(Request $request)
+    public function selectMeal(Request $request)
     {
         try {
-            BookedMeal::create($request->all());
-            toast('Meal Booked Successfully', 'success');
-            return redirect()->route('student.meal.book');
+            $studentMeals = BookedMeal::where("user_type", Type::Student)
+                ->where(
+                    "user_id",
+                    auth()
+                        ->guard("student")
+                        ->user()->student_id
+                )
+                ->whereDate("date", ">", Carbon::now()->addDay(1))
+                ->get();
+
+            return view("student.meal.book", compact("studentMeals"));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function generateMeal(Request $request)
+    {
+        try {
+            //at least there have to be 2 meals/3 meals that is why array count is > 4 means at least 5
+            if (count($request->all()) > 4) {
+                $this_date = Carbon::parse($request->fromDate);
+                $end_date = Carbon::parse($request->toDate);
+                while ($this_date->lessThanOrEqualTo($end_date)) {
+                    BookedMeal::create([
+                        "user_type" => Type::Student,
+                        "user_id" => auth("student")->user()->student_id,
+                        "date" => $this_date->format("Y-m-d"),
+                        "breakfast" => $request->has("breakfast") ? 1 : 0,
+                        "lunch" => $request->has("lunch") ? 1 : 0,
+                        "dinner" => $request->has("dinner") ? 1 : 0,
+                    ]);
+                    $this_date = $this_date->addDay(1);
+                }
+                alert(
+                    "Booked",
+                    "Meal booked successfully from: " .
+                        $request->fromDate .
+                        " to: " .
+                        $request->toDate,
+                    "success"
+                );
+                return redirect()->back();
+            } else {
+                return redirect()->back();
+            }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function updateMeal(Request $request, BookedMeal $bookedMeal)
+    {
+        try {
+            $bookedMeal->update([
+                "breakfast" => $request->breakfast,
+                "lunch" => $request->lunch,
+                "dinner" => $request->dinner,
+            ]);
+            alert("Updated", "Meal qunaities updated successfully.", "success");
+            return redirect()->route("student.meal.select");
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function deleteMeal(BookedMeal $bookedMeal)
+    {
+        try {
+            $bookedMeal->delete();
+            toast("You have been logged out successfully", "success");
+            return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -64,10 +140,18 @@ class DashboardController extends Controller
     public function logout()
     {
         try {
-            auth('student')->logout();
+            auth("student")->logout();
             session()->flush();
-            toast('You have been logged out successfully', 'success');
+            toast("You have been logged out successfully", "success");
             return redirect()->route("student.login_form");
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function editMeal(BookedMeal $bookedMeal)
+    {
+        try {
+            return view("student.meal.edit", compact("bookedMeal"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
