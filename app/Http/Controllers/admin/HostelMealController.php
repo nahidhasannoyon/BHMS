@@ -76,7 +76,7 @@ class HostelMealController extends Controller
         }
     }
 
-    public function today()
+    public function booked()
     {
         try {
             $meals = BookedMeal::where('date', Carbon::now()->format('Y-m-d'))->get();
@@ -84,7 +84,7 @@ class HostelMealController extends Controller
             $total_lunch = $meals->sum('lunch');
             $total_dinner = $meals->sum('dinner');
 
-            return view('admin.meal.today', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner'));
+            return view('admin.meal.booked', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

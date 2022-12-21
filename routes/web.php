@@ -180,7 +180,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
     Route::controller(HostelMealController::class)->group(function () {
         Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
             Route::get('list',  'list')->name('list');
-            Route::get('today',  'today')->name('today');
+            Route::get('booked',  'booked')->name('booked');
             Route::post('list',  'add')->name('add');
             Route::post('search',  'search')->name('search');
             Route::group(['prefix' => '{meal}'], function () {

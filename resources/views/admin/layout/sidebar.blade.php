@@ -177,8 +177,8 @@
                               </a>
                           </li>
                           <li>
-                              <a href="{{ route('admin.meal.today') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/today') ? 'active' : '' }}">
+                              <a href="{{ route('admin.meal.booked') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/booked') ? 'active' : '' }}">
                                   <span class="mtext">Booked Meals</span>
                               </a>
                           </li>
