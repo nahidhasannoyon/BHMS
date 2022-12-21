@@ -24,7 +24,6 @@ class ForgotPasswordController extends Controller
 
     use SendsPasswordResetEmails;
 
-
     public function forgotPassword(Request $request)
     {
         try {

@@ -12,11 +12,17 @@ class UserController extends Controller
 {
     public function list()
     {
-        $iumss_users = Http::withToken('1|H1pUKKW5XMydm5eAG6Zejj3UMiUN62OW1PGrpPk9')->get('api.baiustserver.com/api/v.1/admin/active/list')->json();
-        $users = User::all();
-        $user = User::where('id', 3)->first();
-        $user->givePermissionTo('add-student');
-        return view('admin.user.list', compact('users', 'iumss_users'));
+        try {
+            $iumss_users = Http::withHeaders([
+                "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
+            ])->get(env('API_URL') . '/admin/active/list')->json();
+            $users = User::all();
+            $user = User::where('id', 3)->first();
+            $user->givePermissionTo('add-student');
+            return view('admin.user.list', compact('users', 'iumss_users'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     public function add(Request $request)

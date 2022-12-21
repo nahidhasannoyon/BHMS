@@ -21,7 +21,7 @@ class StudentController extends Controller
         try {
             $students = Http::withHeaders([
                 "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
-            ])->get(env('API_URL'));
+            ])->get(env('API_URL') . '/student/all-students');
             $students = json_decode($students);
             $building_ids = Seat::where('status', '0')->pluck('building_id')->toArray();
             $buildings = Building::whereIn('id', $building_ids)->orderby('name', 'asc')->get();
@@ -66,35 +66,29 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         try {
-            $id_name_dept = $request->id_name_dept;
-            $id_name_dept = explode(" - ", $id_name_dept);
-            $id = $id_name_dept[0];
-            $name = $id_name_dept[1];
-            $dept = $id_name_dept[2];
-            $student_id = Student::where('student_id', $id)->exists();
-            $phone = Student::where('phone', $request->phone)->exists();
-            if ($student_id || $phone) {
-                if ($student_id) {
-                    toast('Student already exists', 'error');
-                } else {
-                    toast('Phone Number already exists', 'error');
-                }
+            $id_name_dept = explode(" - ", $request->id_name_dept);
+            if (Student::where('student_id', $id_name_dept[0])->exists()) {
+                toast('Student already exists', 'error');
                 return redirect()->back();
+            } elseif (Student::where('phone', $request->phone)->exists()) {
+                toast('Phone Number already exists', 'error');
             } else {
-                $student = new Student();
-                $student->name = $name;
-                $student->student_id = $id;
-                $student->dept = $dept;
-                $student->building = $request->building;
-                $student->floor = $request->floor;
-                $student->flat = $request->flat;
-                $student->seat = $request->seat;
-                $student->phone = $request->get('phone');
-                $student->g_phone = $request->get('g_phone');
-                $student->remarks = $request->get('remarks');
-                $student->status = 1;
-                $student->password = Hash::make('baiust123#');
-                $student->save();
+                Student::create(
+                    [
+                        'name' => $id_name_dept[1],
+                        'student_id' => $id_name_dept[0],
+                        'dept' => $id_name_dept[2],
+                        'building' => $request->building,
+                        'floor' => $request->floor,
+                        'flat' => $request->flat,
+                        'seat' => $request->seat,
+                        'phone' => $request->get('phone'),
+                        'g_phone' => $request->get('g_phone'),
+                        'remarks' => $request->get('remarks'),
+                        'status' => 1,
+                        'password' => Hash::make('baiust123#'),
+                    ]
+                );
                 $seat = Seat::where('id', $request->seat)->first();
                 $seat->status = 1;
                 $seat->save();
@@ -240,7 +234,6 @@ class StudentController extends Controller
             $floor = Floor::where('id', $student->floor)->first();
             $flat = Flat::where('id', $student->flat)->first();
             $seat = Seat::where('id', $student->seat)->first();
-
             $pdf = PDF::loadView('admin.student.download', compact('student', 'building', 'floor', 'flat', 'seat'));
             return $pdf->download($student->student_id . '-' . $student->name . '.pdf');
         } catch (\Throwable $th) {
