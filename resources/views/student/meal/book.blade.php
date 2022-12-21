@@ -11,27 +11,28 @@
                                 <h4 class="p-2 text-center">Select Date From:</h4>
                                 {{-- <label for="">Select a Date:</label> --}}
                                 <input type="date" class="form-control" name="fromDate"
-                                    min="{{ Carbon\Carbon::now()->addDays(1)->format('Y-m-d') }}"
-                                    value="{{ Carbon\Carbon::now()->addDays(1)->format('Y-m-d') }}">
+                                    min="{{ Carbon::now()->addDays(1)->format('Y-m-d') }}"
+                                    value="{{ Carbon::now()->addDays(1)->format('Y-m-d') }}" id="fromDate"
+                                    onchange="myChangeFunction(this)">
                             </div>
                             <div class="form-group col-lg-6 col-md-6 col-sm-12">
                                 <h4 class="p-2 text-center">Select Date To:</h4>
                                 {{-- <label for="">Select a Date:</label> --}}
                                 <input type="date" class="form-control" name="toDate"
-                                    min="{{ Carbon\Carbon::now()->addDays(1)->format('Y-m-d') }}"
-                                    value="{{ Carbon\Carbon::now()->addDays(1)->format('Y-m-d') }}">
+                                    min="{{ Carbon::now()->addDays(1)->format('Y-m-d') }}"
+                                    value="{{ Carbon::now()->addDays(1)->format('Y-m-d') }}" id="toDate">
                             </div>
                             <div class="form-group col-lg-4 clo-md-4 col-sm-12">
-                                <label for="">Breakfast</label>
-                                <input type="checkbox" name="breakfast" id="">
+                                <label for="breakfast">Breakfast</label>
+                                <input type="checkbox" name="breakfast" id="breakfast">
                             </div>
                             <div class="form-group col-lg-4 clo-md-4 col-sm-12">
-                                <label for="">Lunch</label>
-                                <input type="checkbox" name="lunch" id="">
+                                <label for="lunch">Lunch</label>
+                                <input type="checkbox" name="lunch" id="lunch">
                             </div>
                             <div class="form-group col-lg-4 clo-md-4 col-sm-12">
-                                <label for="">Dinner</label>
-                                <input type="checkbox" name="dinner" id="">
+                                <label for="dinner">Dinner</label>
+                                <input type="checkbox" name="dinner" id="dinner">
                             </div>
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-success float-right"><i class="fa fa-indent"
@@ -84,3 +85,12 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script type="text/javascript">
+        function myChangeFunction(input1) {
+            var input2 = document.getElementById('toDate');
+            input2.min = input1.value;
+            input2.value = input1.value;
+        }
+    </script>
+@endpush
