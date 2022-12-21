@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 20, 2022 at 08:11 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.6
+-- Host: localhost
+-- Generation Time: Dec 21, 2022 at 07:17 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.1.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,7 +34,7 @@ CREATE TABLE `admins` (
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -44,28 +44,54 @@ CREATE TABLE `admins` (
 
 CREATE TABLE `booked_meals` (
   `id` int(20) NOT NULL,
-  `student_id` varchar(255) NOT NULL,
+  `user_type` varchar(255) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
-  `breakfast_quantity` int(15) NOT NULL,
-  `breakfast_price` int(15) NOT NULL,
-  `lunch_quantity` int(15) NOT NULL,
-  `lunch_price` int(15) NOT NULL,
-  `dinner_quantity` int(15) NOT NULL,
-  `dinner_price` int(15) NOT NULL,
-  `total` int(11) NOT NULL,
+  `breakfast` int(11) UNSIGNED NOT NULL,
+  `lunch` int(11) UNSIGNED NOT NULL,
+  `dinner` int(11) UNSIGNED NOT NULL,
   `comments` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `booked_meals`
 --
 
-INSERT INTO `booked_meals` (`id`, `student_id`, `date`, `breakfast_quantity`, `breakfast_price`, `lunch_quantity`, `lunch_price`, `dinner_quantity`, `dinner_price`, `total`, `comments`, `created_at`, `updated_at`) VALUES
-(44, '1109020', '2022-12-20', 1, 24, 1, 76, 1, 60, 160, NULL, '2022-12-19 16:03:19', '2022-12-19 16:03:19'),
-(45, '1109020', '2022-12-21', 1, 22, 1, 78, 1, 75, 175, NULL, '2022-12-19 16:03:43', '2022-12-19 16:03:43'),
-(46, '1109020', '2022-12-22', 1, 45, 2, 156, 1, 50, 329, NULL, '2022-12-19 16:04:33', '2022-12-19 16:04:33');
+INSERT INTO `booked_meals` (`id`, `user_type`, `user_id`, `date`, `breakfast`, `lunch`, `dinner`, `comments`, `created_at`, `updated_at`) VALUES
+(47, 'student', 1109020, '2022-12-20', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(48, 'student', 1109020, '2022-12-22', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(49, 'student', 1109020, '2022-12-23', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(50, 'student', 1109020, '2022-12-24', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(51, 'student', 1109020, '2022-12-25', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(52, 'student', 1109020, '2022-12-26', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(53, 'student', 1109020, '2022-12-27', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(54, 'student', 1109020, '2022-12-28', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(55, 'student', 1109020, '2022-12-29', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(56, 'student', 1109020, '2022-12-30', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(57, 'student', 1109020, '2022-12-31', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(60, 'student', 1109020, '2023-01-03', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(61, 'student', 1109020, '2023-01-04', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(62, 'student', 1109020, '2023-01-05', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(63, 'student', 1109020, '2023-01-06', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(64, 'student', 1109020, '2023-01-07', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(65, 'student', 1109020, '2023-01-08', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(66, 'student', 1109020, '2023-01-09', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(67, 'student', 1109020, '2023-01-10', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(68, 'student', 1109020, '2023-01-11', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(69, 'student', 1109020, '2023-01-12', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(70, 'student', 1109020, '2023-01-13', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(71, 'student', 1109020, '2023-01-14', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(72, 'student', 1109020, '2023-01-15', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(73, 'student', 1109020, '2023-01-16', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(74, 'student', 1109020, '2023-01-17', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(75, 'student', 1109020, '2023-01-18', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(76, 'student', 1109020, '2023-01-19', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(77, 'student', 1109020, '2023-01-20', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(78, 'student', 1109020, '2023-01-21', 1, 0, 1, NULL, '2022-12-20 08:42:52', '2022-12-20 08:42:52'),
+(79, 'student', 1109020, '2022-12-21', 1, 1, 0, NULL, '2022-12-20 08:56:14', '2022-12-20 08:56:14'),
+(80, 'student', 1109020, '2022-12-21', 1, 1, 0, NULL, '2022-12-20 08:58:01', '2022-12-20 08:58:01');
 
 -- --------------------------------------------------------
 
@@ -78,7 +104,7 @@ CREATE TABLE `buildings` (
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `buildings`
@@ -96,11 +122,11 @@ INSERT INTO `buildings` (`id`, `name`, `created_at`, `updated_at`) VALUES
 
 CREATE TABLE `failed_jobs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
   `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -117,7 +143,7 @@ CREATE TABLE `flats` (
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `flats`
@@ -150,7 +176,7 @@ CREATE TABLE `floors` (
   `name` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `floors`
@@ -178,7 +204,7 @@ CREATE TABLE `hostel_meals` (
   `price` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `hostel_meals`
@@ -215,7 +241,7 @@ INSERT INTO `hostel_meals` (`id`, `day`, `meal_type`, `meal_items`, `price`, `cr
 
 CREATE TABLE `migrations` (
   `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -238,7 +264,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 
 CREATE TABLE `model_has_permissions` (
   `permission_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -257,7 +283,7 @@ INSERT INTO `model_has_permissions` (`permission_id`, `model_type`, `model_id`) 
 
 CREATE TABLE `model_has_roles` (
   `role_id` bigint(20) UNSIGNED NOT NULL,
-  `model_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_type` varchar(255) NOT NULL,
   `model_id` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -275,7 +301,7 @@ CREATE TABLE `monthly_bills` (
   `student_id` int(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `monthly_bills`
@@ -291,8 +317,8 @@ INSERT INTO `monthly_bills` (`id`, `service_name`, `date`, `amount`, `student_id
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -309,7 +335,7 @@ CREATE TABLE `payment_history` (
   `amount` int(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -319,8 +345,8 @@ CREATE TABLE `payment_history` (
 
 CREATE TABLE `permissions` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -341,11 +367,11 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 CREATE TABLE `personal_access_tokens` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `tokenable_type` varchar(255) NOT NULL,
   `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `abilities` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `token` varchar(64) NOT NULL,
+  `abilities` text DEFAULT NULL,
   `last_used_at` timestamp NULL DEFAULT NULL,
   `expires_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -360,8 +386,8 @@ CREATE TABLE `personal_access_tokens` (
 
 CREATE TABLE `roles` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `guard_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `guard_name` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -392,7 +418,7 @@ CREATE TABLE `seats` (
   `status` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `seats`
@@ -468,7 +494,7 @@ CREATE TABLE `students` (
   `remarks` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `students`
@@ -499,7 +525,7 @@ CREATE TABLE `types_of_bills` (
   `status` varchar(255) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `types_of_bills`
@@ -519,12 +545,12 @@ INSERT INTO `types_of_bills` (`id`, `name`, `amount`, `status`, `updated_at`, `c
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -680,7 +706,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `booked_meals`
 --
 ALTER TABLE `booked_meals`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `buildings`
