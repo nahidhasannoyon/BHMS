@@ -47,7 +47,7 @@
         <div class="card-box pd-20 height-100-p mb-30">
             <div class="row align-items-center">
                 <div class="col-md-12">
-                    <h3 class="text-info text-center pd-10"><u>Advance Meals</u></h3>
+                    <h3 class="text-info text-center pd-10"><u>Booked Meals</u></h3>
                     <table class="table table-striped data-table-export">
                         <thead>
                             <tr>

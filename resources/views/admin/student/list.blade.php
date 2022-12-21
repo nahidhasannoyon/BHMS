@@ -5,7 +5,7 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"><u>Student List</u></h3>
-                <table class="data-table table stripe data-table-export">
+                <table class="table table-striped hover data-table-export nowrap ">
                     <thead>
                         {{-- todo add asc and dec toggleable icon  --}}
                         <tr>
@@ -34,11 +34,6 @@
                                     <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-warning btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="Edit"><i
                                             class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="{{ route('admin.student.delete', $student->id) }}"
-                                        class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="bottom"
-                                        title="Delete"
-                                        onclick="return confirm('Are you sure to delete this Student info?')"><i
-                                            class="icon-copy dw dw-trash1"></i></a>
                                     <a href="{{ route('admin.student.download', $student->id) }}"
                                         class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom"
                                         title="download-student-info"><i class="icon-copy dw dw-download"></i></a>

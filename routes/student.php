@@ -24,8 +24,9 @@ Route::group(["prefix" => "student", "as" => "student.", "middleware" => "auth:s
     // * Student Meal Chart, Booking and Actions
     Route::controller(HostelMealController::class)->group(function () {
         Route::group(["prefix" => "meal", "as" => "meal."], function () {
-            Route::get("chart", "Chart")->name("chart");
-            Route::get("book", "Book")->name("book");
+            Route::get("chart", "chart")->name("chart");
+            Route::get("book", "book")->name("book");
+            Route::get("history", "history")->name("history");
             Route::post("store", "store")->name("store");
             Route::get("edit/{bookedMeal}", "edit")->name("edit");
             Route::patch("update/{bookedMeal}", "update")->name("update");

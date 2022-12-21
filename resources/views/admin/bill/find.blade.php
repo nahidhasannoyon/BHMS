@@ -38,7 +38,7 @@
             <div class="page-header">
                 <div class="col-md-12">
                     <h4 class="p-2 text-center">Bills of {{ $date }}</h4>
-                    <form action="{{ route('admin.bill.update') }}" method="post">
+                    <form action="{{ route('admin.monthly_bill.update') }}" method="post">
                         @csrf
                         <div class="form-row">
                             <div class="form-group col-md-12 ">
@@ -115,7 +115,7 @@
                                         </button>
                                     </div>
                                     <div class="form-group col-md-2">
-                                        <a href="{{ route('admin.bill.download', [$student_id, $date]) }}"
+                                        <a href="{{ route('admin.monthly_bill.download', [$student_id, $date]) }}"
                                             class="btn btn-warning btn-md" data-toggle="tooltip" data-placement="top"
                                             title="Edit"><i class="icon-copy bi bi-box-arrow-down"
                                                 style="font-family: dropways, Bangla791, sans-serif;"></i> Download</a>

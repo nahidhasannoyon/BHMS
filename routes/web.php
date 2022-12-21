@@ -1,16 +1,18 @@
 <?php
 
+use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\admin\HostelMealController;
-use App\Http\Controllers\admin\MonthlyBillController;
-use App\Http\Controllers\admin\ProfileController;
-use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\admin\StudentController;
+use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\HostelMealController;
 use App\Http\Controllers\admin\HostelSeatController;
+use App\Http\Controllers\admin\MonthlyBillController;
 use App\Http\Controllers\admin\TypesOfBillController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,7 @@ Route::controller(LoginController::class)->group(function () {
         }
     );
 });
+Route::post('admin/forgot_password', [ForgotPasswordController::class, 'forgotPassword'])->name('admin.forgot_password');
 
 // * Admin Routes
 Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], function () {
@@ -65,7 +68,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
 
             Route::group(['prefix' => '{id}'], function () {
                 Route::get('edit', 'edit')->name('edit');
-                Route::get('delete', 'delete')->name('delete');
                 Route::post('update', 'update')->name('update');
             });
         });
@@ -92,7 +94,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
                 Route::get('download', 'download')->name('download');
                 Route::get('view', 'view')->name('view');
                 Route::get('edit', 'edit')->name('edit');
-                Route::get('delete', 'delete')->name('delete');
             });
 
             //* Fetch Hostel floors, flats, seats to edit student
@@ -181,6 +182,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
             Route::get('list',  'list')->name('list');
             Route::get('today',  'today')->name('today');
             Route::post('list',  'add')->name('add');
+            Route::post('search',  'search')->name('search');
             Route::group(['prefix' => '{meal}'], function () {
                 Route::get('edit', 'edit')->name('edit');
                 Route::get('delete', 'delete')->name('delete');

@@ -35,8 +35,7 @@ class MonthlyBillController extends Controller
             $date = $request->date;
             $month = Carbon::parse($request->date)->format('m');
             $year = Carbon::parse($request->date)->format('Y');
-
-            $meal_bill = BookedMeal::where('student_id', $request->student_id)->whereMonth('date', $month)->whereYear('date', $year)->sum('total');
+            $meal_bill = BookedMeal::where('user_type', 'student')->where('user_id', $request->student_id)->whereMonth('date', $month)->whereYear('date', $year)->sum('total');
             $other_bills = MonthlyBill::where('student_id', $request->student_id)->whereMonth('date', $month)->whereYear('date', $year)->get();
             return view('admin.bill.find', compact('hostel_bill', 'meal_bill', 'students', 'student_id', 'other_bills', 'date'));
         } catch (\Throwable $th) {

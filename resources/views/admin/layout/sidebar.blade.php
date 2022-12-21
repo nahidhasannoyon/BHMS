@@ -159,7 +159,7 @@
                           </li>
                           <li>
                               <a href="{{ route('admin.monthly_bill.find') }}"
-                                  class="dropdown-toggle no-arrow  {{ Request::is('admin/bill/generate') ? 'active' : '' }} {{ Request::is('admin/bill/find') ? 'active' : '' }}">
+                                  class="dropdown-toggle no-arrow  {{ Request::is('admin/monthly_bill/generate') ? 'active' : '' }} {{ Request::is('admin/monthly_bill/find') ? 'active' : '' }}">
                                   <span class="mtext">Generate Bill</span>
                               </a>
                           </li>
@@ -179,7 +179,7 @@
                           <li>
                               <a href="{{ route('admin.meal.today') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/meal/today') ? 'active' : '' }}">
-                                  <span class="mtext">Today's Meals</span>
+                                  <span class="mtext">Booked Meals</span>
                               </a>
                           </li>
                       </ul>

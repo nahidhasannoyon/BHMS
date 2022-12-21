@@ -63,7 +63,8 @@
                             </div>
                             <div class="row pb-30">
                                 <div class="col-12">
-                                    <div class="forgot-password"><a href="">Forgot Password</a>
+                                    <div class="forgot-password"><a href="javascript:void(0)" data-toggle="modal"
+                                            data-target="#modelId">Forgot Password</a>
                                     </div>
                                 </div>
                             </div>
@@ -81,12 +82,44 @@
         </div>
     </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Forgot Password?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{{ route('admin.forgot_password') }}" method="post">
+                        @csrf
+                        <div class="input-group custom">
+                            <input type="text" class="form-control " name="phone" id=""
+                                placeholder="Enter Your Phone Number" data-validation="required" minlength="11"
+                                maxlength="11" required>
+                            <div class="invalid-feedback">
+                            </div>
+                            <!-- TODO: This is for server side, there is another version for browser defaults -->
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- js -->
     <script src="{{ asset('vendors/scripts/core.js') }}"></script>
     <script src="{{ asset('vendors/scripts/script.min.js') }}"></script>
     <script src="{{ asset('vendors/scripts/process.js') }}"></script>
     <script src="{{ asset('vendors/scripts/layout-settings.js') }}"></script>
     @include('sweetalert::alert')
+    <script></script>
 </body>
 
 </html>

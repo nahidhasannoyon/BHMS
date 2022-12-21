@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+// use GuzzleHttp\Psr7\Request;
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -19,4 +23,18 @@ class ForgotPasswordController extends Controller
     */
 
     use SendsPasswordResetEmails;
+
+
+    public function forgotPassword(Request $request)
+    {
+        try {
+            if (User::where('phone', $request->phone)->exists()) {
+                return $request;
+            } else {
+                return "User not found";
+            }
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
 }

@@ -63,7 +63,6 @@ class StudentController extends Controller
         }
     }
 
-
     public function store(Request $request)
     {
         try {
@@ -227,21 +226,6 @@ class StudentController extends Controller
             $student->remarks = $request->get('remarks');
             $student->save();
             toast('Student Information Updated.', 'success');
-            return redirect()->back();
-        } catch (\Throwable $th) {
-            return $th->getMessage();
-        }
-    }
-
-    public function delete($id)
-    {
-        try {
-            $student = Student::where('id', $id)->first();
-            $student->delete();
-            $seat = Seat::where('id', $student->seat)->first();
-            $seat->status = 0;
-            $seat->save();
-            toast('Student Deleted.', 'success');
             return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();

@@ -124,6 +124,12 @@
                                   <span class="mtext">Book</span>
                               </a>
                           </li>
+                          <li>
+                              <a href="{{ route('student.meal.history') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('student/meal/history') ? 'active' : '' }} ">
+                                  <span class="mtext">History</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
               </ul>

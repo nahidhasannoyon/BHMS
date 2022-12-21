@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\BookedMeal;
 use App\Models\HostelMeal;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class HostelMealController extends Controller
 {
@@ -78,12 +79,26 @@ class HostelMealController extends Controller
     public function today()
     {
         try {
-            $meals = BookedMeal::where('date', Carbon::now()->addDays()->format('Y-m-d'))->get();
+            $meals = BookedMeal::where('date', Carbon::now()->format('Y-m-d'))->get();
             $total_breakfast = $meals->sum('breakfast');
             $total_lunch = $meals->sum('lunch');
             $total_dinner = $meals->sum('dinner');
 
             return view('admin.meal.today', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function search(Request $request)
+    {
+        try {
+            $selectedDate = $request->selectedDate;
+            $meals = BookedMeal::where('date', Carbon::parse($request->selectedDate)->format('Y-m-d'))->get();
+            $total_breakfast = $meals->sum('breakfast');
+            $total_lunch = $meals->sum('lunch');
+            $total_dinner = $meals->sum('dinner');
+            return view('admin.meal.today', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner', 'selectedDate'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

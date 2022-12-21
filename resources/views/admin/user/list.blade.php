@@ -13,29 +13,28 @@
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"> Users </h3>
-                <table class="checkbox-datatable data-table table table-striped text-center">
+                <table class="table table-striped hover data-table nowrap">
                     <thead>
                         <tr>
+                            <th>Employee ID</th>
                             <th>Name</th>
-                            <th>Role</th>
+                            <th>Phone</th>
                             <th>Email</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users as $user)
+                        @foreach ($users->where('email', '!=', 'ict@baiust.edu.bd') as $user)
                             <tr>
+                                <td>{{ $user->employee_id }}</td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ ucfirst($user->role) }}</td>
+                                <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="Edit"><i
                                             class="icon-copy dw dw-edit-1"></i></a>
-                                    <a href="{{ route('admin.users.delete', $user->id) }}" class="btn btn-danger btn-sm"
-                                        data-toggle="tooltip" data-placement="bottom" title="Delete"
-                                        onclick="return confirm('Are you sure to delete this User from the list?')"><i
-                                            class="icon-copy dw dw-trash1"></i></a>
+
                                     <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip"
                                         data-placement="bottom" title="Permissions"><i
                                             class="icon-copy dw dw-user-13"></i></a>
@@ -61,26 +60,16 @@
                                 @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
-                                        <label for="">Name:</label><span class="text-danger">*</span>
-                                        <input type="text" class="form-control" name="name" required>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="">Role:</label><span class="text-danger">*</span>
-                                        <select name="role" class="custom-select2 form-control"
-                                            style="width: 100%; height: 38px;" data-validation="required" required>
-                                            <option selected disabled value>Choose...</option>
-                                            <option value="admin">Admin</option>
-                                            <option value="accountant">Accountant</option>
-                                            <option value="hostel_manager">Hostel Manager</option>
+                                        <label>Phone Number: </label><span class="text-danger">*</span>
+                                        <select name="name_email_phone" class="custom-select2" style="width: 100%" required>
+                                            <option value="" selected disabled>Please select a user...</option>
+                                            @foreach ($iumss_users as $iumss_user)
+                                                <option
+                                                    value="{{ $iumss_user['name'] . ' - ' . $iumss_user['email'] . ' - ' . $iumss_user['phone'] }}">
+                                                    {{ $iumss_user['name'] . ' - ' . $iumss_user['email'] . ' - ' . $iumss_user['phone'] }}
+                                                </option>
+                                            @endforeach
                                         </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="">Email:</label><span class="text-danger">*</span>
-                                        <input type="email" class="form-control" name="email" required>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="">Password:</label><span class="text-danger">*</span>
-                                        <input type="password" class="form-control" name="password" required>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <button type="submit" class="btn btn-success btn-md float-right">
