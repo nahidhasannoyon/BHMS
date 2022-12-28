@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use App\Models\BookedMeal;
 use App\Models\HostelMeal;
 use App\Http\Controllers\Controller;
+use App\Models\HostelSeat;
+use App\Models\Student;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -20,7 +23,11 @@ class DashboardController extends Controller
             $total_breakfast = $meals->sum('breakfast');
             $total_lunch = $meals->sum('lunch');
             $total_dinner = $meals->sum('dinner');
-            return view('admin.layout.dashboard', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner', 'breakfast_items', 'lunch_items', 'dinner_items'));
+            $total_student = Student::where('status', 1)->count();
+            $total_stuff = User::count();
+            $total_seat = HostelSeat::count();
+            $available_seat = HostelSeat::where('status', 0)->count();
+            return view('admin.layout.dashboard', compact('meals', 'total_breakfast', 'total_lunch', 'total_dinner', 'breakfast_items', 'lunch_items', 'dinner_items', 'total_student', 'total_stuff', 'total_seat', 'available_seat',));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
