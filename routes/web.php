@@ -181,13 +181,20 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
         Route::group(['prefix' => 'meal', 'as' => 'meal.'], function () {
             Route::get('list',  'list')->name('list');
             Route::get('booked',  'booked')->name('booked');
+            Route::get("chart", "chart")->name("chart");
+            Route::get("book", "book")->name("book");
+            Route::post("store", "store")->name("store");
+            Route::get("history", "history")->name("history");
             Route::post('list',  'add')->name('add');
             Route::post('search',  'search')->name('search');
             Route::group(['prefix' => '{meal}'], function () {
-                Route::get('edit', 'edit')->name('edit');
-                Route::get('delete', 'delete')->name('delete');
-                Route::post('update', 'update')->name('update');
+                Route::get('edit_menu', 'editMenu')->name('edit_menu');
+                Route::get('delete_menu', 'deleteMenu')->name('delete_menu');
+                Route::post('update_menu', 'updateMenu')->name('update_menu');
             });
+            Route::get("edit/{bookedMeal}", "edit")->name("edit");
+            Route::patch("update/{bookedMeal}", "update")->name("update");
+            Route::get("/delete/{bookedMeal}", "delete")->name("delete");
         });
     });
 });

@@ -32,12 +32,13 @@
                                     <td>{{ $meal->meal_items }}</td>
                                     <td>{{ $meal->price }}</td>
                                     <td>
-                                        <a href="{{ route('admin.meal.edit', $meal->id) }}" class="btn btn-warning btn-md"
-                                            data-toggle="tooltip" data-placement="top" title="Edit"><i
-                                                class="icon-copy dw dw-edit-1"
+                                        <a href="{{ route('admin.meal.edit_menu', $meal->id) }}"
+                                            class="btn btn-warning btn-md" data-toggle="tooltip" data-placement="top"
+                                            title="Edit"><i class="icon-copy dw dw-edit-1"
                                                 style="font-family: dropways, Bangla791, sans-serif;"></i></a>
-                                        <a href="{{ route('admin.meal.delete', $meal->id) }}" class="btn btn-danger btn-md"
-                                            data-toggle="tooltip" data-placement="top" title="Delete"
+                                        <a href="{{ route('admin.meal.delete_menu', $meal->id) }}"
+                                            class="btn btn-danger btn-md" data-toggle="tooltip" data-placement="top"
+                                            title="Delete"
                                             onclick="return confirm('Are you sure to delete this item from the list?')"><i
                                                 class="icon-copy dw dw-trash1"
                                                 style="font-family: dropways, Bangla791, sans-serif;"></i></a>

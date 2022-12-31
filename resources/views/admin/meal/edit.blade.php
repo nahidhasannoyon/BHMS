@@ -1,64 +1,65 @@
 @extends('admin.layout.master')
+@push('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
+@endpush
 @section('content')
-    <div class="pd-20 card-box mb-30">
-        <div class="row">
-            <div class="col-md-12"><a href="{{ route('admin.meal.list') }}" class="btn btn-primary btn-md float-left">
-                    <i class="icon-copy bi bi-arrow-90deg-left" style="font-family: dropways, Bangla526, sans-serif;"></i>
-                    Meals</a>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="col-md-12">
+                <h4 class="p-2 text-center">Booked Meals</h4>
+                <form action="{{ route('admin.meal.update', $bookedMeal->id) }}" method="post" id="mealUpdateForm">
+                    @csrf
+                    @method('PATCH')
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Breakfast</th>
+                                <th>Lunch</th>
+                                <th>Dinner</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <td>
+                                <input type="text" class="form-control" value="{{ $bookedMeal->date }}" readonly>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="breakfast" id="breakfast"
+                                    value="{{ $bookedMeal->breakfast }}" min="0">
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="lunch" id="lunch"
+                                    value="{{ $bookedMeal->lunch }}" min="0">
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="dinner" id="dinner"
+                                    value="{{ $bookedMeal->dinner }}" min="0">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-md" onclick="submitForm()">
+                                    <i class="icon-copy dw dw-add"></i>
+                                    Update
+                                </button>
+                            </td>
+                        </tbody>
+                    </table>
+                </form>
             </div>
-        </div>
-        <div class="text-center">
-            <h4 class="text-blue" style="padding-bottom: 10px"><u>Edit Meal</u></h4>
-        </div>
-        <div class="col-md-12">
-            <form action="{{ route('admin.meal.update', $meal->id) }}" method="POST">
-                @csrf
-                <div class="col-md-12">
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="">Meal Day:</label><span class="text-danger">*</span>
-                            <select name="day" class="custom-select2 form-control" style="width: 100%; height: 38px;"
-                                data-validation="required" required>
-                                <option selected disabled value>Choose...</option>
-                                <option value="Saturday" {{ $meal->day == 'Saturday' ? 'selected' : '' }}>Saturday</option>
-                                <option value="Sunday" {{ $meal->day == 'Sunday' ? 'selected' : '' }}>Sunday</option>
-                                <option value="Monday" {{ $meal->day == 'Monday' ? 'selected' : '' }}>Monday</option>
-                                <option value="Tuesday" {{ $meal->day == 'Tuesday' ? 'selected' : '' }}>Tuesday</option>
-                                <option value="Wednesday" {{ $meal->day == 'Wednesday' ? 'selected' : '' }}>Wednesday
-                                </option>
-
-                                <option value="Thursday" {{ $meal->day == 'Thursday' ? 'selected' : '' }}>Thursday</option>
-                                <option value="Friday" {{ $meal->day == 'Friday' ? 'selected' : '' }}>Friday</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Meal Type:</label><span class="text-danger">*</span>
-                            <select name="meal_type" class="custom-select2 form-control" style="width: 100%; height: 38px;"
-                                data-validation="required" required>
-                                <option selected disabled value>Choose...</option>
-                                <option value="Breakfast" {{ $meal->meal_type == 'Breakfast' ? 'selected' : '' }}>Breakfast
-                                </option>
-                                <option value="Lunch" {{ $meal->meal_type == 'Lunch' ? 'selected' : '' }}>Lunch</option>
-                                <option value="Dinner" {{ $meal->meal_type == 'Dinner' ? 'selected' : '' }}>Dinner</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Meal Items:</label><span class="text-danger">*</span>
-                            <input type="text" class="form-control" name="meal_items" required
-                                value="{{ $meal->meal_items }}">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="">Meal Price:</label><span class="text-danger">*</span>
-                            <input type="number" class="form-control" name="price" required value="{{ $meal->price }}">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-success btn-md float-right">
-                                <i style="font-family: dropways, Bangla526, sans-serif;"></i>
-                                Update meal
-                            </button>
-                        </div>
-                    </div>
-            </form>
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
+    <script>
+        function submitForm() {
+            let mealCount = parseInt($("#breakfast").val()) + parseInt($("#lunch").val()) + parseInt($("#dinner").val());
+            if (mealCount >= 2) {
+                $("#mealUpdateForm").submit();
+            } else {
+                alert('Wrong input detected in meal count, please check your meal quantities.');
+            }
+        }
+    </script>
+@endpush
