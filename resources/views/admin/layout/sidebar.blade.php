@@ -182,6 +182,23 @@
                                   <span class="mtext">Booked Meals</span>
                               </a>
                           </li>
+                          <li><a href="{{ route('admin.meal.chart') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/chart') ? 'active' : '' }}">
+                                  <span class="mtext">Chart</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{ route('admin.meal.book') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/book') ? 'active' : '' }} {{ Request::is('admin/meal/store') ? 'active' : '' }}">
+                                  <span class="mtext">Book</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{ route('admin.meal.history') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/history') ? 'active' : '' }} ">
+                                  <span class="mtext">History</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
               </ul>
