@@ -64,12 +64,12 @@ class HostelMealController extends Controller
                             "user_type" => Type::Student,
                             "user_id" => auth("student")->user()->student_id,
                             "date" => $this_date->format("Y-m-d"),
-                            "total" => $total,
                         ],
                         [
                             "breakfast" => $request->has("breakfast") ? 1 : 0,
                             "lunch" => $request->has("lunch") ? 1 : 0,
                             "dinner" => $request->has("dinner") ? 1 : 0,
+                            "total" => $total,
                         ]
                     );
                     $this_date = $this_date->addDay(1);
@@ -133,7 +133,7 @@ class HostelMealController extends Controller
     {
         try {
             $bookedMeal->delete();
-            toast("You have been logged out successfully", "success");
+            toast("You have deleted a meal successfully", "success");
             return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
