@@ -163,6 +163,12 @@
                                   <span class="mtext">Generate Bill</span>
                               </a>
                           </li>
+                          <li>
+                              <a href="{{ route('admin.monthly_bill.search') }}"
+                                  class="dropdown-toggle no-arrow  {{ Request::is('admin/monthly_bill/search') ? 'active' : '' }} {{ Request::is('admin/monthly_bill/find') ? 'active' : '' }}">
+                                  <span class="mtext">Monthly Bill</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
                   <li class="dropdown">

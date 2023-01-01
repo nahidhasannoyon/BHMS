@@ -173,6 +173,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
             Route::post('generate',  'generate')->name('generate');
             Route::post('update',  'update')->name('update');
             Route::get('download/{student_id}/{date}',  'download')->name('download');
+            Route::get('search', 'search')->name('search');
+            Route::post('show',  'show')->name('show');
         });
     });
 

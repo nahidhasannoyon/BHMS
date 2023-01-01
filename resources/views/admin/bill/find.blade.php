@@ -24,7 +24,7 @@
                             <div class="form-group col-md-4">
                                 <label for="">Select a Date:</label>
                                 <input type="month" class="form-control" name="date"
-                                    value="{{ empty($date)? Carbon\Carbon::now()->subMonth()->format('Y-m'): $date }}">
+                                    value="{{ empty($date)? Carbon::now()->subMonth()->format('Y-m'): $date }}">
                             </div>
                             <div class="form-group col-md-12">
                                 <button type="submit" class="btn btn-success float-right">Generate Bill</button>

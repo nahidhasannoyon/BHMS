@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Student;
 use App\Models\BookedMeal;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\MonthlyBill;
 use App\Models\TypesOfBill;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Controllers\Controller;
 
 class MonthlyBillController extends Controller
 {
@@ -83,6 +84,31 @@ class MonthlyBillController extends Controller
 
             $pdf = PDF::loadView('admin.bill.invoice', compact('hostel_bill', 'meal_bill', 'student_id', 'other_bills', 'date', 'other_bills_sum'));
             return $pdf->download('Hostel Bill of ' . $student_id . '.pdf');
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function search()
+    {
+        try {
+            $date = '';
+            return view('admin.bill.monthly', compact('date'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function show(Request $request)
+    {
+        try {
+            $date = $request->selectedDate;
+            $month = Carbon::parse($request->selectedDate)->format('m');
+            $year = Carbon::parse($request->selectedDate)->format('Y');
+            $students = Student::where('status', 1)->get();
+            $users = User::all();
+
+            return view('admin.bill.monthly', compact('month', 'year', 'students', 'users', 'date'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
