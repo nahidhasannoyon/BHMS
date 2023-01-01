@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\student\BillController;
 use App\Http\Controllers\student\ProfileController;
 use App\Http\Controllers\student\DashboardController;
 use App\Http\Controllers\student\HostelMealController;
@@ -45,4 +46,6 @@ Route::group(["prefix" => "student", "as" => "student.", "middleware" => "auth:s
             }
         );
     });
+
+    Route::get("bill", [BillController::class, 'bill'])->name("bill");
 });

@@ -132,6 +132,12 @@
                           </li>
                       </ul>
                   </li>
+                  <li><a href="{{ route('student.bill') }}"
+                          class="dropdown-toggle no-arrow {{ Request::is('student/bill') ? 'active' : '' }}">
+                          <span class="micon fa fa-address-card-o"></span>
+                          <span class="mtext">Monthly Bill</span>
+                      </a>
+                  </li>
               </ul>
 
           </div>

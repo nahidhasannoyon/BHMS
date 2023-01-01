@@ -63,7 +63,7 @@ class MonthlyBillController extends Controller
                     toast('No Bills were Updated.', 'error');
                 }
             }
-            return redirect()->route('admin.bill.find');
+            return redirect()->route('admin.monthly_bill.find');
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
