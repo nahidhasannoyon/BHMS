@@ -129,7 +129,7 @@ class StudentController extends Controller
         try {
             $api_students = Http::withHeaders([
                 "Authorization" => 'Bearer 1|' . env('API_AUTHORIZATION'),
-            ])->get(env('API_URL'));
+            ])->get(env('API_URL') . '/student/all-students');
             $api_students = json_decode($api_students);
             $student = Student::where('id', $id)->first();
             $buildings = Building::orderby('name', 'asc')->get();
@@ -177,16 +177,19 @@ class StudentController extends Controller
     public function update(Request $request, $id)
     {
         try {
+            return $request->all();
             $id_name_dept = $request->id_name_dept;
             $id_name_dept = explode(" - ", $id_name_dept);
             $std_id = $id_name_dept[0];
             $name = $id_name_dept[1];
             $dept = $id_name_dept[2];
+            return 'hi';
 
             $student = Student::where('id', $id)->first();
             $student->name = $name;
             $student->student_id = $std_id;
             $student->dept = $dept;
+
             if ($request->old_seat) {
                 $seat = Seat::where('id', $request->old_seat)->first();
                 $seat->status = 0;
