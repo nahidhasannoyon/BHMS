@@ -26,13 +26,17 @@ class HostelMealController extends Controller
     public function add(Request $request)
     {
         try {
-            $meal = new HostelMeal();
-            $meal->day = $request->day;
-            $meal->meal_type = $request->meal_type;
-            $meal->meal_items = $request->meal_items;
-            $meal->price = $request->price;
-            $meal->save();
-            toast('New Meal Added.', 'success');
+            if (HostelMeal::where('day', $request->day)->where('meal_type', $request->meal_type)->count() == 0) {
+                $meal = new HostelMeal();
+                $meal->day = $request->day;
+                $meal->meal_type = $request->meal_type;
+                $meal->meal_items = $request->meal_items;
+                $meal->price = $request->price;
+                $meal->save();
+                toast('New Meal Added.', 'success');
+                return redirect()->back();
+            }
+            toast('A Meal Already Exist on that day.', 'error');
             return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
@@ -137,8 +141,8 @@ class HostelMealController extends Controller
     public function store(Request $request)
     {
         try {
-            //at least there have to be 2 meals/3 meals that is why array count is > 4 means at least 5
-            if (count($request->all()) > 4) {
+            //at least there have to be 2 meals/3 meals that is why array count is > 3 means at least 4
+            if (count($request->all()) > 3) {
 
                 $this_date = Carbon::parse($request->fromDate);
                 $end_date = Carbon::parse($request->toDate);
