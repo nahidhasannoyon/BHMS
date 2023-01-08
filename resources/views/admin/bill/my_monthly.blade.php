@@ -1,4 +1,4 @@
-@extends('student.layout.master')
+@extends('admin.layout.master')
 @section('content')
     <div class="container-fluid">
         <div class="card-box pd-20 height-100-p mb-30">
@@ -9,9 +9,7 @@
                         <thead>
                             <tr>
                                 <th>Month - Year</th>
-                                <th>Hostel Bill</th>
                                 <th>Total Meal Bill</th>
-                                <th>Other Bills</th>
                                 <th>Total Bill</th>
                             </tr>
                         </thead>
@@ -19,23 +17,16 @@
                             @foreach ($dates as $date)
                                 <tr>
                                     @php
-                                        $total_meal_bill = App\Models\BookedMeal::where('user_type', 'student')
-                                            ->where('user_id', auth('student')->user()->student_id)
+                                        $total_meal_bill = App\Models\BookedMeal::where('user_type', 'admin')
+                                            ->where('user_id', auth()->user()->employee_id)
                                             ->whereMonth('date', $date->month)
                                             ->whereYear('date', $date->year)
                                             ->sum('total');
-                                        $other_bills = App\Models\OtherBill::where('student_id', auth('student')->user()->student_id)
-                                            ->whereMonth('date', $date->month)
-                                            ->whereYear('date', $date->year)
-                                            ->sum('amount');
                                     @endphp
                                     <td>{{ Carbon::parse($date->year . '-' . $date->month)->format('M Y') }}</td>
-                                    <th> - </th>
                                     <th>{{ $total_meal_bill . '/-' }}
                                     </th>
-                                    <th> {{ $other_bills . '/-' }}
-                                    </th>
-                                    <th> {{ $total_meal_bill + $other_bills . '/-' }} </th>
+                                    <th> {{ $total_meal_bill . '/-' }} </th>
 
                                 </tr>
                             @endforeach

@@ -52,17 +52,17 @@
                                             ->whereMonth('date', $month)
                                             ->whereYear('date', $year)
                                             ->sum('total');
-                                        $other_bills = App\Models\MonthlyBill::where('student_id', $student->student_id)
+                                        $other_bills = App\Models\OtherBill::where('student_id', $student->student_id)
                                             ->whereMonth('date', $month)
                                             ->whereYear('date', $year)
                                             ->sum('amount');
                                     @endphp
-                                    <th>{{ $student->student_id }}</th>
-                                    <th> Student </th>
-                                    <th> - </th>
-                                    <th>{{ $total_meal_bill }}</th>
-                                    <th>{{ $other_bills }}</th>
-                                    <th> {{ $total_meal_bill + $other_bills }}</th>
+                                    <td>{{ $student->student_id }}</td>
+                                    <td> Student </td>
+                                    <td> - </td>
+                                    <td>{{ $total_meal_bill }}</td>
+                                    <td>{{ $other_bills }}</td>
+                                    <td> {{ $total_meal_bill + $other_bills }}</td>
                                 </tr>
                             @endforeach
                             @foreach ($users as $user)
@@ -74,12 +74,13 @@
                                             ->whereYear('date', $year)
                                             ->sum('total');
                                     @endphp
-                                    <th>{{ $user->employee_id }}</th>
-                                    <th> Admin </th>
-                                    <th> - </th>
-                                    <th>{{ $total_meal_bill }}</th>
-                                    <th> - </th>
-                                    <th> {{ $total_meal_bill }}</th>
+                                    <td>{{ $user->employee_id }}</td>
+                                    <td> Admin</td>
+                                    <td> - </td>
+                                    <td>{{ $total_meal_bill }}</td>
+                                    <td> - </td>
+                                    <td> {{ $total_meal_bill }}</td>
+
                                 </tr>
                             @endforeach
                         </tbody>
