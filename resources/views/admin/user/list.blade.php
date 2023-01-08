@@ -2,14 +2,16 @@
 
 @section('content')
     <div class="card-box pd-20 height-100-p mb-30">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
-                    data-target="#add-new-user">
-                    <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
-                    Add New User</a>
+        @can('add-user')
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="javascript:void(0)" class="btn btn-primary btn-md float-right" data-toggle="modal"
+                        data-target="#add-new-user">
+                        <i class="icon-copy dw dw-add" style="font-family: dropways, Bangla526, sans-serif;"></i>
+                        Add New User</a>
+                </div>
             </div>
-        </div>
+        @endcan
         <div class="row align-items-center">
             <div class="col-md-12 table-responsive">
                 <h3 class="text-info text-center pd-10"> Users </h3>
@@ -24,20 +26,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($users->where('email', '!=', 'ict@baiust.edu.bd') as $user)
+                        {{-- @foreach ($users->where('email', '!=', 'ict@baiust.edu.bd') as $user) --}}
+                        {{-- todo uncomment the above line and remove the below line  --}}
+                        @foreach ($users as $user)
                             <tr>
                                 <td>{{ $user->employee_id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->phone }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm"
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i
-                                            class="icon-copy dw dw-edit-1"></i></a>
-
-                                    <a href="#" class="btn btn-success btn-sm" data-toggle="tooltip"
-                                        data-placement="bottom" title="Permissions"><i
-                                            class="icon-copy dw dw-user-13"></i></a>
+                                    @can('edit-user')
+                                        <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm"
+                                            data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                                class="icon-copy dw dw-edit-1"></i></a>
+                                    @endcan
+                                    @can('edit-permissions')
+                                        <a href="{{ route('admin.users.permissions', $user->id) }}"
+                                            class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="bottom"
+                                            title="Permissions"><i class="icon-copy dw dw-user-13"></i></a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

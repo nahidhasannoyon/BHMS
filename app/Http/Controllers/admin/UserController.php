@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -47,22 +48,19 @@ class UserController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         try {
-            $user = User::where('id', $id)->first();
             return view('admin.user.edit', compact('user'));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         try {
-            $user = User::where('id', $id)->first();
             $user->name = $request->name;
-            $user->role = $request->role;
             $user->email = $request->email;
             if ($request->password != null) {
                 $user->password = Hash::make($request->password);
@@ -71,6 +69,35 @@ class UserController extends Controller
             toast('User Updated.', 'success');
             return
                 redirect()->back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function permissions(User $user)
+    {
+        try {
+            // Permission::create(['name' => 'see-booked-meals']);
+            return view('admin.user.permissions', compact('user'));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function permissionsUpdate(Request $request, User $user)
+    {
+        try {
+            $requestKeys = collect($request->all())->keys();
+            $requestKeys->shift();
+            foreach ($requestKeys as $key) {
+                $permission = Permission::where('name', $key)->first();
+                if ($permission == null) {
+                    Permission::create(['name' => $key]);
+                }
+                $user->givePermissionTo($key);
+            }
+            toast('User Permissions Updated.', 'success');
+            return redirect()->back();
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

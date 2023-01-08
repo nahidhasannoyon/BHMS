@@ -108,28 +108,35 @@
                           <span class="mtext">Dashboard</span>
                       </a>
                   </li>
-                  <li><a href="{{ route('admin.users.list') }}"
-                          class="dropdown-toggle no-arrow {{ Request::is('admin/users') ? 'active' : '' }}">
-                          <span class="micon fa fa-address-card-o"></span>
-                          <span class="mtext">Users</span>
-                      </a>
-                  </li>
+                  @can('see-users')
+                      <li>
+                          <a href="{{ route('admin.users.list') }}"
+                              class="dropdown-toggle no-arrow {{ Request::is('admin/users') ? 'active' : '' }}">
+                              <span class="micon fa fa-address-card-o"></span>
+                              <span class="mtext">Users</span>
+                          </a>
+                      </li>
+                  @endcan
                   <li class="dropdown">
                       <a href="javascript:;" class="dropdown-toggle ">
                           <span class="micon bi  bi-file-person"></span><span class="mtext"> Students </span>
                       </a>
                       <ul class="submenu">
-                          <li><a href="{{ route('admin.student.admit') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/student/admit') ? 'active' : '' }}">
-                                  <span class="mtext">Admit New Student</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{{ route('admin.student.list') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/student/list') ? 'active' : '' }}">
-                                  <span class="mtext">Student List</span>
-                              </a>
-                          </li>
+                          @can('add-student')
+                              <li><a href="{{ route('admin.student.admit') }}"
+                                      class="dropdown-toggle no-arrow {{ Request::is('admin/student/admit') ? 'active' : '' }}">
+                                      <span class="mtext">Admit New Student</span>
+                                  </a>
+                              </li>
+                          @endcan
+                          @can('see-students')
+                              <li>
+                                  <a href="{{ route('admin.student.list') }}"
+                                      class="dropdown-toggle no-arrow {{ Request::is('admin/student/list') ? 'active' : '' }}">
+                                      <span class="mtext">Student List</span>
+                                  </a>
+                              </li>
+                          @endcan
                       </ul>
                   </li>
                   <li class="dropdown">
@@ -166,7 +173,13 @@
                           <li>
                               <a href="{{ route('admin.monthly_bill.search') }}"
                                   class="dropdown-toggle no-arrow  {{ Request::is('admin/monthly_bill/search') ? 'active' : '' }} {{ Request::is('admin/monthly_bill/find') ? 'active' : '' }}">
-                                  <span class="mtext">Monthly Bill</span>
+                                  <span class="mtext">Total Monthly Bill</span>
+                              </a>
+                          </li>
+                          <li>
+                              <a href="{{ route('admin.monthly_bill.my') }}"
+                                  class="dropdown-toggle no-arrow  {{ Request::is('admin/monthly_bill/my') ? 'active' : '' }}">
+                                  <span class="mtext">My Monthly Bill</span>
                               </a>
                           </li>
                       </ul>
@@ -176,33 +189,39 @@
                           <span class="micon dw dw-invoice-1"></span><span class="mtext"> Meal </span>
                       </a>
                       <ul class="submenu">
-                          <li>
-                              <a href="{{ route('admin.meal.list') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/list') ? 'active' : '' }}">
-                                  <span class="mtext">Meals list</span>
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{{ route('admin.meal.booked') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/booked') ? 'active' : '' }}">
-                                  <span class="mtext">Booked Meals</span>
-                              </a>
-                          </li>
+                          @can('edit-meal')
+                              <li>
+                                  <a href="{{ route('admin.meal.list') }}"
+                                      class="dropdown-toggle no-arrow {{ Request::is('admin/meal/list') ? 'active' : '' }}">
+                                      <span class="mtext">Meals list</span>
+                                  </a>
+                              </li>
+                          @endcan
+                          @can('see-booked-meals')
+                              <li>
+                                  <a href="{{ route('admin.meal.booked') }}"
+                                      class="dropdown-toggle no-arrow {{ Request::is('admin/meal/booked') ? 'active' : '' }}">
+                                      <span class="mtext">Booked Meals</span>
+                                  </a>
+                              </li>
+                          @endcan
                           <li><a href="{{ route('admin.meal.chart') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/meal/chart') ? 'active' : '' }}">
                                   <span class="mtext">Chart</span>
                               </a>
                           </li>
-                          <li>
-                              <a href="{{ route('admin.meal.book') }}"
-                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/book') ? 'active' : '' }} {{ Request::is('admin/meal/store') ? 'active' : '' }}">
-                                  <span class="mtext">Book</span>
-                              </a>
-                          </li>
+                          @can('book-meal')
+                              <li>
+                                  <a href="{{ route('admin.meal.book') }}"
+                                      class="dropdown-toggle no-arrow {{ Request::is('admin/meal/book') ? 'active' : '' }} {{ Request::is('admin/meal/store') ? 'active' : '' }}">
+                                      <span class="mtext">Book</span>
+                                  </a>
+                              </li>
+                          @endcan
                           <li>
                               <a href="{{ route('admin.meal.history') }}"
                                   class="dropdown-toggle no-arrow {{ Request::is('admin/meal/history') ? 'active' : '' }} ">
-                                  <span class="mtext">History</span>
+                                  <span class="mtext">My History</span>
                               </a>
                           </li>
                       </ul>

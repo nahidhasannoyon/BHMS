@@ -13,19 +13,7 @@
                             <label for="">Name:</label><span class="text-danger">*</span>
                             <input type="text" class="form-control" name="name" required value="{{ $user->name }}">
                         </div>
-                        <div class="form-group col-md-12">
-                            <label for="">Role:</label><span class="text-danger">*</span>
-                            <select name="role" class="custom-select2 form-control" style="width: 100%; height: 38px;"
-                                data-validation="required" required>
-                                <option selected disabled value>Choose...</option>
-                                <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
-                                <option value="hostel_manager" {{ $user->role == 'hostel_manager' ? 'selected' : '' }}>
-                                    Hostel Manager</option>
-                                <option value="accountant" {{ $user->role == 'accountant' ? 'selected' : '' }}>Accountant
-                                </option>
 
-                            </select>
-                        </div>
                         <div class="form-group col-md-6">
                             <label for="">Email:</label><span class="text-danger">*</span>
                             <input type="email" class="form-control" name="email" required value="{{ $user->email }}">

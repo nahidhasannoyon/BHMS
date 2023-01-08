@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\student;
 
 use App\Models\BookedMeal;
-use App\Models\MonthlyBill;
 use App\Http\Controllers\Controller;
 
 class BillController extends Controller

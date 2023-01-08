@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\UserController;
@@ -66,9 +65,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
             Route::get('', 'list')->name('list');
             Route::post('', 'add')->name('add');
 
-            Route::group(['prefix' => '{id}'], function () {
+            Route::group(['prefix' => '{user}'], function () {
                 Route::get('edit', 'edit')->name('edit');
                 Route::post('update', 'update')->name('update');
+                Route::get('permissions', 'permissions')->name('permissions');
+                Route::post('permissions/update', 'permissionsUpdate')->name('permissions.update');
             });
         });
     });
@@ -175,6 +176,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
             Route::get('download/{student_id}/{date}',  'download')->name('download');
             Route::get('search', 'search')->name('search');
             Route::post('show',  'show')->name('show');
+            Route::get('my', 'myMonthlyBill')->name('my');
         });
     });
 

@@ -31,9 +31,11 @@
                                     <a href="{{ route('admin.student.view', $student->id) }}" class="btn btn-success btn-sm"
                                         data-toggle="tooltip" data-placement="bottom" title="View"><i
                                             class="bi bi-eye"></i></a>
-                                    <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-warning btn-sm"
-                                        data-toggle="tooltip" data-placement="bottom" title="Edit"><i
-                                            class="icon-copy dw dw-edit-1"></i></a>
+                                    @can('edit-student')
+                                        <a href="{{ route('admin.student.edit', $student->id) }}" class="btn btn-warning btn-sm"
+                                            data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                                class="icon-copy dw dw-edit-1"></i></a>
+                                    @endcan
                                     <a href="{{ route('admin.student.download', $student->id) }}"
                                         class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="bottom"
                                         title="download-student-info"><i class="icon-copy dw dw-download"></i></a>
