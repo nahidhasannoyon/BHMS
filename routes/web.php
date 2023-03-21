@@ -186,6 +186,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', "middleware" => "auth"], fu
             Route::get('list',  'list')->name('list');
             Route::get('booked',  'booked')->name('booked');
             Route::get("chart", "chart")->name("chart");
+            Route::get("time", "time")->name("time");
             Route::get("book", "book")->name("book");
             Route::post("store", "store")->name("store");
             Route::get("history", "history")->name("history");
