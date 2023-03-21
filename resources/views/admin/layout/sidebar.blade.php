@@ -224,6 +224,12 @@
                                   <span class="mtext">My History</span>
                               </a>
                           </li>
+                          <li>
+                              <a href="{{ route('admin.meal.time') }}"
+                                  class="dropdown-toggle no-arrow {{ Request::is('admin/meal/time') ? 'active' : '' }} ">
+                                  <span class="mtext">Meal Times</span>
+                              </a>
+                          </li>
                       </ul>
                   </li>
               </ul>
