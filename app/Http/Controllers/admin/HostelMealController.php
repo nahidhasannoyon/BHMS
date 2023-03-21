@@ -123,6 +123,7 @@ class HostelMealController extends Controller
     public function book(Request $request)
     {
         try {
+            $meals = HostelMeal::all();
             $adminMeals = BookedMeal::where("user_type", Type::Admin)
                 ->where(
                     "user_id",
@@ -132,7 +133,7 @@ class HostelMealController extends Controller
                 ->whereDate("date", ">", Carbon::now())
                 ->get();
 
-            return view("admin.meal.book", compact("adminMeals"));
+            return view("admin.meal.book", compact("adminMeals", "meals"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
@@ -250,6 +251,15 @@ class HostelMealController extends Controller
                 ->get();
 
             return view("admin.meal.history", compact("adminMeals"));
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+
+    public function time()
+    {
+        try {
+            return view("admin.meal.time");
         } catch (\Throwable $th) {
             return $th->getMessage();
         }

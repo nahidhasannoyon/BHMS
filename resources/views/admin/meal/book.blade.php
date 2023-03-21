@@ -49,47 +49,92 @@
             <div class="row align-items-center">
                 <div class="col-md-12">
                     <h3 class="text-info text-center pd-10"><u>Booked Meals</u></h3>
-                    <table class="table table-striped data-table-export">
+                    <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Breakfast</th>
-                                <th>Lunch</th>
-                                <th>Dinner</th>
+                                <td rowspan="2">Date</td>
+                                <th colspan="2">Breakfast</th>
+                                <th colspan="2">Lunch</th>
+                                <th colspan="2">Dinner</th>
                                 <th>Action</th>
                             </tr>
+                            <tr>
+                                <td>Item</td>
+                                <td>Quantity</td>
+                                <td>Item</td>
+                                <td>Quantity</td>
+                                <td>Item</td>
+                                <td>Quantity</td>
+                            </tr>
+
                         </thead>
                         <tbody>
                             @foreach ($adminMeals as $item)
                                 <tr>
                                     <td>{{ Carbon::parse($item->date)->format('d M Y') }}</td>
-                                    <td>{{ $item->breakfast }}</td>
-                                    <td>{{ $item->lunch }}</td>
-                                    <td>{{ $item->dinner }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.meal.edit', $item->id) }}" class="btn btn-warning btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Edit"><i
-                                                class="icon-copy dw dw-edit-1"></i></a>
-                                        <a href="{{ route('admin.meal.delete', $item->id) }}" class="btn btn-danger btn-sm"
-                                            data-toggle="tooltip" data-placement="bottom" title="Delete"
-                                            onclick="return confirm('Are you sure to delete this day meal?')"><i
-                                                class="icon-copy dw dw-trash1"></i></a>
-                                    </td>
-                                </tr>
+                                    @foreach ($meals as $meal)
+                                        @php
+                                            $thatDaysMeal = $meal
+                                                ->where('day', Carbon::parse($item->date)->format('l'))
+                                                ->where('meal_type', 'Breakfast')
+                                                ->get();
+                                        @endphp
+                                        @foreach ($thatDaysMeal as $thatMeal)
+                                            <td>{{ $thatMeal->meal_items }}</td>
+                                        @endforeach
+                                    @break;
+                                @endforeach
+                                <td>{{ $item->breakfast }}</td>
+                                @foreach ($meals as $meal)
+                                    @php
+                                        $thatDaysMeal = $meal
+                                            ->where('day', Carbon::parse($item->date)->format('l'))
+                                            ->where('meal_type', 'Lunch')
+                                            ->get();
+                                    @endphp
+                                    @foreach ($thatDaysMeal as $thatMeal)
+                                        <td>{{ $thatMeal->meal_items }}</td>
+                                    @endforeach
+                                @break;
                             @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                            <td>{{ $item->lunch }}</td>
+                            @foreach ($meals as $meal)
+                                @php
+                                    $thatDaysMeal = $meal
+                                        ->where('day', Carbon::parse($item->date)->format('l'))
+                                        ->where('meal_type', 'Dinner')
+                                        ->get();
+                                @endphp
+                                @foreach ($thatDaysMeal as $thatMeal)
+                                    <td>{{ $thatMeal->meal_items }}</td>
+                                @endforeach
+                            @break;
+                        @endforeach
+                        <td>{{ $item->dinner }}</td>
+                        <td>
+                            <a href="{{ route('admin.meal.edit', $item->id) }}" class="btn btn-warning btn-sm"
+                                data-toggle="tooltip" data-placement="bottom" title="Edit"><i
+                                    class="icon-copy dw dw-edit-1"></i></a>
+                            <a href="{{ route('admin.meal.delete', $item->id) }}" class="btn btn-danger btn-sm"
+                                data-toggle="tooltip" data-placement="bottom" title="Delete"
+                                onclick="return confirm('Are you sure to delete this day meal?')"><i
+                                    class="icon-copy dw dw-trash1"></i></a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
+</div>
+</div>
+</div>
 @endsection
 @push('js')
-    <script type="text/javascript">
-        function myChangeFunction(input1) {
-            var input2 = document.getElementById('toDate');
-            input2.min = input1.value;
-            input2.value = input1.value;
-        }
-    </script>
+<script type="text/javascript">
+    function myChangeFunction(input1) {
+        var input2 = document.getElementById('toDate');
+        input2.min = input1.value;
+        input2.value = input1.value;
+    }
+</script>
 @endpush

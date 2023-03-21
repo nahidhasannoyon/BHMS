@@ -25,6 +25,7 @@ class HostelMealController extends Controller
     public function book(Request $request)
     {
         try {
+            $meals = HostelMeal::all();
             $studentMeals = BookedMeal::where("user_type", Type::Student)
                 ->where(
                     "user_id",
@@ -35,7 +36,7 @@ class HostelMealController extends Controller
                 ->whereDate("date", ">", Carbon::now())
                 ->get();
 
-            return view("student.meal.book", compact("studentMeals"));
+            return view("student.meal.book", compact("studentMeals", "meals"));
         } catch (\Throwable $th) {
             return $th->getMessage();
         }
